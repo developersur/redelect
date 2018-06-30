@@ -9,7 +9,7 @@
                 <div class="col-md-3">
                     <div class="header-logo">
                         <a href="#" class="logo">
-                            <font size=10>RedElectasdasd</font>
+                            <font size=10>RedElectasdasdaaaaaa</font>
                         </a>
                     </div>
                 </div>
