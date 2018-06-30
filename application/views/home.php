@@ -36,7 +36,7 @@
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>Your Cart</span>
                                 <div class="qty">3</div>
-                            </a>
+                            </a> 
                             <div class="cart-dropdown">
                                 <div class="cart-list">
                                     <div class="product-widget">
