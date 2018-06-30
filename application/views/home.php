@@ -9,7 +9,7 @@
                 <div class="col-md-3">
                     <div class="header-logo">
                         <a href="#" class="logo">
-                            <font size=10>RedElectasdasdaaaaaa</font>
+                            <font size=10>RedElect.</font>
                         </a>
                     </div>
                 </div>
@@ -20,7 +20,7 @@
                     <div class="header-search">
                         <form>
                             <input class="input" placeholder="Search here">
-                            <button class="search-btn">Buscar2</button>
+                            <button class="search-btn">Buscar</button>
                         </form>
                     </div>
                 </div>
