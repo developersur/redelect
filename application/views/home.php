@@ -34,7 +34,7 @@
                         <div class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                 <i class="fa fa-shopping-cart"></i>
-                                <span>Your Cart</span>
+                                <span>Your CartAlexis</span>
                                 <div class="qty">3</div>
                             </a>
                             <div class="cart-dropdown">
