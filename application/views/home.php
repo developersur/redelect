@@ -20,7 +20,7 @@
                     <div class="header-search">
                         <form>
                             <input class="input" placeholder="Search here">
-                            <button class="search-btn">Buscar</button>
+                            <button class="search-btn">Buscar2</button>
                         </form>
                     </div>
                 </div>
