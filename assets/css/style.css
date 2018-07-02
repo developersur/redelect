@@ -51,6 +51,24 @@ Table OF Contents
 	01 -> GENERAL
 ===========================================================*/
 
+/*contactanos*/
+.panel{
+  border-radius: 0% !important
+}
+
+button{
+  border-radius: 0% !important;
+}
+
+#form-contacto{
+  margin-top: 2%;
+}
+
+/*Servicios*/
+#contenedor_servicio{
+  margin-top: 2%;
+}
+
 /*----------------------------*\
 	Typography
 \*----------------------------*/
