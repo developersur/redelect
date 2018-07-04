@@ -11,6 +11,35 @@ class Carro extends CI_Controller {
 		$this->load->view('/template/footer');
 	}
 
+	// Paso 1 para la compra
+	public function Paso1()
+	{
+		// Si no hay productos en el carrito lo devuelve
+		$productosC = $this->cart->contents();
+		if(count($productosC)<=0) {
+			header("Location: ".base_url()."index.php/Carro/");
+		}
+
+		$this->load->view('/template/head');
+		$this->load->view('Carro/Paso1');
+		$this->load->view('/template/footer');
+	}
+
+
+	// Paso 2 para la compra
+	public function Paso2()
+	{
+		// Si no hay productos en el carrito lo devuelve
+		$productosC = $this->cart->contents();
+		if(count($productosC)<=0) {
+			header("Location: ".base_url()."index.php/Carro/");
+		}
+
+		$this->load->view('/template/head');
+		$this->load->view('Carro/Paso2');
+		$this->load->view('/template/footer');
+	}
+
 	// Muestra contenido del carrito en la cabecera
 	public function Mostrar() {
 		$this->load->view('/Carro/Carrito_cabecera');

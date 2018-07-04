@@ -78,16 +78,7 @@
         </footer>
 		<!-- /FOOTER -->
 
-		<!-- jQuery Plugins -->
-		<script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
-		<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
-		<script src="<?php echo base_url(); ?>assets/js/slick.min.js"></script>
-		<script src="<?php echo base_url(); ?>assets/js/main.js"></script>
-		<script src="<?php echo base_url(); ?>assets/js/nouislider.min.js"></script>
-		<script src="<?php echo base_url(); ?>assets/js/jquery.zoom.min.js"></script>
-		
-		<!-- Funciones Carrito -->
-		<script src="<?php echo base_url(); ?>assets/js/Ajax_carrito.js"></script>
+
 
 	</body>
 </html>
