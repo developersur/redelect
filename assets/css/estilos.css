@@ -22,3 +22,15 @@ legend.titulo {
 .body_carrito tr {
     border: 0.5px solid #ccc;
 }
+
+.contenido_formulario {
+    padding: 30px;
+    padding-bottom: 100px;
+    margin-bottom: 200px;
+}
+
+.contenedor_facturacion {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 30px;
+    margin-bottom: 50px;
+}
