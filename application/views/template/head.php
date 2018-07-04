@@ -8,13 +8,9 @@
   		<meta name="author" content="developersur">
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-<<<<<<< HEAD
-		<title> Otra jodida prueba OTRA OTRA OTRA</title>
-=======
 		<title>Redelect. Instalaciones electricas.</title>
 
 		<link rel="shortcut icon" href="<?php echo base_url(); ?>assets/img/logo_redelect.jpeg">
->>>>>>> 32e3cde75cf975edef53769782d337063cb38816
 
 		<!-- Google font -->
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
