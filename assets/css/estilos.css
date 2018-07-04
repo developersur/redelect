@@ -1,0 +1,24 @@
+
+/* Titulos */
+legend.titulo {
+    padding-top: 20px;
+}
+
+
+.InputCantidad {
+    display: inline-block !important;
+    width: 100px !important;
+}
+
+.cabecera_dark {
+    color: #fff;
+    background-color: #222;
+}
+
+.cabecera_dark th {
+    font-weight: normal;
+}
+
+.body_carrito tr {
+    border: 0.5px solid #ccc;
+}
