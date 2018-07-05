@@ -39,19 +39,9 @@
 		<!-- Mis Estilos Alexis -->
 		<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/estilos.css"/>
 		
-		<!-- jQuery Plugins -->
+		<!---JQUERY-->
 		<script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
-		<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
-		<script src="<?php echo base_url(); ?>assets/js/slick.min.js"></script>
-		<script src="<?php echo base_url(); ?>assets/js/main.js"></script>
-		<script src="<?php echo base_url(); ?>assets/js/nouislider.min.js"></script>
-		<script src="<?php echo base_url(); ?>assets/js/jquery.zoom.min.js"></script>
-		
-		<!-- Selector de Region y Comuna -->
-		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/RegionesYcomunas.js"></script>
-		
-		<!-- Funciones Carrito -->
-		<script src="<?php echo base_url(); ?>assets/js/Ajax_carrito.js"></script>
+
     </head>
     <body>
 		<!-- HEADER -->
@@ -61,11 +51,11 @@
 				<div class="container">
 					<ul class="header-links pull-left">
 						<li><a href="#"><i class="fa fa-phone"></i> +56950077896</a></li>
-						<li><a href="#"><i class="fa fa-envelope-o"></i> whernandez.fobos@gmail.com</a></li>
+						<li><a href="#"><i class="fas fa-envelope"></i> whernandez.fobos@gmail.com</a></li>
 						<li><a href="#"><i class="fa fa-map-marker"></i> Barros Arana 492 oficina 78, Torre Ligure, Concepción</a></li>
 					</ul>
 					<ul class="header-links pull-right">
-						<li><a href="#"><i class="fa fa-user-o"></i> Mi cuenta</a></li>
+						<li><a href="#"><i class="fas fa-user"></i> Mi cuenta</a></li>
 					</ul>
 				</div>
 			</div>
@@ -137,7 +127,18 @@
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
                 <li class="active"><a href="<?php echo base_url();?>index.php">Inicio</a></li>
-                <li><a href="#">Productos</a></li>
+                <li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Productos<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="#">Fuerza</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#">Alumbrado</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#">Puntos de red</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#">Empalme</a></li>
+					</ul>
+				</li>
                 <li><a href="<?php echo base_url();?>index.php/Servicio">Nuestros servicios</a></li>
                 <li><a href="<?php echo base_url();?>index.php/QuienesSomos">Quienes somos</a></li>
                 <li><a href="<?php echo base_url(); ?>index.php/Contacto">Contacto</a></li>

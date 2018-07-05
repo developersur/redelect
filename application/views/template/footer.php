@@ -13,7 +13,7 @@
 								<ul class="footer-links">
 									<li><a href="#"><i class="fa fa-map-marker"></i>Barros Arana 492 oficina 78, Torre Ligure, Concepción</a></li>
 									<li><a href="#"><i class="fa fa-phone"></i>+56950077896</a></li>
-									<li><a href="#"><i class="fa fa-envelope-o"></i>whernandez.fobos@gmail.com</a></li>
+									<li><a href="#"><i class="fas fa-envelope"></i>whernandez.fobos@gmail.com</a></li>
 								</ul>
 							</div>
 						</div>
@@ -55,14 +55,14 @@
 					<!-- row -->
 					<div class="row">
 						<div class="col-md-12 text-center">
-							<ul class="footer-payments">
+							<!--<ul class="footer-payments">
 								<li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
 								<li><a href="#"><i class="fa fa-credit-card"></i></a></li>
 								<li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
 								<li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
 								<li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
 								<li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
-							</ul>
+							</ul>-->
 							<span class="copyright">
 								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 								Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
@@ -78,7 +78,19 @@
         </footer>
 		<!-- /FOOTER -->
 
+		<!-- jQuery Plugins -->
+		
+		<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
+		<script src="<?php echo base_url(); ?>assets/js/slick.min.js"></script>
+		<script src="<?php echo base_url(); ?>assets/js/main.js"></script>
+		<script src="<?php echo base_url(); ?>assets/js/nouislider.min.js"></script>
+		<script src="<?php echo base_url(); ?>assets/js/jquery.zoom.min.js"></script>
 
+		<!-- Selector de Region y Comuna -->
+		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/RegionesYcomunas.js"></script>
+		
+		<!-- Funciones Carrito -->
+		<script src="<?php echo base_url(); ?>assets/js/Ajax_carrito.js"></script>
 
 	</body>
 </html>
