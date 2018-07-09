@@ -11,7 +11,7 @@
             <div class="col-md-4 col-xs-6">
                 <div class="shop">
                     <div class="shop-img">
-                        <img src="<?php echo base_url(); ?>assets/img/casa.jpg" alt="">
+                        <img src="<?php echo base_url(); ?>assets/img/casa.jpg" alt="" width="100" height="220">
                     </div>
                     <div class="shop-body">
                         <h3>Particulares</h3>
@@ -25,7 +25,7 @@
             <div class="col-md-4 col-xs-6">
                 <div class="shop">
                     <div class="shop-img">
-                        <img src="<?php echo base_url(); ?>assets/img/casa.jpg" alt="">
+                        <img src="<?php echo base_url(); ?>assets/img/empresa.jpg" alt="" width="100" height="220">
                     </div>
                     <div class="shop-body">
                         <h3>Empresas</h3>
@@ -39,7 +39,7 @@
             <div class="col-md-4 col-xs-6">
                 <div class="shop">
                     <div class="shop-img">
-                        <img src="<?php echo base_url(); ?>assets/img/casa.jpg" alt="">
+                        <img src="<?php echo base_url(); ?>assets/img/institucion.jpg" alt="" width="100" height="220">
                     </div>
                     <div class="shop-body">
                         <h3>Instituciones</h3>

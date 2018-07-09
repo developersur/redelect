@@ -55,7 +55,7 @@
 						<li><a href="#"><i class="fa fa-map-marker"></i> Barros Arana 492 oficina 78, Torre Ligure, Concepción</a></li>
 					</ul>
 					<ul class="header-links pull-right">
-						<li><a href="#"><i class="fas fa-user"></i> Mi cuenta</a></li>
+						<li><a href="<?php echo base_url(); ?>index.php/Login"><i class="fas fa-user"></i> Mi cuenta</a></li>
 					</ul>
 				</div>
 			</div>
