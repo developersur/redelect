@@ -42,6 +42,17 @@
 		<!---JQUERY-->
 		<script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
 
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-122092742-1"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-122092742-1');
+		</script>
+
+
     </head>
     <body>
 		<!-- HEADER -->
