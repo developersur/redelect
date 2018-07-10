@@ -37,7 +37,8 @@
 
 <div class="container" id="contenedor_quienessomos">
 
-    <?php //echo var_dump($this->cart->contents()); ?>
+    <?php if(isset($_SESSION['datos_sesion'])) $datasesion = $_SESSION['datos_sesion']; ?>
+    
     <div id="resultados"></div>
 
     <div class="row">
@@ -60,23 +61,23 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="rut">Teléfono</label>
-                                    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono">
+                                    <input type="text" class="form-control" id="telefono" name="telefono" value="<?php if(isset($datasesion)) echo $datasesion['telefono']; ?>" placeholder="Teléfono">
                                 </div>
                             </div>    
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="rut">RUT</label>
-                                    <input type="text" class="form-control" id="rut" name="rut" placeholder="RUT">
+                                    <input type="text" class="form-control" id="rut" name="rut" value="<?php if(isset($datasesion)) echo $datasesion['rut']; ?>" placeholder="RUT">
                                 </div>
                                 <div class="form-group">
                                     <label for="correo">Correo</label>
-                                    <input type="text" class="form-control" id="correo" name="correo" placeholder="Correo">
+                                    <input type="text" class="form-control" id="correo" name="correo" value="<?php if(isset($datasesion)) echo $datasesion['correo']; ?>" placeholder="Correo">
                                 </div>
                             </div>  
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="nombre">Nombre</label>
-                                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
+                                    <input type="text" class="form-control" id="nombre" name="nombre" value="<?php if(isset($datasesion)) echo $datasesion['nombre']; ?>" placeholder="Nombre">
                                 </div>
                             </div> 
                         </div>
@@ -135,6 +136,7 @@
                                 <div class="clearfix visible-xs"></div>
                             </div>
                         </div>
+
 
                         <div class="col-md-12">
                             <button type="submit" class="btn btn-default">Continuar</button>
