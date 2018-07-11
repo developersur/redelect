@@ -42,7 +42,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <div class="col-md-10 col-md-offset-1 ">
+                                        <div class="col-md-9 col-md-offset-2 ">
                                             <button type="submit" class="btn btn-primary btn-lg form-control">Enviar</button>
                                         </div>
                                     </div>
@@ -56,7 +56,7 @@
                             <ul class="footer-links">
                                 <li><a href="#"><i class="fa fa-map-marker"></i>Barros Arana 492 oficina 78, Torre Ligure, Concepción</a></li>
                                 <li><a href="#"><i class="fa fa-phone"></i>+56950077896</a></li>
-                                <li><a href="#"><i class="fa fa-envelope-o"></i>whernandez.fobos@gmail.com</a></li>
+                                <li><a href="#"><i class="fas fa-envelope"></i>whernandez.fobos@gmail.com</a></li>
                             </ul>
                         </div>    
                     </div>         

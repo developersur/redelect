@@ -100,10 +100,10 @@ $db['default'] = array(
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'juegodetronos-online.com',
-	'username' => 'ubqtafkc_redelect',
-	'password' => 'devsur2018*',
-	'database' => 'ubqtafkc_redelect',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => ':pacifik',
+	'database' => 'redelect',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

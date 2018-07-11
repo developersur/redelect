@@ -167,7 +167,7 @@
 				</li>
                 <li><a href="<?php echo base_url();?>index.php/Servicio">Nuestros servicios</a></li>
                 <li><a href="<?php echo base_url();?>index.php/QuienesSomos">Quienes somos</a></li>
-                <li><a href="<?php echo base_url(); ?>index.php/Contacto">Contacto</a></li>
+                <li><a href="<?php echo base_url(); ?>index.php/Contacto">Contactanos</a></li>
             </ul>
             <!-- /NAV -->
         </div>
