@@ -13,7 +13,6 @@ class Servicio extends CI_Controller {
 	{
 		$data['servicios'] = $this->ServicioModel->obtenerServicios();
 
-		$this->load->helper('url');
 		$this->load->view('/template/head');
 		$this->load->view('servicios/servicio', $data);
 		$this->load->view('/template/footer');

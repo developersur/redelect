@@ -16,17 +16,17 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <form id="login-form" action="" method="post" role="form" style="display: block;">
+                            <?php 
+                            echo validation_errors();
+                            $attributes = array('id' => 'login-form', 'style' => 'display: block');
+                            echo form_open('Login', $attributes); ?>
+                            <!--<form id="login-form" action="" method="post" role="form" style="display: block;">-->
                                 <div class="form-group">
-                                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Usuario" value="">
+                                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Usuario">
                                 </div>
                                 <div class="form-group">
                                     <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Contraseña">
                                 </div>
-                                <!--<div class="form-group text-center">
-                                    <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
-                                    <label for="remember"> Remember Me</label>
-                                </div>-->
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">
@@ -43,16 +43,22 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
-                            <form id="register-form" action="" method="post" role="form" style="display: none;">
+                            <?php echo form_close();?>    
+                            <!--</form>-->
+
+                            <?php
+                            echo validation_errors();
+                            $attributes = array('id' => 'register-form', 'style' => 'display: none');
+                            echo form_open('Registrar', $attributes); ?>
+                            <!--<form id="register-form" action="" method="post" role="form" style="display: none;">-->
                                 <div class="form-group">
-                                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Usuario" value="">
+                                    <input type="text" name="username2" id="username2" tabindex="1" class="form-control" placeholder="Usuario">
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="">
+                                    <input type="email" name="email2" id="email2" tabindex="1" class="form-control" placeholder="Email">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Contraseña">
+                                    <input type="password" name="password2" id="password2" tabindex="2" class="form-control" placeholder="Contraseña">
                                 </div>
                                 <div class="form-group">
                                     <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirmar contraseña">
@@ -64,7 +70,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            <?php echo form_close();?>   
+                            <!--</form>-->
                         </div>
                     </div>
                 </div>

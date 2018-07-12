@@ -51,6 +51,13 @@ Table OF Contents
 	01 -> GENERAL
 ===========================================================*/
 
+/*nabvar admin*/
+#menuadmin
+{
+  margin-top: 2%;
+  margin-botton: 1%;
+}
+/**/
 /*Login*/
 .panel-login {
 border-color: #ccc;
