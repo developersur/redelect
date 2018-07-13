@@ -19,15 +19,18 @@ class Carro extends CI_Controller {
 		if(count($productosC)<=0) {
 			header("Location: ".base_url()."index.php/Carro/");
 		}
-		echo var_dump($_SESSION['datos_sesion']);
+		if(isset($_SESSION['datos_sesion'])) {
+			//echo var_dump($_SESSION['datos_sesion']);
+		}
 
 		//unset($_SESSION['datos_sesion']);
+		
 		// Paso 1 - Inicializa variables 
 		$tipo          = "";
-		$nombre        = "";
-		$rut           = "";
-		$correo        = "";
-		$telefono      = "";
+		$nombre_con    = "";
+		$rut_con       = "";
+		$correo_con    = "";
+		$telefono_con  = "";
 		$rut_fac       = "";
 		$razon_fac     = "";
 		$giro_fac      = "";
@@ -42,10 +45,10 @@ class Carro extends CI_Controller {
 		// Si se reciben datos por POST da valor a las variables
 		if(isset($_SESSION['datos_sesion'])) {
 			$tipo          = $_SESSION['datos_sesion']['tipo'];
-            $nombre        = $_SESSION['datos_sesion']['nombre'];
-            $rut           = $_SESSION['datos_sesion']['rut'];
-            $correo        = $_SESSION['datos_sesion']['correo'];
-            $telefono      = $_SESSION['datos_sesion']['telefono'];
+            $nombre_con    = $_SESSION['datos_sesion']['nombre_con'];
+            $rut_con       = $_SESSION['datos_sesion']['rut_con'];
+            $correo_con    = $_SESSION['datos_sesion']['correo_con'];
+            $telefono_con  = $_SESSION['datos_sesion']['telefono_con'];
             $rut_fac       = $_SESSION['datos_sesion']['rut_fac'];
             $razon_fac     = $_SESSION['datos_sesion']['razon_fac'];
             $giro_fac      = $_SESSION['datos_sesion']['giro_fac'];
@@ -66,9 +69,9 @@ class Carro extends CI_Controller {
 		$calle_dir        ="";
 		$nro_calle_dir    ="";
 		$indicaciones_dir ="";
-		$fecha            ="";
-		$hora             ="";
-		$pago             ="";
+		$fecha_visita     ="";
+		$hora_visita      ="";
+		$metodo_pago      ="";
 		
 		// Si existe la sesion da asiga valor a las variables
 		if(isset($_SESSION['datos_sesion'])) {
@@ -78,9 +81,9 @@ class Carro extends CI_Controller {
 			$calle_dir        = $_SESSION['datos_sesion']['calle_dir'];
 			$nro_calle_dir    = $_SESSION['datos_sesion']['nro_calle_dir'];
 			$indicaciones_dir = $_SESSION['datos_sesion']['indicaciones_dir'];
-			$fecha            = $_SESSION['datos_sesion']['fecha'];
-			$hora             = $_SESSION['datos_sesion']['hora'];
-			$pago             = $_SESSION['datos_sesion']['pago'];
+			$fecha_visita     = $_SESSION['datos_sesion']['fecha_visita'];
+			$hora_visita      = $_SESSION['datos_sesion']['hora_visita'];
+			$metodo_pago      = $_SESSION['datos_sesion']['metodo_pago '];
 		}
 		// Fin Paso 2 - Inicializa variables 
 
@@ -89,10 +92,10 @@ class Carro extends CI_Controller {
 		$data_sesion = array(
 			// Paso 1
 			'tipo'             => $tipo,
-			'nombre'           => $nombre,
-			'rut'              => $rut,
-			'correo'           => $correo,
-			'telefono'         => $telefono,
+			'nombre_con'       => $nombre_con,
+			'rut_con'          => $rut_con,
+			'correo_con'       => $correo_con,
+			'telefono_con'     => $telefono_con,
 			'rut_fac'          => $rut_fac,
 			'razon_fac'        => $razon_fac,
 			'giro_fac'         => $giro_fac,
@@ -111,13 +114,16 @@ class Carro extends CI_Controller {
 			'calle_dir'        => $calle_dir,
 			'nro_calle_dir'    => $nro_calle_dir,
 			'indicaciones_dir' => $indicaciones_dir,
-			'fecha'            => $fecha,
-			'hora'             => $hora,
-			'pago'             => $pago
+			'fecha_visita'     => $fecha_visita,
+			'hora_visita'      => $hora_visita,
+			'metodo_pago '     => $metodo_pago 
 		);
-
+		
 		$_SESSION['datos_sesion'] = $data_sesion;
-		echo var_dump($_SESSION['datos_sesion']);
+
+		if(isset($_SESSION['datos_sesion'])) {
+			//echo var_dump($_SESSION['datos_sesion']);
+		}
 
 		$this->load->view('/template/head');
 		$this->load->view('Carro/Paso1');
@@ -136,10 +142,10 @@ class Carro extends CI_Controller {
 
 		// Paso 1 - Inicializa variables 
 		$tipo          = "";
-		$nombre        = "";
-		$rut           = "";
-		$correo        = "";
-		$telefono      = "";
+		$nombre_con    = "";
+		$rut_con       = "";
+		$correo_con    = "";
+		$telefono_con  = "";
 		$rut_fac       = "";
 		$razon_fac     = "";
 		$giro_fac      = "";
@@ -154,10 +160,10 @@ class Carro extends CI_Controller {
 		// Si se reciben datos por POST da valor a las variables
 		if(isset($_POST['tipo'])) {
 			$tipo          = $_POST['tipo'];
-			$nombre        = $_POST['nombre'];
-			$rut           = $_POST['rut'];
-			$correo        = $_POST['correo'];
-			$telefono      = $_POST['telefono'];
+			$nombre_con    = $_POST['nombre_con'];
+			$rut_con       = $_POST['rut_con'];
+			$correo_con    = $_POST['correo_con'];
+			$telefono_con  = $_POST['telefono_con'];
 			$rut_fac       = $_POST['rut_fac'];
 			$razon_fac     = $_POST['razon_fac'];
 			$giro_fac      = $_POST['giro_fac'];
@@ -173,10 +179,10 @@ class Carro extends CI_Controller {
 		// Si no se recibe por POST pero existe la SESION
 		if((!isset($_POST['tipo'])) and (isset($_SESSION['datos_sesion']))) {
 			$tipo          = $_SESSION['datos_sesion']['tipo'];
-			$nombre        = $_SESSION['datos_sesion']['nombre'];
-			$rut           = $_SESSION['datos_sesion']['rut'];
-			$correo        = $_SESSION['datos_sesion']['correo'];
-			$telefono      = $_SESSION['datos_sesion']['telefono'];
+			$nombre_con    = $_SESSION['datos_sesion']['nombre_con'];
+			$rut_con       = $_SESSION['datos_sesion']['rut_con'];
+			$correo_con    = $_SESSION['datos_sesion']['correo_con'];
+			$telefono_con  = $_SESSION['datos_sesion']['telefono_con'];
 			$rut_fac       = $_SESSION['datos_sesion']['rut_fac'];
 			$razon_fac     = $_SESSION['datos_sesion']['razon_fac'];
 			$giro_fac      = $_SESSION['datos_sesion']['giro_fac'];
@@ -197,9 +203,9 @@ class Carro extends CI_Controller {
 		$calle_dir        ="";
 		$nro_calle_dir    ="";
 		$indicaciones_dir ="";
-		$fecha            ="";
-		$hora             ="";
-		$pago             ="";
+		$fecha_visita     ="";
+		$hora_visita      ="";
+		$metodo_pago      ="";
 		
 		// Si existe la sesion da asiga valor a las variables
 		if(isset($_SESSION['datos_sesion'])) {
@@ -209,9 +215,9 @@ class Carro extends CI_Controller {
 			$calle_dir        = $_SESSION['datos_sesion']['calle_dir'];
 			$nro_calle_dir    = $_SESSION['datos_sesion']['nro_calle_dir'];
 			$indicaciones_dir = $_SESSION['datos_sesion']['indicaciones_dir'];
-			$fecha            = $_SESSION['datos_sesion']['fecha'];
-			$hora             = $_SESSION['datos_sesion']['hora'];
-			$pago             = $_SESSION['datos_sesion']['pago'];
+			$fecha_visita     = $_SESSION['datos_sesion']['fecha_visita'];
+			$hora_visita      = $_SESSION['datos_sesion']['hora_visita'];
+			$metodo_pago      = $_SESSION['datos_sesion']['metodo_pago '];
 		}
 		// Fin Paso 2 - Inicializa variables 
 
@@ -220,10 +226,10 @@ class Carro extends CI_Controller {
 		$data_sesion = array(
 			// Paso 1
 			'tipo'             => $tipo,
-			'nombre'           => $nombre,
-			'rut'              => $rut,
-			'correo'           => $correo,
-			'telefono'         => $telefono,
+			'nombre_con'       => $nombre_con,
+			'rut_con'          => $rut_con,
+			'correo_con'       => $correo_con,
+			'telefono_con'     => $telefono_con,
 			'rut_fac'          => $rut_fac,
 			'razon_fac'        => $razon_fac,
 			'giro_fac'         => $giro_fac,
@@ -242,13 +248,13 @@ class Carro extends CI_Controller {
 			'calle_dir'        => $calle_dir,
 			'nro_calle_dir'    => $nro_calle_dir,
 			'indicaciones_dir' => $indicaciones_dir,
-			'fecha'            => $fecha,
-			'hora'             => $hora,
-			'pago'             => $pago
+			'fecha_visita'     => $fecha_visita,
+			'hora_visita'      => $hora_visita,
+			'metodo_pago '     => $metodo_pago 
 		);	
 
 		$_SESSION['datos_sesion'] = $data_sesion;
-		echo var_dump($_SESSION['datos_sesion']);
+		//echo var_dump($_SESSION['datos_sesion']);
 
 		$this->load->view('/template/head');
 		$this->load->view('Carro/Paso2');
@@ -260,7 +266,7 @@ class Carro extends CI_Controller {
 	// Paso 3 para la compra - Confirmacion
 	public function Paso3()
 	{
-		echo var_dump($_POST);
+		//echo var_dump($_POST);
 
 		// Si no hay productos en el carrito lo devuelve
 		$productosC = $this->cart->contents();
@@ -280,10 +286,10 @@ class Carro extends CI_Controller {
 
 		// Paso 1 - Asigna valor
 		$tipo          = $_POST['tipo'];
-		$nombre        = $_POST['nombre'];
-		$rut           = $_POST['rut'];
-		$correo        = $_POST['correo'];
-		$telefono      = $_POST['telefono'];
+		$nombre_con    = $_POST['nombre_con'];
+		$rut_con       = $_POST['rut_con'];
+		$correo_con    = $_POST['correo_con'];
+		$telefono_con  = $_POST['telefono_con'];
 		$rut_fac       = $_POST['rut_fac'];
 		$razon_fac     = $_POST['razon_fac'];
 		$giro_fac      = $_POST['giro_fac'];
@@ -303,9 +309,9 @@ class Carro extends CI_Controller {
 		$calle_dir        = $_POST['calle_dir'];
 		$nro_calle_dir    = $_POST['nro_calle_dir'];
 		$indicaciones_dir = $_POST['indicaciones_dir'];
-		$fecha            = $_POST['fecha'];
-		$hora             = $_POST['hora'];
-		$pago             = $_POST['pago'];
+		$fecha_visita     = $_POST['fecha_visita'];
+		$hora_visita      = $_POST['hora_visita'];
+		$metodo_pago      = $_POST['metodo_pago '];
 		// Fin Paso 2 - Asigna valor Inicializa variables 
 		
 		
@@ -313,10 +319,10 @@ class Carro extends CI_Controller {
 		$data['data_post'] = array(
 			// Paso 1
 			'tipo'             => $tipo,
-			'nombre'           => $nombre,
-			'rut'              => $rut,
-			'correo'           => $correo,
-			'telefono'         => $telefono,
+			'nombre_con'       => $nombre_con,
+			'rut_con'          => $rut_con,
+			'correo_con'       => $correo_con,
+			'telefono_con'     => $telefono_con,
 			'rut_fac'          => $rut_fac,
 			'razon_fac'        => $razon_fac,
 			'giro_fac'         => $giro_fac,
@@ -335,14 +341,19 @@ class Carro extends CI_Controller {
 			'calle_dir'        => $calle_dir,
 			'nro_calle_dir'    => $nro_calle_dir,
 			'indicaciones_dir' => $indicaciones_dir,
-			'fecha'            => $fecha,
-			'hora'             => $hora,
-			'pago'             => $pago
+			'fecha_visita'     => $fecha_visita,
+			'hora_visita'      => $hora_visita,
+			'metodo_pago '     => $metodo_pago 
 		);
 		
 		// Incluye los datos en la sesion por si se devuelve a un paso anterior
 		$_SESSION['datos_sesion'] = $data['data_post'];
-
+		
+		// Datos Compra
+		$_SESSION['datos']   = $data['data_post'];
+		// Datos Productos
+		$_SESSION['carrito'] = $this->cart->contents();
+		
 		// ------- WEBPAY ------- //
 		require_once('assets/webpay/libwebpay/webpay.php');
 		require_once('assets/webpay/certificates/cert-normal.php');
@@ -364,78 +375,157 @@ class Carro extends CI_Controller {
 		$this->load->view('/template/footer');
 	}
 
-	// Paso 3 para la compra - Confirmacion
+	// Procesa el Pago ya sea por Webpay o Transferencia
 	public function ProcesarPago()
 	{	
+		// Si no existe la sesion con los datos de la compra
+		if(!isset($_SESSION['datos'])) {
+			header("Location: ".base_url()."index.php/Carro/Paso1");
+		}
+		if(isset($_SESSION['datos']) and $_SESSION['datos']==null) {
+			header("Location: ".base_url()."index.php/Carro/Paso1");
+		}
+		// Si no existe la sesion con los datos de los productos
+		if(!isset($_SESSION['carrito'])) {
+				header("Location: ".base_url()."index.php/Carro/Paso1");
+		}
+		if(isset($_SESSION['carrito']) and $_SESSION['carrito']==null) {
+			header("Location: ".base_url()."index.php/Carro/Paso1");
+		}
+
 		// Carga Modelo
 		$this->load->model('WebpayModel');
+		$this->load->model('CompraModel');
 		
-		if(isset($_POST["token_ws"]) and $_POST["token_ws"]!="") {
+		$data['mensaje'] = "";
+		$data['error']   = "";
 		
-			// ------- WEBPAY ------- //
-			require_once('assets/webpay/libwebpay/webpay.php');
-			require_once('assets/webpay/certificates/cert-normal.php');
-			require_once('assets/webpay/iniciar.php');
+		// Si se recibe token o transferencia la compra va bien
+		if(((isset($_POST["token_ws"]) and $_POST["token_ws"]!="")) or ((isset($_POST["transferencia"])) and ($_POST['transferencia']))) {
 			
-			$token = filter_input(INPUT_POST, 'token_ws');
+			// Recibe los datos de las sesiones de la compra
+			if($_SESSION['datos']!==null and $_SESSION['carrito']!==null) {
+				$dcompra   = $_SESSION['datos'];
+				$dproducto = $_SESSION['carrito'];
+			}
 
-			// Rescatamos resultado y datos de la transaccion
-			$WebPayResultado = $webpay->getNormalTransaction()->getTransactionResult($token);
+			// Si se recibe el token es Webpay
+			if((isset($_POST["token_ws"]) and $_POST["token_ws"]!="")) {
+			
+				// ------- WEBPAY ------- //
+				require_once('assets/webpay/libwebpay/webpay.php');
+				require_once('assets/webpay/certificates/cert-normal.php');
+				require_once('assets/webpay/iniciar.php');
+				
+				$token = filter_input(INPUT_POST, 'token_ws');
 
-			// Se verificamos el resultado de la transacción
-			if(isset($WebPayResultado->detailOutput->responseCode))  {
-				if ($WebPayResultado->detailOutput->responseCode === 0) {
-					echo "Pago Aceptado";
-					echo var_dump($WebPayResultado);
-					
+				// Rescatamos resultado y datos de la transaccion
+				$WebPayResultado = $webpay->getNormalTransaction()->getTransactionResult($token);
 
-					$TipoPagoDescripcion  = DescripcionTipoPago($WebPayResultado->detailOutput->paymentTypeCode);
-					$RespuestaDescripcion = DescripcionRespuesta($WebPayResultado->detailOutput->responseCode);
-					$VCIDescripcion       = DescripcionVCI($WebPayResultado->VCI);
+				// Se verificamos el resultado de la transacción
+				if(isset($WebPayResultado->detailOutput->responseCode))  {
+					if ($WebPayResultado->detailOutput->responseCode === 0) {
+						echo "Pago Aceptado";
+						echo var_dump($WebPayResultado);
+						
+						$TipoPagoDescripcion  = DescripcionTipoPago($WebPayResultado->detailOutput->paymentTypeCode);
+						$RespuestaDescripcion = DescripcionRespuesta($WebPayResultado->detailOutput->responseCode);
+						$VCIDescripcion       = DescripcionVCI($WebPayResultado->VCI);
 
-					// --- REGISTRA LOS DETALLES DEL PAGO DE WEBPAY --- //
-					$data_pago = array(
-						'token'               => $token,
-						'accountingDate'      => $WebPayResultado->accountingDate,
-						'buyOrder'            => $WebPayResultado->buyOrder,
-						'cardNumber'          => $WebPayResultado->cardDetail->cardNumber,
-						'cardExpirationDate'  => $WebPayResultado->cardDetail->cardExpirationDate,
-						'authorizationCode'   => $WebPayResultado->detailOutput->authorizationCode,
-						'paymentTypeCode'     => $WebPayResultado->detailOutput->paymentTypeCode,
-						'paymentTypeCodeDes'  => $TipoPagoDescripcion,
-						'responseCode'        => $WebPayResultado->detailOutput->responseCode,
-						'sharesNumber'        => $WebPayResultado->detailOutput->sharesNumber,
-						'amount'              => $WebPayResultado->detailOutput->amount,
-						'commerceCode'        => $WebPayResultado->detailOutput->commerceCode,
-						'buyOrder'            => $WebPayResultado->detailOutput->buyOrder,
-						'responseDescription' => $RespuestaDescripcion,
-						'sessionId'           => $WebPayResultado->sessionId,
-						'transactionDate'     => $WebPayResultado->transactionDate,
-						'urlRedirection'      => $WebPayResultado->urlRedirection,
-						'VCI'                 => $WebPayResultado->VCI,
-						'VCIDescription'      => $VCIDescripcion,
-						'id_cliente'          => 1,
-						'rut_contacto'        => 11111111,
-						'rut_facturacion'     => 11111111
-					);
+						// --- REGISTRA LOS DETALLES DEL PAGO DE WEBPAY --- //
+						$data_pago = array(
+							'token'               => $token,
+							'accountingDate'      => $WebPayResultado->accountingDate,
+							'buyOrder'            => $WebPayResultado->buyOrder,
+							'cardNumber'          => $WebPayResultado->cardDetail->cardNumber,
+							'cardExpirationDate'  => $WebPayResultado->cardDetail->cardExpirationDate,
+							'authorizationCode'   => $WebPayResultado->detailOutput->authorizationCode,
+							'paymentTypeCode'     => $WebPayResultado->detailOutput->paymentTypeCode,
+							'paymentTypeCodeDes'  => $TipoPagoDescripcion,
+							'responseCode'        => $WebPayResultado->detailOutput->responseCode,
+							'sharesNumber'        => $WebPayResultado->detailOutput->sharesNumber,
+							'amount'              => $WebPayResultado->detailOutput->amount,
+							'commerceCode'        => $WebPayResultado->detailOutput->commerceCode,
+							'buyOrder'            => $WebPayResultado->detailOutput->buyOrder,
+							'responseDescription' => $RespuestaDescripcion,
+							'sessionId'           => $WebPayResultado->sessionId,
+							'transactionDate'     => $WebPayResultado->transactionDate,
+							'urlRedirection'      => $WebPayResultado->urlRedirection,
+							'VCI'                 => $WebPayResultado->VCI,
+							'VCIDescription'      => $VCIDescripcion,
+							'id_cliente'          => 1,
+							'rut_contacto'        => 11111111,
+							'rut_facturacion'     => 11111111
+						);
 
-					$id_pago_webpay = $this->WebpayModel->RegistrarPago($data_pago);
-					echo var_dump($id_pago_webpay);
+						$id_pago_webpay = $this->WebpayModel->RegistrarPago($data_pago);
+						echo var_dump($id_pago_webpay);
+					} else {
+						echo "Pago Rechazado";
+						echo var_dump($WebPayResultado);
+					}
 				} else {
-					echo "Pago Rechazado";
+					echo "Se recibio el Token pero ocurrio un error, probablemente la sesion cadudo o se recargo la pagina";
 					echo var_dump($WebPayResultado);
 				}
-			} else {
-				echo "Se recibio el Token pero ocurrio un error, probablemente la sesion cadudo o se recargo la pagina";
-				echo var_dump($WebPayResultado);
 			}
+			
+
+			// Si se recibe Transferencia
+			if((isset($_POST["transferencia"])) and ($_POST['transferencia'])) {
 				
+				$data = array(
+					"id_cliente"       => 0,
+					"id_webpay"        => 0,
+					"token"            => "0",
+					"nro_transferencia"=> "",
+					"tipo"             => $dcompra['tipo'],
+					"rut_con"          => $dcompra['rut_con'],
+					"nombre_con"       => $dcompra['nombre_con'],
+					"telefono_con"     => $dcompra['telefono_con'],
+					"correo_con"       => $dcompra['correo_con'],
+					"rut_fac"          => $dcompra['rut_fac'],
+					"razon_fac"        => $dcompra['razon_fac'],
+					"telefono_fac"     => $dcompra['telefono_fac'],
+					"correo_fac"       => $dcompra['correo_fac'],
+					"giro_fac"         => $dcompra['giro_fac'],
+					"region_fac"       => $dcompra['region_fac'],
+					"comuna_fac"       => $dcompra['comuna_fac'],
+					"sector_fac"       => $dcompra['sector_fac'],
+					"calle_fac"        => $dcompra['calle_fac'],
+					"nro_calle_fac"    => $dcompra['nro_calle_fac'],
+					'region_dir'       => $dcompra['region_dir'],
+					'comuna_dir'       => $dcompra['comuna_dir'],
+					'sector_dir'       => $dcompra['sector_dir'],
+					'calle_dir'        => $dcompra['calle_dir'],
+					'nro_calle_dir'    => $dcompra['nro_calle_dir'],
+					'indicaciones_dir' => $dcompra['indicaciones_dir'],
+					'fecha_visita'     => $dcompra['fecha_visita'],
+					'hora_visita'      => $dcompra['hora_visita'],
+					'metodo_pago '     => $dcompra['metodo_pago'],
+					'status_compra'    => "GENERADA",
+					'status_pago'      => "POR VERIFICAR",
+					'total'      	   => round($this->cart->total())
+				);
+
+				if($id_Compra = $this->CompraModel->RegistrarCompra($data)) {
+					$data['mensaje'] = "Compra por transferencia registrada";
+				} else {
+					$data['error'] = "Error al registrar losd datos";
+				}
+				
+
+				echo var_dump($dcompra);
+
+			}
+
+
 		} else {
-			echo "No se recibio el Token para la transaccion";
+			$data['error'] = "No existe información que procesar";
 		}
 		
 		$this->load->view('/template/head');
-		$this->load->view('Carro/ProcesarPago');
+		$this->load->view('Carro/ProcesarPago',$data);
 		//$this->load->view('/template/footer');
 	}
 

@@ -50,7 +50,7 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
+                                <td align="right">Total: </td>
                                 <td align="right"><b>$<?php echo number_format($this->cart->total(),'0',',','.'); ?></b></td>
                                 <td></td>
                             </tr>

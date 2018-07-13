@@ -14,7 +14,7 @@
                             <table class="table">
                                 <tr>
                                     <td>
-                                        <span class=""></span><a href="">Agregar producto</a>
+                                        <span class=""></span><a href="Producto/AgregarProducto">Agregar producto</a>
                                     </td>
                                 </tr>
                                 <tr>

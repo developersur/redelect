@@ -51,8 +51,9 @@
                                             <button type="submit" class="btn btn-primary btn-lg form-control">Enviar</button>
                                         </div>
                                     </div>
-                            <?php echo form_close();
-                               echo $this->session->mensaje_email;
+                            <?php 
+                            echo $this->session->mensaje_email;    
+                            echo form_close();
                             ?>
                             <!--</form>-->
                         </div>

@@ -1,5 +1,33 @@
 
 <script type="text/javascript">
+   
+    // Validador de RUT
+    $(document).ready(function(){
+        // Valida el Rut del Logeo
+        $('.input_rut').rut();
+        
+        /*
+        $('.input_rut').rut({
+             fn_error : function(input){
+                //$("#Mostrar_mensajes").html('<div class="alert alert-danger" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Rut incorrecto</div>')
+                //$("#Ir_Paso_2").attr("disabled",true);
+                //$("#Ir_Paso_2").addClass("Btn_Con_disabled");
+                $(".ocultar_obli").show();
+
+            },
+             fn_validado : function(input){
+                //$("#Mostrar_mensajes").html('');
+                //$("#Ir_Paso_2").attr("disabled",false);
+                $("#Ir_Paso_2").removeClass("Btn_Con_disabled");
+                $(".ocultar_obli").show();
+            },
+            placeholder: false
+        });
+        */
+        
+    });
+
+
 
     // Muestra campos para facturacion
     $(document).ready(function () {
@@ -32,8 +60,8 @@
         });
     });
 
-
 </script>
+
 
 <div class="container" id="contenedor_quienessomos">
 
@@ -60,24 +88,24 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="rut">Teléfono</label>
-                                    <input type="text" class="form-control" id="telefono" name="telefono" value="<?php if(isset($datasesion)) echo $datasesion['telefono']; ?>" placeholder="Teléfono">
+                                    <label for="telefono_con">Teléfono</label>
+                                    <input type="text" class="form-control" id="telefono_con" name="telefono_con" value="<?php if(isset($datasesion)) echo $datasesion['telefono_con']; ?>" placeholder="Teléfono">
                                 </div>
                             </div>    
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="rut">RUT</label>
-                                    <input type="text" class="form-control" id="rut" name="rut" value="<?php if(isset($datasesion)) echo $datasesion['rut']; ?>" placeholder="RUT">
+                                    <label for="rut_con">RUT</label>
+                                    <input type="text" class="form-control input_rut" id="rut_con" name="rut_con" value="<?php if(isset($datasesion)) echo $datasesion['rut_con']; ?>" placeholder="RUT">
                                 </div>
                                 <div class="form-group">
-                                    <label for="correo">Correo</label>
-                                    <input type="text" class="form-control" id="correo" name="correo" value="<?php if(isset($datasesion)) echo $datasesion['correo']; ?>" placeholder="Correo">
+                                    <label for="correo_con">Correo</label>
+                                    <input type="text" class="form-control" id="correo_con" name="correo_con" value="<?php if(isset($datasesion)) echo $datasesion['correo_con']; ?>" placeholder="Correo">
                                 </div>
                             </div>  
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="nombre">Nombre</label>
-                                    <input type="text" class="form-control" id="nombre" name="nombre" value="<?php if(isset($datasesion)) echo $datasesion['nombre']; ?>" placeholder="Nombre">
+                                    <label for="nombre_con">Nombre</label>
+                                    <input type="text" class="form-control" id="nombre_con" name="nombre_con" value="<?php if(isset($datasesion)) echo $datasesion['nombre_con']; ?>" placeholder="Nombre">
                                 </div>
                             </div> 
                         </div>
@@ -90,7 +118,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="rut_fac">RUT</label>
-                                        <input type="text" class="form-control" id="rut_fac" name="rut_fac" placeholder="RUT">
+                                        <input type="text" class="form-control input_rut" id="rut_fac" name="rut_fac" placeholder="RUT">
                                     </div>
                                     <div class="form-group">
                                         <label for="telefono_fac">Teléfono</label>
