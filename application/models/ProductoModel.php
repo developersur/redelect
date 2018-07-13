@@ -11,4 +11,8 @@ class ProductoModel extends CI_Model {
     	$result_set = $this->db->query("select * from producto");
     	return $result_set -> result_array();
     }
+
+    public function agregar_producto(){
+        
+    }
 }

@@ -6,7 +6,8 @@ class Contacto extends CI_Controller
 	public function __construct()
   {
         parent::__construct();
-				$this->load->model('CategoriaModel');
+        $this->load->model('CategoriaModel');
+        //$this->session->mensaje_email ='';
 	}
 
 	public function index()
@@ -51,7 +52,7 @@ class Contacto extends CI_Controller
       $config["smtp_pass"] = 'notificador';
 
      //El puerto que utilizará el servidor smtp
-      $config["smtp_port"] = '587';
+      $config["smtp_port"] = '465';
 
 			$config["mailtype"] = 'html';
 
@@ -79,16 +80,20 @@ class Contacto extends CI_Controller
       $this->email->to('luxoubeber@gmail.com', 'Luis Matamala');
 
     //Definimos el asunto del mensaje
-      $this->email->subject($this->input->post("Consulta"));
+      $this->email->subject('Consulta');
 
     //Definimos el mensaje a enviar
-      $this->email->message("Hola mundo");
+      $this->email->message(
+        'Nombre: ' . $nombre . ' ' . $apellido.
+        'Email: ' . $email .
+        'Mensaje: ' . $message
+      );
 
       //Enviamos el email y si se produce bien o mal que avise con una flasdata
       if($this->email->send()){
-          $this->session->mensaje_email = 'Mensja enviado';
+          $this->session->mensaje_email = '<font color="green">Mensaje enviado</font>';
       }else{
-          $this->session->mensaje_email = $this->email->print_debugger();
+          $this->session->mensaje_email = '<font color="red">Ocurrio un error. Intentelo denuevo</font>';
       }
 
       redirect(base_url("index.php/Contacto"));
