@@ -6,10 +6,15 @@
 				<div class="container">
 					<!-- row -->
 					<div class="row">
-						<div class="col-md-4 col-xs-6">
+						<div class="col-md-5 col-xs-6">
 							<div class="footer">
 								<h3 class="footer-title">Nosotros</h3>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
+								<p align="justify">Redelec, una empresa cuyo principal producto es la SEGURIDAD ELECTRICA.
+									En Redelec nos enfocamos en entregar un resultado en formato OBRA VENDIDA,
+									así, el cliente no se preocupa de las tradicionales instalaciones donde además
+									de buscar al técnico o en muchos casos al “maestro eléctrico” también tiene que
+									ocuparse de las compras de materiales y todo para instalar un par de enchufes o
+									un punto de alumbrado.</p>
 								<ul class="footer-links">
 									<li><a href="#"><i class="fa fa-map-marker"></i>Barros Arana 492 oficina 78, Torre Ligure, Concepción</a></li>
 									<li><a href="#"><i class="fa fa-phone"></i>+56950077896</a></li>
@@ -18,27 +23,31 @@
 							</div>
 						</div>
 
-						<div class="col-md-4 col-xs-6">
+						<div class="col-md-2 col-xs-6">
 							<div class="footer">
 								<h3 class="footer-title">Categorias</h3>
 								<ul class="footer-links">
-									<li><a href="#">Fuerza</a></li>
-									<li><a href="#">Alumbrado</a></li>
-									<li><a href="#">Puntos de red</a></li>
-									<li><a href="#">Empalmes</a></li>
-									<li><a href="#">Servicios</a></li>
+									<?php if($categorias)
+									{
+											foreach ($categorias->result() as $categoria)
+											{
+												?>
+												<li><a href="#"><?php echo $categoria->nombre; ?></a></li>
+											<?php
+										}
+									}?>
 								</ul>
 							</div>
 						</div>
 
 						<div class="clearfix visible-xs"></div>
 
-						<div class="col-md-4 col-xs-6">
+						<div class="col-md-3 col-xs-6">
 							<div class="footer">
 								<h3 class="footer-title">Información</h3>
 								<ul class="footer-links">
-									<li><a href="#">Acerca de</a></li>
-									<li><a href="#">Contáctanos</a></li>
+									<li><a href="<?php echo base_url();?>index.php/QuienesSomos">Acerca de</a></li>
+									<li><a href="<?php echo base_url(); ?>index.php/Contacto">Contáctanos</a></li>
 								</ul>
 							</div>
 						</div>
@@ -79,7 +88,7 @@
 		<!-- /FOOTER -->
 
 		<!-- jQuery Plugins -->
-		
+
 		<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
 		<script src="<?php echo base_url(); ?>assets/js/slick.min.js"></script>
 		<script src="<?php echo base_url(); ?>assets/js/main.js"></script>
@@ -88,7 +97,7 @@
 
 		<!-- Selector de Region y Comuna -->
 		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/RegionesYcomunas.js"></script>
-		
+
 		<!-- Funciones Carrito -->
 		<script src="<?php echo base_url(); ?>assets/js/Ajax_carrito.js"></script>
 

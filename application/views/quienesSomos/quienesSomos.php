@@ -17,20 +17,17 @@
                     }else{
                     ?>
                         <div class="col-md-6">
-                    <?php       
+                    <?php
                     }
                     ?>
                     <div class="panel panel-default">
                         <div class="panel-heading"><?php echo $quienes->titulo; ?></div>
                         <div class="panel-body">
                             <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis rutrum egestas auctor. 
-                            Maecenas vitae nisl vitae turpis malesuada sollicitudin non non nibh. Sed sollicitudin 
-                            gravida justo, non pellentesque neque mattis sit amet. Maecenas pulvinar vestibulum interdum.
-                            Phasellus a efficitur arcu, nec dictum nibh
+                            <?php echo $quienes->descripcion; ?>
                             </p>
                         </div>
-                    </div>    
+                    </div>
                 </div>
                 <?php
                 }

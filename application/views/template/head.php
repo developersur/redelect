@@ -20,7 +20,7 @@
 
 		<!-- Font Awesome Icon -->
 		<!--  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/font-awesome.min.css"> -->
-        
+
         <!-- Font Awesome Icon VERSION MAS RECIENTE -->
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/fontawesome.css">
 
@@ -32,13 +32,13 @@
 
 		<!-- -->
 		<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/slick-theme.css"/>
-		
+
 		<!--  -->
 		<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/slick.css"/>
 
 		<!-- Mis Estilos Alexis -->
 		<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/estilos.css"/>
-		
+
 		<!---JQUERY-->
 		<script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
 
@@ -83,7 +83,7 @@
 			</div>
 			<!-- /TOP HEADER -->
 
-			
+
 			<!-- MAIN HEADER -->
 			<div id="header">
 				<!-- container -->
@@ -152,13 +152,17 @@
                 <li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Productos<span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="#">Fuerza</a></li>
-						<li role="separator" class="divider"></li>
-						<li><a href="#">Alumbrado</a></li>
-						<li role="separator" class="divider"></li>
-						<li><a href="#">Puntos de red</a></li>
-						<li role="separator" class="divider"></li>
-						<li><a href="#">Empalme</a></li>
+						<?php if($categorias)
+						{
+							foreach($categorias->result() as $categoria)
+							{
+						 ?>
+						 			<li><a href="#"><?php echo $categoria->nombre; ?></a></li>
+ 									<li role="separator" class="divider"></li>
+							<?php
+							}
+						}
+						?>
 					</ul>
 				</li>
                 <li><a href="<?php echo base_url();?>index.php/Servicio">Nuestros servicios</a></li>

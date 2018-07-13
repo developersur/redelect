@@ -7,14 +7,16 @@ class Servicio extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('ServicioModel');
+		$this->load->model('CategoriaModel');
 	}
 
 	public function index()
 	{
 		$data['servicios'] = $this->ServicioModel->obtenerServicios();
+		$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
 
-		$this->load->view('/template/head');
+		$this->load->view('/template/head',$data);
 		$this->load->view('servicios/servicio', $data);
-		$this->load->view('/template/footer');
+		$this->load->view('/template/footer',$data);
 	}
 }

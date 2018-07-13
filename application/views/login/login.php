@@ -16,13 +16,13 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <?php 
+                            <?php
                             echo validation_errors();
                             $attributes = array('id' => 'login-form', 'style' => 'display: block');
                             echo form_open('Login', $attributes); ?>
                             <!--<form id="login-form" action="" method="post" role="form" style="display: block;">-->
                                 <div class="form-group">
-                                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Usuario">
+                                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Correo">
                                 </div>
                                 <div class="form-group">
                                     <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Contraseña">
@@ -43,7 +43,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            <?php echo form_close();?>    
+                            <?php echo form_close();?>
                             <!--</form>-->
 
                             <?php
@@ -70,7 +70,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            <?php echo form_close();?>   
+                            <?php echo form_close();?>
                             <!--</form>-->
                         </div>
                     </div>
@@ -79,4 +79,3 @@
         </div>
     </div>
 </div>
-    

@@ -98,12 +98,12 @@ $db['default'] = array(
 */
 
 
-/*$db['default'] = array(
+$db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
 	'username' => 'root',
-	'password' => ':pacifik',
-	'database' => 'redelect',
+	'password' => '',
+	'database' => 'redelect_web',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -118,9 +118,9 @@ $db['default'] = array(
 	'stricton' => FALSE,
 	'failover' => array(),
 	'save_queries' => TRUE
-);*/
+);
 
-$db['default'] = array(
+/*$db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'redelect.cl',
 	'username' => 'redelect_web',
@@ -140,4 +140,4 @@ $db['default'] = array(
 	'stricton' => FALSE,
 	'failover' => array(),
 	'save_queries' => TRUE
-);
+);*/

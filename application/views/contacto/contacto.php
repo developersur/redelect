@@ -5,8 +5,13 @@
             <legend class="text-center header">Contactanos</legend>
                 <div class="col-md-6">
                     <div class="panel panel-default">
-                        <div class="panel-body">    
-                            <form class="form-horizontal" method="post">
+                        <div class="panel-body">
+                          <?php
+                            echo validation_errors();
+                            $attributes = array('id' => 'contacto-form', 'class' => 'form-horizontal');
+                            echo form_open('Contacto/enviar_correo', $attributes);
+                          ?>
+                            <!--<form class="form-horizontal" method="post">-->
                                     <div class="form-group">
                                         <span class="col-md-1 col-md-offset-1 text-center"><i class="fa fa-user bigicon"></i></span>
                                         <div class="col-md-9">
@@ -23,7 +28,7 @@
                                     <div class="form-group">
                                         <span class="col-md-1 col-md-offset-1 text-center"><i class="fa fa-envelope-o bigicon"></i></span>
                                         <div class="col-md-9">
-                                            <input id="email" name="email" type="text" placeholder="Email" class="form-control">
+                                            <input id="email" name="email" type="email" placeholder="Email" class="form-control">
                                         </div>
                                     </div>
 
@@ -46,7 +51,10 @@
                                             <button type="submit" class="btn btn-primary btn-lg form-control">Enviar</button>
                                         </div>
                                     </div>
-                            </form>
+                            <?php echo form_close();
+                               echo $this->session->mensaje_email;
+                            ?>
+                            <!--</form>-->
                         </div>
                     </div>
                 </div>
@@ -58,8 +66,8 @@
                                 <li><a href="#"><i class="fa fa-phone"></i>+56950077896</a></li>
                                 <li><a href="#"><i class="fas fa-envelope"></i>whernandez.fobos@gmail.com</a></li>
                             </ul>
-                        </div>    
-                    </div>         
+                        </div>
+                    </div>
                 </div>
             </fieldset>
         </div>

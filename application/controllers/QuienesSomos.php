@@ -7,13 +7,16 @@ class QuienesSomos extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('QuienesSomosModel');
+		$this->load->model('CategoriaModel');
 	}
 
 	public function index()
 	{
 		$data['quienessomos'] = $this->QuienesSomosModel->obtenerQuienesSomos();
-		$this->load->view('/template/head');
+		$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
+
+		$this->load->view('/template/head', $data);
 		$this->load->view('quienesSomos/quienesSomos',$data);
-		$this->load->view('/template/footer');
+		$this->load->view('/template/footer', $data);
 	}
 }
