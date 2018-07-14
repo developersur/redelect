@@ -14,12 +14,12 @@
                             <table class="table">
                                 <tr>
                                     <td>
-                                        <span class=""></span><a href="Producto/AgregarProducto">Agregar producto</a>
+                                        <span class=""></span><a href="<?php echo base_url(); ?>index.php/Producto/formProducto">Agregar producto</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <span class=""></span><a href="">Modificar producto</a>
+                                        <span class=""></span><a href="<?php echo base_url(); ?>index.php/Producto/modProducto">Modificar producto</a>
                                     </td>
                                 </tr>
                                 <tr>

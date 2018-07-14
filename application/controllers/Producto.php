@@ -12,17 +12,78 @@ class Producto extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('/template/head',$data);
-		$this->load->view('servicios/servicio', $data);
-		$this->load->view('/template/footer',$data);
+		$this->load->view('/template/head');
+		$this->load->view('servicios/servicio');
+		$this->load->view('/template/footer');
     }
-    
-    public function agregarProducto()
+
+    public function formProducto()
     {
         $data['categorias'] = $this->CategoriaModel->obtenerCategorias();
 
         $this->load->view('/template/head',$data);
-		$this->load->view('Productos/AgregarProducto');
-		$this->load->view('/template/footer',$data);
+				$this->load->view('Productos/AgregarProducto');
+				$this->load->view('/template/footer',$data);
     }
+
+		public function modProducto()
+    {
+        $data['categorias'] = $this->CategoriaModel->obtenerCategorias();
+				$data['productos'] = $this->ProductoModel->obtenerProductos();
+
+        $this->load->view('/template/head',$data);
+				$this->load->view('Productos/modificarProducto', $data);
+				$this->load->view('/template/footer',$data);
+    }
+
+		public function borrarProducto()
+    {
+        $data['categorias'] = $this->CategoriaModel->obtenerCategorias();
+				$data['productos'] = $this->ProductoModel->obtenerProductos();
+
+        $this->load->view('/template/head',$data);
+				$this->load->view('Productos/borrarProducto', $data);
+				$this->load->view('/template/footer',$data);
+    }
+
+		public function agregarProducto()
+		{
+			 $config['upload_path'] = '././assets/img/Productos';
+			 $config['allowed_types'] = 'gif|jpg|png';
+			 $config['max_size'] = 100;
+			 $config['max_width'] = 5418;
+			 $config['max_height'] = 3048;
+			 $this->load->library('upload', $config);
+
+			 if (!$this->upload->do_upload('imagen'))
+			 {
+					 $error = array('error' => $this->upload->display_errors());
+					 $this->load->view('Producto', $error);
+			 } else {
+					 $data = array('upload_data' => $this->upload->data());
+
+					 $file_name = $this->upload->data('file_name');
+
+					 $base = base_url();
+
+					 $data = array(
+	 	  			'codigo' => $this->input->post('codigo'),
+	 	  			'nombre' => $this->input->post('nombre'),
+	 	        'descripcion' => $this->input->post('descripcion'),
+	 	        'precio' => $this->input->post('precio'),
+	 	        'descuento' => $this->input->post('descuento'),
+	 	        'marca'=> $this->input->post('marca'),
+	 	  			'cantidad' => $this->input->post('cantidad'),
+	 	        'habilitado' => $this->input->post('habilitado'),
+	 	        'nuevo' => $this->input->post('nuevo'),
+	 	        'categoria' => $this->input->post('categoria'),
+	 	        'imagen' => $base.'assets/img/productos/'.$file_name
+	   			);
+
+	 				$this->ProductoModel->crearProducto($data);
+
+	 				$previous = $_SERVER['HTTP_REFERER'];
+	 				redirect($previous);
+			 }
+		}
 }

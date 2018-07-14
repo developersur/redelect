@@ -77,7 +77,23 @@
 						<li><a href="#"><i class="fa fa-map-marker"></i> Barros Arana 492 oficina 78, Torre Ligure, Concepción</a></li>
 					</ul>
 					<ul class="header-links pull-right">
-						<li><a href="<?php echo base_url(); ?>index.php/Login"><i class="fas fa-user"></i> Mi cuenta</a></li>
+						<li class="dropdown">
+							<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="fas fa-user"></i> Mi cuenta</a>
+							<ul class="dropdown-menu">
+									<?php
+									if(!$this->session->logged_in)
+									{
+									?>
+											<li><a href="<?php echo base_url(); ?>index.php/Login">Ingresar</a></li>
+										<?php
+									}else{?>
+											<li><a href="<?php echo base_url(); ?>index.php/Admin">Administrar</a></li>
+											<li><a href="<?php echo base_url(); ?>index.php/Login/salir">Salir</a></li>
+									<?php
+									}?>
+							</ul>
+						</li>
+
 					</ul>
 				</div>
 			</div>
@@ -150,21 +166,21 @@
             <ul class="main-nav nav navbar-nav">
                 <li class="active"><a href="<?php echo base_url();?>index.php">Inicio</a></li>
                 <li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Productos<span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<?php if($categorias)
-						{
-							foreach($categorias->result() as $categoria)
-							{
-						 ?>
-						 			<li><a href="#"><?php echo $categoria->nombre; ?></a></li>
- 									<li role="separator" class="divider"></li>
-							<?php
-							}
-						}
-						?>
-					</ul>
-				</li>
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Productos<span class="caret"></span></a>
+									<ul class="dropdown-menu">
+										<?php if($categorias)
+										{
+											foreach($categorias->result() as $categoria)
+											{
+										 ?>
+										 			<li><a href="#"><?php echo $categoria->nombre; ?></a></li>
+				 									<li role="separator" class="divider"></li>
+											<?php
+											}
+										}
+										?>
+									</ul>
+								</li>
                 <li><a href="<?php echo base_url();?>index.php/Servicio">Nuestros servicios</a></li>
                 <li><a href="<?php echo base_url();?>index.php/QuienesSomos">Quienes somos</a></li>
                 <li><a href="<?php echo base_url(); ?>index.php/Contacto">Contactanos</a></li>

@@ -9,13 +9,15 @@ class LoginModel extends CI_model
     public function login($correo, $password)
     {
         $query = $this->db->get_where('usuario', array('correo' => $correo));
-        
+
         if($query->num_rows() == 1)
         {
             $row=$query->row();
             if(password_verify($password, $row->password))
             {
-                $data=array('user_data'=>array(
+                $this->session->logged_in = TRUE;
+
+                /*$data=array('user_data'=>array(
                     'nombre'=>$row->nombre,
                     'apellido'=>$row->apellido,
                     'id'=>$row->id,
@@ -23,7 +25,7 @@ class LoginModel extends CI_model
                     'rol'=>$row->rol,
                     'password'=>$row->password)
                 );
-                $this->session->set_userdata($data);
+                $this->session->set_userdata($data);*/
                 return true;
             }
         }
