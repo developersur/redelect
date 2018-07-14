@@ -97,20 +97,37 @@ $db['default'] = array(
 );
 */
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-// Localhost Alexis Ojeda
->>>>>>> 68ce36e50b8438f988ac8e511d53cb38bac74626
-=======
-// Localhost Alexis Ojeda
->>>>>>> 68ce36e50b8438f988ac8e511d53cb38bac74626
+/*BD Alexis Ojeda*/
+/*
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'redelect',
+	'database' => 'redelect_web',
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => (ENVIRONMENT !== 'production'),
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt' => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE
+);*/
+
+/*BD Luis Matamala*/
+$db['default'] = array(
+	'dsn'	=> '',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => '',
+	'database' => 'redelect_web',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -126,13 +143,8 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> 68ce36e50b8438f988ac8e511d53cb38bac74626
-=======
->>>>>>> 68ce36e50b8438f988ac8e511d53cb38bac74626
+/*BD hosting*/
 /*
 $db['default'] = array(
 	'dsn'	=> '',
@@ -154,13 +166,4 @@ $db['default'] = array(
 	'stricton' => FALSE,
 	'failover' => array(),
 	'save_queries' => TRUE
-<<<<<<< HEAD
-);*/
-=======
-);
-<<<<<<< HEAD
 */
->>>>>>> 68ce36e50b8438f988ac8e511d53cb38bac74626
-=======
-*/
->>>>>>> 68ce36e50b8438f988ac8e511d53cb38bac74626

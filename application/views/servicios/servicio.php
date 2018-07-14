@@ -1,9 +1,9 @@
-<div class="container" id="contenedor_servicio"> 
+<div class="container" id="contenedor_servicio">
     <div class="row">
         <div class="col-md-12">
         <fieldset>
             <legend class="text-center header">Nuestros servicios disponibles</legend>
-            
+
 
             <?php
             if($servicios)
@@ -20,12 +20,13 @@
                                         echo $servicio->descripcion;
                                     ?>
                                     </p>
+                                    <p><a href="#">Ver más</a></p>
                                 </div>
-                            </div>    
-                        </div>      
+                            </div>
+                        </div>
                 <?php
                 }
-            }?>   
+            }?>
         </fieldset>
         </div>
     </div>

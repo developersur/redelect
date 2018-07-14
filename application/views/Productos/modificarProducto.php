@@ -22,11 +22,6 @@
                                         <span class=""></span><a href="<?php echo base_url(); ?>index.php/Producto/modProducto">Modificar producto</a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <span class=""></span><a href="<?php echo base_url(); ?>index.php/Producto/borrarProducto">Eliminar producto</a>
-                                    </td>
-                                </tr>
                             </table>
                         </div>
                     </div>
@@ -51,11 +46,6 @@
                                         <span class=""></span><a href="">Modificar categoría</a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <span class=""></span><a href="">Eliminar categoría</a>
-                                    </td>
-                                </tr>
                             </table>
                         </div>
                     </div>
@@ -78,11 +68,6 @@
                                 <tr>
                                     <td>
                                         <span class=""></span><a href="">Modificar servicio</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class=""></span><a href="">Eliminar servicio</a>
                                     </td>
                                 </tr>
                             </table>
@@ -127,6 +112,30 @@
                         </div>
                     </div>
                 </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix"><span class="">
+                            </span>Otros</a>
+                        </h4>
+                    </div>
+                    <div id="collapseSix" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <span class=""></span><a href="">Valor visita técnico</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class=""></span><a href="">Planos y listado de materiales</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-sm-9 col-md-9">
@@ -138,8 +147,10 @@
                     <th>Nombre</th>
                     <th>Descripción</th>
                     <th>Precio</th>
+                    <th>Habilitado</th>
                     <th>Imagen</th>
                     <th>Modificar</th>
+                    <th>Estado</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -153,8 +164,19 @@
                       <td><?php echo $producto->nombre; ?></td>
                       <td><?php echo $producto->descripcion; ?></td>
                       <td><?php echo $producto->precio; ?></td>
+                      <td><?php echo $producto->habilitado; ?></td>
                       <td><img src="<?php echo $producto->imagen; ?>" alt="" width="30" height="30"></td>
                       <td><button type="button" class="btn btn-info btn-xs">Modificar</button></td>
+                      <?php if($producto->habilitado == 'si')
+                      {
+                      ?>
+                        <td><button type="button" class="btn btn-warning btn-xs">Desabilitar</button></td>
+                      <?php
+                      }else{
+                      ?>
+                        <td><button type="button" class="btn btn-success btn-xs">Habilitar</button></td>
+                      <?php
+                      }?>
                     </tr>
                     <?php
                     }

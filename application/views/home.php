@@ -1,5 +1,5 @@
 
-               
+
 
 <!-- SECTION -->
 <div class="section">
@@ -43,7 +43,7 @@
                     </div>
                     <div class="shop-body">
                         <h3>Instituciones</h3>
-                        <a href="#" class="cta-btn">Ver mas<i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="<?php echo base_url(); ?>index.php/Institucion" class="cta-btn">Ver mas<i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -54,4 +54,3 @@
     <!-- /container -->
 </div>
 <!-- /SECTION -->
-

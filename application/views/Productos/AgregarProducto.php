@@ -22,11 +22,6 @@
                                         <span class=""></span><a href="<?php echo base_url(); ?>index.php/Producto/modProducto">Modificar producto</a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <span class=""></span><a href="<?php echo base_url(); ?>index.php/Producto/borrarProducto">Eliminar producto</a>
-                                    </td>
-                                </tr>
                             </table>
                         </div>
                     </div>
@@ -51,11 +46,6 @@
                                         <span class=""></span><a href="">Modificar categoría</a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <span class=""></span><a href="">Eliminar categoría</a>
-                                    </td>
-                                </tr>
                             </table>
                         </div>
                     </div>
@@ -78,11 +68,6 @@
                                 <tr>
                                     <td>
                                         <span class=""></span><a href="">Modificar servicio</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class=""></span><a href="">Eliminar servicio</a>
                                     </td>
                                 </tr>
                             </table>
@@ -121,6 +106,30 @@
                                 <tr>
                                     <td>
                                         <span class=""></span><a href="">Ventas por periódo</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix"><span class="">
+                            </span>Otros</a>
+                        </h4>
+                    </div>
+                    <div id="collapseSix" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <span class=""></span><a href="">Valor visita técnico</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class=""></span><a href="">Planos y listado de materiales</a>
                                     </td>
                                 </tr>
                             </table>
