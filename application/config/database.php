@@ -97,13 +97,13 @@ $db['default'] = array(
 );
 */
 
-/*
+// Localhost Alexis Ojeda
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'redelect_web',
+	'database' => 'redelect',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -119,7 +119,7 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
-*/
+/*
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'redelect.cl',
@@ -141,3 +141,4 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+*/

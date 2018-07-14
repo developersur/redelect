@@ -35,12 +35,21 @@
 
 		<!--  -->
 		<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/slick.css"/>
-
+		
 		<!-- Mis Estilos Alexis -->
 		<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/estilos.css"/>
 
 		<!---JQUERY-->
 		<script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
+		
+		<!-- Calendario con hora  -->
+		<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/jquery.datetimepicker.css"/>
+
+		<!-- Calendario con horas -->
+		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.datetimepicker.js"></script>
+		
+
+
 
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-122092742-1"></script>
