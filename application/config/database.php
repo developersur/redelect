@@ -98,6 +98,10 @@ $db['default'] = array(
 */
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+// Localhost Alexis Ojeda
+>>>>>>> 68ce36e50b8438f988ac8e511d53cb38bac74626
 =======
 // Localhost Alexis Ojeda
 >>>>>>> 68ce36e50b8438f988ac8e511d53cb38bac74626
@@ -123,7 +127,10 @@ $db['default'] = array(
 	'save_queries' => TRUE
 );
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> 68ce36e50b8438f988ac8e511d53cb38bac74626
 =======
 >>>>>>> 68ce36e50b8438f988ac8e511d53cb38bac74626
 /*
@@ -151,5 +158,9 @@ $db['default'] = array(
 );*/
 =======
 );
+<<<<<<< HEAD
+*/
+>>>>>>> 68ce36e50b8438f988ac8e511d53cb38bac74626
+=======
 */
 >>>>>>> 68ce36e50b8438f988ac8e511d53cb38bac74626
