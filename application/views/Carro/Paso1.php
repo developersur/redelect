@@ -60,13 +60,49 @@
         });
     });
 
+    // Validad el Formulario por PHP
+    $(document).ready(function () {
+        $(document).on("click","#Enviar", function (e) {
+            e.preventDefault();
+            var  form = $("#Formulario");
+
+            $.ajax({
+                url: "<?php echo base_url(); ?>index.php/Carro/Validar_Paso_1",
+                type: "POST",
+                data: form.serialize(),
+                success:function(data){
+                    switch (data) {
+                        // Todo bien, envia el formulario
+                        case '1':
+                            $(".mensaje_validacion").html("");
+                            form.submit();
+                            break;
+                        // Existen errores, los muestra
+                        default:
+                            $(".mensaje_validacion").html(data);
+                            break;
+                    }
+                }
+            })
+        });
+    });
 </script>
 
+<?php if(isset($_SESSION['datos_sesion'])) $datasesion = $_SESSION['datos_sesion']; ?>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        setTimeout(function() {
+            $(".regiones option[value='<?php echo $datasesion['region_dir']; ?>']").prop('selected', true);
+            jQuery('.regiones').change();
+            $(".comunas option[value='<?php echo $datasesion['comuna_dir']; ?>']").prop('selected', true);
+            $("#tipo option[value='<?php echo $datasesion['tipo']; ?>']").prop('selected', true);
+            jQuery('#tipo').change();
+        }, 500)
+    });
+</script>
+            
 <div class="container" id="contenedor_quienessomos">
-
-    <?php if(isset($_SESSION['datos_sesion'])) $datasesion = $_SESSION['datos_sesion']; ?>
-    
     <div id="resultados"></div>
 
     <div class="row">
@@ -74,9 +110,11 @@
         Paso 1        
         <fieldset>
         <legend class="text-center header titulo">Paso 1 - Complete su información</legend>
+            
+            <div class="mensaje_validacion"></div>  
+            
             <div class="contenido_formulario">
-                    
-                <form action="<?php echo base_url(); ?>index.php/Carro/Paso2" method="POST">
+                <form action="<?php echo base_url(); ?>index.php/Carro/Paso2" method="POST" id="Formulario">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="col-md-4">
@@ -118,11 +156,11 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="rut_fac">RUT</label>
-                                        <input type="text" class="form-control input_rut" id="rut_fac" name="rut_fac" placeholder="RUT">
+                                        <input type="text" class="form-control input_rut" id="rut_fac" name="rut_fac" placeholder="RUT" value="<?php if(isset($datasesion)) echo $datasesion['rut_fac']; ?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="telefono_fac">Teléfono</label>
-                                        <input type="text" class="form-control" id="telefono_fac" name="telefono_fac" placeholder="Teléfono">
+                                        <input type="text" class="form-control" id="telefono_fac" name="telefono_fac" placeholder="Teléfono" value="<?php if(isset($datasesion)) echo $datasesion['telefono_fac']; ?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="comuna_fac">Comuna</label>
@@ -130,27 +168,27 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="nro_calle_fac">Número</label>
-                                        <input type="text" class="form-control" id="nro_calle_fac" name="nro_calle_fac" placeholder="Nro Calle">
+                                        <input type="text" class="form-control" id="nro_calle_fac" name="nro_calle_fac" placeholder="Nro Calle" value="<?php if(isset($datasesion)) echo $datasesion['nro_calle_fac']; ?>">
                                     </div>
                                 </div>    
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="razon_fac">Razon Social</label>
-                                        <input type="text" class="form-control" id="razon_fac" name="razon_fac" placeholder="Razon Social">
+                                        <input type="text" class="form-control" id="razon_fac" name="razon_fac" placeholder="Razon Social" value="<?php if(isset($datasesion)) echo $datasesion['razon_fac']; ?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="cocorreo_facrreo">Correo</label>
-                                        <input type="text" class="form-control" id="correo_fac" name="correo_fac" placeholder="Correo">
+                                        <input type="text" class="form-control" id="correo_fac" name="correo_fac" placeholder="Correo" value="<?php if(isset($datasesion)) echo $datasesion['correo_fac']; ?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="sector_fac">Sector</label>
-                                        <input type="text" class="form-control" id="sector_fac" name="sector_fac" placeholder="Sector">
+                                        <input type="text" class="form-control" id="sector_fac" name="sector_fac" placeholder="Sector" value="<?php if(isset($datasesion)) echo $datasesion['sector_fac']; ?>">
                                     </div>
                                 </div>  
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="giro_fac">Giro</label>
-                                        <input type="text" class="form-control" id="giro_fac" name="giro_fac" placeholder="Giro">
+                                        <input type="text" class="form-control" id="giro_fac" name="giro_fac" placeholder="Giro" value="<?php if(isset($datasesion)) echo $datasesion['giro_fac']; ?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="region_fac">Región</label>
@@ -158,7 +196,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="calle_fac">Calle</label>
-                                        <input type="text" class="form-control" id="calle_fac" name="calle_fac" placeholder="Calle">
+                                        <input type="text" class="form-control" id="calle_fac" name="calle_fac" placeholder="Calle" value="<?php if(isset($datasesion)) echo $datasesion['calle_fac']; ?>">
                                     </div>
                                 </div> 
                                 <div class="clearfix visible-xs"></div>
@@ -167,7 +205,7 @@
 
 
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-default">Continuar</button>
+                            <button type="submit" id="Enviar" class="btn btn-default">Continuar</button>
                         </div> 
                         <br>
                         <br>

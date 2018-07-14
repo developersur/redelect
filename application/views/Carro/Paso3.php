@@ -66,7 +66,7 @@
         <div class="contenido_formulario">
             
             <!-- Si es por Webpay -->
-            <?php if ($data_post['metodo_pago ']=="WEBPAY") { ?>
+            <?php if ($data_post['metodo_pago']=="WEBPAY") { ?>
                 <!-- Si la conexion con Webpay se realiza correctamente -->
                 <?php if (isset($WebPayResultado->token) and !empty($WebPayResultado->token)) { ?>
                     <form action="<?php echo $WebPayResultado->url; ?>" method="POST">
@@ -83,7 +83,7 @@
                 <?php } ?>
             <?php } ?>
             <!-- Si es por Transferencia -->
-            <?php if ($data_post['metodo_pago ']=="TRANSFERENCIA") { ?>
+            <?php if ($data_post['metodo_pago']=="TRANSFERENCIA") { ?>
                 <form action="<?php echo base_url(); ?>index.php/Carro/ProcesarPago" method="POST">
                     <div class="row">
                         <div class="col-md-12">

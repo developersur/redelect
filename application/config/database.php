@@ -97,12 +97,16 @@ $db['default'] = array(
 );
 */
 
+<<<<<<< HEAD
+=======
+// Localhost Alexis Ojeda
+>>>>>>> 68ce36e50b8438f988ac8e511d53cb38bac74626
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'redelect_web',
+	'database' => 'redelect',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -118,7 +122,10 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+<<<<<<< HEAD
 
+=======
+>>>>>>> 68ce36e50b8438f988ac8e511d53cb38bac74626
 /*
 $db['default'] = array(
 	'dsn'	=> '',
@@ -140,4 +147,9 @@ $db['default'] = array(
 	'stricton' => FALSE,
 	'failover' => array(),
 	'save_queries' => TRUE
+<<<<<<< HEAD
 );*/
+=======
+);
+*/
+>>>>>>> 68ce36e50b8438f988ac8e511d53cb38bac74626

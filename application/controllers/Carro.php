@@ -11,6 +11,71 @@ class Carro extends CI_Controller {
 		$this->load->view('/template/footer');
 	}
 
+
+
+	// Validar Paso 1
+	function Validar_Paso_1(){
+
+		// Validacion
+		$this->form_validation->set_error_delimiters('<i class="fas fa-exclamation-triangle"></i> ', '<br>');
+		$this->form_validation->set_rules('tipo', 'Tipo', 'required');
+		$this->form_validation->set_rules('rut_con', 'RUT', 'required|min_length[8]|max_length[13]');
+		$this->form_validation->set_rules('nombre_con', 'Nombre contacto', 'required|min_length[4]');
+		$this->form_validation->set_rules('telefono_con', 'Teléfono/Celular contacto', 'required|min_length[9]|max_length[20]|numeric');
+		$this->form_validation->set_rules('correo_con', 'Correo contacto', 'required|valid_email');
+		
+		if ($this->input->post('tipo')=="Factura") {
+			$this->form_validation->set_rules('rut_fac', 'RUT facturación', 'required|min_length[8]|max_length[13]');
+			$this->form_validation->set_rules('razon_fac', 'Razón Social facturación', 'required');
+			$this->form_validation->set_rules('giro_fac', 'Giro facturación', 'required');
+			$this->form_validation->set_rules('telefono_fac', 'Teléfono facturación', 'required');
+			$this->form_validation->set_rules('correo_fac', 'Correo facturación', 'required');
+			$this->form_validation->set_rules('region_fac', 'Región facturación', 'required');
+			$this->form_validation->set_rules('comuna_fac', 'Comuna facturación', 'required');
+			$this->form_validation->set_rules('sector_fac', 'Sector facturación', 'required');
+			$this->form_validation->set_rules('calle_fac', 'Calle facturación', 'required');
+			$this->form_validation->set_rules('nro_calle_fac', 'Nro calle facturación', 'required');
+		}
+
+		// Si no se introducen los datos conrrectamente
+	    if ($this->form_validation->run() == FALSE){
+			echo '<div class="alert alert-danger">';
+			echo validation_errors();
+			echo '</div>';
+	    
+	    // Si estan correctos
+	    } else {
+	    	echo "1";
+	    }
+	}
+
+
+
+
+	// Validar Paso 2
+	function Validar_Paso_2(){
+
+		// Validacion
+		$this->form_validation->set_error_delimiters('<i class="fas fa-exclamation-triangle"></i> ', '<br>');
+
+		$this->form_validation->set_rules('region_dir', 'Región', 'required');
+		$this->form_validation->set_rules('comuna_dir', 'Comuna', 'required');
+		$this->form_validation->set_rules('sector_dir', 'Sector', 'required');
+		$this->form_validation->set_rules('calle_dir', 'Calle', 'required');
+		$this->form_validation->set_rules('nro_calle_dir', 'Nro calle', 'required');
+
+		// Si no se introducen los datos conrrectamente
+	    if ($this->form_validation->run() == FALSE){
+			echo '<div class="alert alert-danger">';
+			echo validation_errors();
+			echo '</div>';
+	    
+	    // Si estan correctos
+	    } else {
+	    	echo "1";
+	    }
+	}
+
 	// Paso 1 para la compra
 	public function Paso1()
 	{
@@ -83,7 +148,7 @@ class Carro extends CI_Controller {
 			$indicaciones_dir = $_SESSION['datos_sesion']['indicaciones_dir'];
 			$fecha_visita     = $_SESSION['datos_sesion']['fecha_visita'];
 			$hora_visita      = $_SESSION['datos_sesion']['hora_visita'];
-			$metodo_pago      = $_SESSION['datos_sesion']['metodo_pago '];
+			$metodo_pago      = $_SESSION['datos_sesion']['metodo_pago'];
 		}
 		// Fin Paso 2 - Inicializa variables 
 
@@ -116,7 +181,7 @@ class Carro extends CI_Controller {
 			'indicaciones_dir' => $indicaciones_dir,
 			'fecha_visita'     => $fecha_visita,
 			'hora_visita'      => $hora_visita,
-			'metodo_pago '     => $metodo_pago 
+			'metodo_pago'      => $metodo_pago
 		);
 		
 		$_SESSION['datos_sesion'] = $data_sesion;
@@ -217,7 +282,7 @@ class Carro extends CI_Controller {
 			$indicaciones_dir = $_SESSION['datos_sesion']['indicaciones_dir'];
 			$fecha_visita     = $_SESSION['datos_sesion']['fecha_visita'];
 			$hora_visita      = $_SESSION['datos_sesion']['hora_visita'];
-			$metodo_pago      = $_SESSION['datos_sesion']['metodo_pago '];
+			$metodo_pago      = $_SESSION['datos_sesion']['metodo_pago'];
 		}
 		// Fin Paso 2 - Inicializa variables 
 
@@ -250,7 +315,7 @@ class Carro extends CI_Controller {
 			'indicaciones_dir' => $indicaciones_dir,
 			'fecha_visita'     => $fecha_visita,
 			'hora_visita'      => $hora_visita,
-			'metodo_pago '     => $metodo_pago 
+			'metodo_pago'      => $metodo_pago 
 		);	
 
 		$_SESSION['datos_sesion'] = $data_sesion;
@@ -311,7 +376,7 @@ class Carro extends CI_Controller {
 		$indicaciones_dir = $_POST['indicaciones_dir'];
 		$fecha_visita     = $_POST['fecha_visita'];
 		$hora_visita      = $_POST['hora_visita'];
-		$metodo_pago      = $_POST['metodo_pago '];
+		$metodo_pago      = $_POST['metodo_pago'];
 		// Fin Paso 2 - Asigna valor Inicializa variables 
 		
 		
@@ -343,7 +408,7 @@ class Carro extends CI_Controller {
 			'indicaciones_dir' => $indicaciones_dir,
 			'fecha_visita'     => $fecha_visita,
 			'hora_visita'      => $hora_visita,
-			'metodo_pago '     => $metodo_pago 
+			'metodo_pago'     => $metodo_pago 
 		);
 		
 		// Incluye los datos en la sesion por si se devuelve a un paso anterior
@@ -502,7 +567,7 @@ class Carro extends CI_Controller {
 					'indicaciones_dir' => $dcompra['indicaciones_dir'],
 					'fecha_visita'     => $dcompra['fecha_visita'],
 					'hora_visita'      => $dcompra['hora_visita'],
-					'metodo_pago '     => $dcompra['metodo_pago'],
+					'metodo_pago'     => $dcompra['metodo_pago'],
 					'status_compra'    => "GENERADA",
 					'status_pago'      => "POR VERIFICAR",
 					'total'      	   => round($this->cart->total())
@@ -513,10 +578,7 @@ class Carro extends CI_Controller {
 				} else {
 					$data['error'] = "Error al registrar losd datos";
 				}
-				
-
-				echo var_dump($dcompra);
-
+				//echo var_dump($dcompra);
 			}
 
 
@@ -526,7 +588,7 @@ class Carro extends CI_Controller {
 		
 		$this->load->view('/template/head');
 		$this->load->view('Carro/ProcesarPago',$data);
-		//$this->load->view('/template/footer');
+		$this->load->view('/template/footer');
 	}
 
 

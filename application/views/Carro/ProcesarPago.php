@@ -14,14 +14,14 @@
     <fieldset>
     <legend class="text-center header titulo">Pago Proceso</legend>
             
-        <?php if($error!="") { ?>
+        <?php if(isset($error) and $error!="") { ?>
             <h4>Atención</h4>
             <div class="alert alert-warning"><i class="fas fa-exclamation-triangle"></i>
                 <?php echo $error; ?>
             </div>
         <?php } ?>
 
-        <?php if($mensaje!="") { ?>
+        <?php if(isset($mensaje) and $mensaje!="") { ?>
             <h4>Resultado</h4>
             <div class="alert alert-success"><i class="fas fa-check-circle"></i>
                 <?php echo $mensaje; ?>

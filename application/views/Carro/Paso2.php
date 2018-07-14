@@ -32,12 +32,75 @@ $(document).ready(function () {
     });
 });
 
+    // Validad el Formulario por PHP
+    $(document).ready(function () {
+        
+
+        $(document).on("click","#Enviar", function (e) {
+            e.preventDefault();
+            var  form = $("#Formulario");
+
+            $.ajax({
+                url: "<?php echo base_url(); ?>index.php/Carro/Validar_Paso_2",
+                type: "POST",
+                data: form.serialize(),
+                success:function(data){
+                    switch (data) {
+                        // Todo bien, envia el formulario
+                        case '1':
+                            $(".mensaje_validacion").html("");
+                            form.submit();
+                            break;
+                        // Existen errores, los muestra
+                        default:
+                            $(".mensaje_validacion").html(data);
+                            break;
+                    }
+                }
+            })
+        });
+    });
 
 </script>
 
+        <script type="text/javascript">
+             $(document).ready(function () {
+                
+				// Calendario con hora
+                jQuery.datetimepicker.setLocale('es');
+                $("#fecha_visita").datetimepicker({
+                    timepicker:false,
+                    format:'d-m-Y',
+                    minDate:'+1970/01/02'
+                });
+                $("#hora_visita").datetimepicker({
+                    datepicker:false,
+                    format:'H:i',
+                    allowTimes:[
+                        '08:00', '10:00', '12:00', '14:00', '16:00', '18:00'
+                    ]
+                });
+    		});
+        </script>         
+    
+    
+<?php if(isset($_SESSION['datos_sesion'])) $datasesion = $_SESSION['datos_sesion']; ?>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        setTimeout(function() {
+            $(".regiones option[value='<?php echo $datasesion['region_dir']; ?>']").prop('selected', true);
+                jQuery('.regiones').change();
+                $(".comunas option[value='<?php echo $datasesion['comuna_dir']; ?>']").prop('selected', true);
+        }, 500)
+    });
+</script>
+
+                
+        
 <div class="container" id="contenedor_quienessomos">
 
-<?php if(isset($_SESSION['datos_sesion'])) $datasesion = $_SESSION['datos_sesion']; ?>
+
 <div id="resultados"></div>
 
 <div class="row">
@@ -46,9 +109,11 @@ $(document).ready(function () {
     
     <fieldset>
     <legend class="text-center header titulo">Paso 2 - Datos de la Instalación</legend>
+        
+        <div class="mensaje_validacion"></div>  
+        
         <div class="contenido_formulario">
-                
-            <form action="<?php echo base_url(); ?>index.php/Carro/Paso3" method="POST">
+            <form action="<?php echo base_url(); ?>index.php/Carro/Paso3" method="POST" id="Formulario">
                 <div class="row">
                     <div class="col-md-12">
                             <div class="col-md-4">
@@ -98,7 +163,7 @@ $(document).ready(function () {
                                     <div class="form-group boton_webpay_form">
                                         <label>WebPay</label><br>
                                         <label class="radio-inline">
-                                            <input type="radio" name="metodo_pago " id="metodo_pago " value="WEBPAY" checked=""> <img src="https://www.libreriagiorgio.cl/assets/img/icono_webpay.png" width="200px">
+                                            <input type="radio" name="metodo_pago" id="metodo_pago" value="WEBPAY" checked=""> <img src="https://www.libreriagiorgio.cl/assets/img/icono_webpay.png" width="200px">
                                         </label>
                                     </div>
                                 </div>
@@ -108,7 +173,7 @@ $(document).ready(function () {
                                     <div class="form-group boton_webpay_form">
                                         <label>Transferencias</label><br>
                                         <label class="radio-inline">
-                                            <input type="radio" name="metodo_pago " id="metodo_pago " value="TRANSFERENCIA"> 
+                                            <input type="radio" name="metodo_pago" id="metodo_pago" value="TRANSFERENCIA"> 
                                             <img src="https://www.libreriagiorgio.cl/assets/img/icono_transferencia.png" width="120px">
                                             Al realizar la transferencia debe enviar la información del pago
                                         </label>
@@ -135,7 +200,7 @@ $(document).ready(function () {
 
 
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-default">Continuar</button>
+                            <button type="submit" class="btn btn-default" id="Enviar">Continuar</button>
                         </div> 
                         <br>
                         <br>
