@@ -11,24 +11,22 @@ class Login extends CI_Controller
 
 	public function index()
 	{
-		   // categorias para la pagina principal
-		   $data['categorias'] = $this->CategoriaModel->obtenerCategorias();
-
-        $this->form_validation->set_rules('username' ,'Correo', 'required');
-        $this->form_validation->set_rules('password' ,'Password', 'required|callback_verifica');
-
-        if($this->form_validation->run() == false)
-        {
-            $this->load->view('template/head', $data);
-            $this->load->view('login/login');
-            $this->load->view('template/footer', $data);
-        }
-        else
-        {
-            $this->load->view('template/head', $data);
-            $this->load->view('admin/index');
-            $this->load->view('template/footer', $data);
-        }
+		// categorias para la pagina principal
+		$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
+		$this->form_validation->set_rules('username' ,'Correo', 'required');
+		$this->form_validation->set_rules('password' ,'Password', 'required|callback_verifica');
+		if($this->form_validation->run() == false)
+		{
+			 $this->load->view('template/head', $data);
+			 $this->load->view('login/login');
+			 $this->load->view('template/footer', $data);
+		}
+		else
+		{
+			 $this->load->view('template/head', $data);
+			 $this->load->view('admin/index');
+			 $this->load->view('template/footer', $data);
+		}
 	}
 
   public function verifica()

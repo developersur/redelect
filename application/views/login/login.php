@@ -47,22 +47,35 @@
                             <!--</form>-->
 
                             <?php
-                            echo validation_errors();
+                            if(isset($error)){
+                              echo $error;
+                            }
                             $attributes = array('id' => 'register-form', 'style' => 'display: none');
-                            echo form_open('Registrar', $attributes); ?>
+                            echo form_open('Usuario/registrarUsuario', $attributes); ?>
                             <!--<form id="register-form" action="" method="post" role="form" style="display: none;">-->
                                 <div class="form-group">
-                                    <input type="text" name="username2" id="username2" tabindex="1" class="form-control" placeholder="Usuario">
+                                    <input type="text" name="nombre_con" id="nombre_con" class="form-control" placeholder="Nombre completo" class="form-control" minlength="5" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" name="email2" id="email2" tabindex="1" class="form-control" placeholder="Email">
+                                    <input type="text" name="rut_con" id="rut_con" class="form-control" placeholder="RUT" minlength="6" required>
                                 </div>
+
                                 <div class="form-group">
-                                    <input type="password" name="password2" id="password2" tabindex="2" class="form-control" placeholder="Contraseña">
+                                    <input type="text" name="telefono" id="telefono" class="form-control" placeholder="Teléfono o celular" minlength="6" required>
                                 </div>
+
                                 <div class="form-group">
-                                    <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirmar contraseña">
+                                    <input type="email" name="correo" id="rut_con" class="form-control" placeholder="Email" required>
                                 </div>
+
+                                <div class="form-group">
+                                    <input type="password" name="pass1" id="pass1" class="form-control" placeholder="Contraseña" minlength="4" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="password" name="pass2" id="pass2" class="form-control" placeholder="Repite contraseña" minlength="4" required>
+                                </div>
+
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">
