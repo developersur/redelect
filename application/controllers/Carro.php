@@ -418,7 +418,9 @@ class Carro extends CI_Controller {
 		$_SESSION['datos']   = $data['data_post'];
 		// Datos Productos
 		$_SESSION['carrito'] = $this->cart->contents();
-		
+		// Datos Productos
+		$_SESSION['total']   = round($this->cart->total());
+
 		// ------- WEBPAY ------- //
 		require_once('assets/webpay/libwebpay/webpay.php');
 		require_once('assets/webpay/certificates/cert-normal.php');
@@ -426,7 +428,7 @@ class Carro extends CI_Controller {
 
 		// -- Inicio Datos para la transaccion --//
 		$base_url       = base_url();
-		$total          = rand();    // Monto de la transacción
+		$total          = round($this->cart->total());    // Monto de la transacción
 		$NroCompra      = rand();    // Orden de compra de la tienda
 		$SesionID       = uniqid();  //ID para la sesion 
 		$urlProcesar    = $base_url."index.php/Carro/ProcesarPago/"; // URL de retorno
@@ -443,62 +445,153 @@ class Carro extends CI_Controller {
 	// Procesa el Pago ya sea por Webpay o Transferencia
 	public function ProcesarPago()
 	{	
+
 		// Si no existe la sesion con los datos de la compra
 		if(!isset($_SESSION['datos'])) {
 			header("Location: ".base_url()."index.php/Carro/Paso1");
+			exit;
 		}
 		if(isset($_SESSION['datos']) and $_SESSION['datos']==null) {
 			header("Location: ".base_url()."index.php/Carro/Paso1");
+			exit;
+		}
+		// Si no existe la sesion con los datos de la compra
+		if(!isset($_SESSION['total'])) {
+			header("Location: ".base_url()."index.php/Carro/Paso1");
+			exit;
+		}
+		if(isset($_SESSION['total']) and $_SESSION['total']==null) {
+			header("Location: ".base_url()."index.php/Carro/Paso1");
+			exit;
 		}
 		// Si no existe la sesion con los datos de los productos
 		if(!isset($_SESSION['carrito'])) {
-				header("Location: ".base_url()."index.php/Carro/Paso1");
+			header("Location: ".base_url()."index.php/Carro/Paso1");
+			exit;
 		}
 		if(isset($_SESSION['carrito']) and $_SESSION['carrito']==null) {
 			header("Location: ".base_url()."index.php/Carro/Paso1");
+			exit;
 		}
 
 		// Carga Modelo
 		$this->load->model('WebpayModel');
 		$this->load->model('CompraModel');
+		$this->load->model('CategoriaModel');
 		
+		// categorias para la pagina principal
+		$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
+				
 		$data['mensaje'] = "";
 		$data['error']   = "";
 		
 		// Si se recibe token o transferencia la compra va bien
 		if(((isset($_POST["token_ws"]) and $_POST["token_ws"]!="")) or ((isset($_POST["transferencia"])) and ($_POST['transferencia']))) {
-			
+
 			// Recibe los datos de las sesiones de la compra
-			if($_SESSION['datos']!==null and $_SESSION['carrito']!==null) {
+			if($_SESSION['datos']!==null and $_SESSION['carrito']!==null and $_SESSION['total']!==null) {
 				$dcompra   = $_SESSION['datos'];
 				$dproducto = $_SESSION['carrito'];
+				$total     = $_SESSION['total'];
 			}
 
-			// Si se recibe el token es Webpay
-			if((isset($_POST["token_ws"]) and $_POST["token_ws"]!="")) {
-			
-				// ------- WEBPAY ------- //
-				require_once('assets/webpay/libwebpay/webpay.php');
-				require_once('assets/webpay/certificates/cert-normal.php');
-				require_once('assets/webpay/iniciar.php');
+			// -- Inicialmente registra la compra sin los datos del pago -- // 
+			$data = array(
+				"id_cliente"       => 0,
+				"id_webpay"        => 0,
+				"token"            => "0",
+				"nro_transferencia"=> "",
+				"tipo"             => $dcompra['tipo'],
+				"rut_con"          => $dcompra['rut_con'],
+				"nombre_con"       => $dcompra['nombre_con'],
+				"telefono_con"     => $dcompra['telefono_con'],
+				"correo_con"       => $dcompra['correo_con'],
+				"rut_fac"          => $dcompra['rut_fac'],
+				"razon_fac"        => $dcompra['razon_fac'],
+				"telefono_fac"     => $dcompra['telefono_fac'],
+				"correo_fac"       => $dcompra['correo_fac'],
+				"giro_fac"         => $dcompra['giro_fac'],
+				"region_fac"       => $dcompra['region_fac'],
+				"comuna_fac"       => $dcompra['comuna_fac'],
+				"sector_fac"       => $dcompra['sector_fac'],
+				"calle_fac"        => $dcompra['calle_fac'],
+				"nro_calle_fac"    => $dcompra['nro_calle_fac'],
+				'region_dir'       => $dcompra['region_dir'],
+				'comuna_dir'       => $dcompra['comuna_dir'],
+				'sector_dir'       => $dcompra['sector_dir'],
+				'calle_dir'        => $dcompra['calle_dir'],
+				'nro_calle_dir'    => $dcompra['nro_calle_dir'],
+				'indicaciones_dir' => $dcompra['indicaciones_dir'],
+				'fecha_visita'     => $dcompra['fecha_visita'],
+				'hora_visita'      => $dcompra['hora_visita'],
+				'metodo_pago'     =>  $dcompra['metodo_pago'],
+				'status_compra'    => "REGISTRADA",
+				'status_pago'      => "SIN PROCESAR",
+				'total'      	   => $total
+			);
+
+			// Registra el encabezado de la compra
+			if($id_compra = $this->CompraModel->RegistrarCompra($data)) {
+				//unset($_SESSION['datos']);
+				//unset($_SESSION['carrito']);
+
+				// Recorre los productos del carrito para guardarlo en los detalles
+				foreach ($dproducto as $item) {
+
+					// Array con los datos del carrito
+					$data_productos = array(
+						'id_compra'            => $id_compra,
+						'id_producto'          => $item['id'],
+						'codigo_producto'      => $item['codigo'],
+						'nombre_producto'      => $item['name'],
+						'descripcion_producto' => $item['descripcion'],
+						'cantidad'             => $item['qty'],
+						'precio'               => $item['price'],
+						'imagen'               => $item['imagen']
+					);
+
+					// Registra los detalles de los productos
+					if($this->CompraModel->RegistrarDetalles($data_productos)) {
+						$error = FALSE; // No hubo error al registrar los detalles
+					} else {
+						$error = TRUE; // Hubo error al registrar los detalles
+					}
+				}
+			// Si no se registra correctamente
+			} else {
+				$id_compra = 0;
+			}
+			// ---------------------- //
+
+
+			// Si los datos de la compra se registran correctamente se le asigna un numero de compra mayor a a cero
+			if($id_compra>0 and $error==FALSE) {
 				
-				$token = filter_input(INPUT_POST, 'token_ws');
+				// -- WEBPAY -- //
+				// Si se recibe el token es Webpay
+				if((isset($_POST["token_ws"]) and $_POST["token_ws"]!="")) {
+				
+					// ------- WEBPAY ------- //
+					require_once('assets/webpay/libwebpay/webpay.php');
+					require_once('assets/webpay/certificates/cert-normal.php');
+					require_once('assets/webpay/iniciar.php');
+					
+					$token = filter_input(INPUT_POST, 'token_ws');
 
-				// Rescatamos resultado y datos de la transaccion
-				$WebPayResultado = $webpay->getNormalTransaction()->getTransactionResult($token);
+					// Rescatamos resultado y datos de la transaccion
+					$WebPayResultado = $webpay->getNormalTransaction()->getTransactionResult($token);
 
-				// Se verificamos el resultado de la transacción
-				if(isset($WebPayResultado->detailOutput->responseCode))  {
-					if ($WebPayResultado->detailOutput->responseCode === 0) {
-						echo "Pago Aceptado";
-						echo var_dump($WebPayResultado);
+					// Se verificamos el resultado de la transacción
+					if(isset($WebPayResultado->detailOutput->responseCode))  {
 						
+						// Este o no aprobado se registran los datos de la transaccion
 						$TipoPagoDescripcion  = DescripcionTipoPago($WebPayResultado->detailOutput->paymentTypeCode);
 						$RespuestaDescripcion = DescripcionRespuesta($WebPayResultado->detailOutput->responseCode);
 						$VCIDescripcion       = DescripcionVCI($WebPayResultado->VCI);
-
+						
 						// --- REGISTRA LOS DETALLES DEL PAGO DE WEBPAY --- //
 						$data_pago = array(
+							'id_compra'           => $id_compra,
 							'token'               => $token,
 							'accountingDate'      => $WebPayResultado->accountingDate,
 							'buyOrder'            => $WebPayResultado->buyOrder,
@@ -524,62 +617,95 @@ class Carro extends CI_Controller {
 						);
 
 						$id_pago_webpay = $this->WebpayModel->RegistrarPago($data_pago);
-						echo var_dump($id_pago_webpay);
+
+
+						// PAGO ACEPTADO
+						if ($WebPayResultado->detailOutput->responseCode === 0) {
+							
+							// -- Actualiza compra con la informacion -- //
+							$datos_compra = array(
+								'id_webpay'             => $id_pago_webpay,
+								'token'                 => $token,
+								'status_compra'         => "PAGADA",
+								'status_pago'           => "PAGO CONFIRMADO",
+								'informacion_adicional' => "Se recibio el Token pero ocurrio un error, probablemente la sesion cadudo o se recargo la pagina"
+							);
+							if($this->CompraModel->ActualizarCompra($datos_compra,$id_compra)) {
+								$data['error'] = "Se recibio el Token pero ocurrio un error, probablemente la sesion cadudo o se recargo la pagina";
+							}
+
+
+						// PAGO RECHAZADO
+						} else {
+
+							// -- Actualiza compra con la informacion -- //
+							$datos_compra = array(
+								'id_webpay'             => $id_pago_webpay,
+								'token'                 => $token,
+								'status_compra'         => "ANULADA",
+								'status_pago'           => "PAGO RECHAZADO",
+								'informacion_adicional' => $RespuestaDescripcion
+							);
+							if($this->CompraModel->ActualizarCompra($datos_compra,$id_compra)) {
+								$data['error'] = "La compra fue registrada pero el pago fue rechazado por Webpay, motivo: " . $RespuestaDescripcion;
+							}
+						}
+
 					} else {
-						echo "Pago Rechazado";
-						echo var_dump($WebPayResultado);
+						
+						// -- Actualiza compra con la informacion -- //
+						$datos_compra = array(
+							'status_compra'         => "ANULADA",
+							'status_pago'           => "ERROR AL PROCESAR EL PAGO",
+							'informacion_adicional' => "Se recibio el Token pero ocurrio un error, probablemente la sesion cadudo o se recargo la pagina"
+						);
+						if($this->CompraModel->ActualizarCompra($datos_compra,$id_compra)) {
+							$data['error'] = "Se recibio el Token pero ocurrio un error, probablemente la sesion cadudo o se recargo la pagina";
+						}
+						// ---------------------------------------- //
+
 					}
-				} else {
-					echo "Se recibio el Token pero ocurrio un error, probablemente la sesion cadudo o se recargo la pagina";
-					echo var_dump($WebPayResultado);
 				}
+				// -- FIN WEBPAY -- //
+				
+
+
+				// -- TRANSFERENCIA -- //
+				// Si se transferencia
+				if((isset($_POST["transferencia"])) and ($_POST['transferencia'])) {
+					
+					// Si es por transferencia actualiza el status del pago "Por Verificar"
+					$datos_compra = array(
+						'status_compra'    => "GENERADA",
+						'status_pago'      => "POR VERIFICAR"
+					);
+					// Termina el proceso por Transferencia
+					if($this->CompraModel->ActualizarCompra($datos_compra,$id_compra)) {
+						$data['mensaje'] = "Compra por transferencia registrada";
+					} else {
+						$data['error'] = "Error al actualizar los datos de la compra por Transferencia";
+					}
+				}
+				// -- FIN TRANSFERENCIA -- //
+
+
+
+			// Si no se registro la compra o sus detalles iniciales
+			} else {
+
+				// No se registro el encabezado
+				if($id_compra>0) {
+					$data['error'] = "Error al registrar los datos de la compra";
+				}
+				// No se registraron los detalles de los productos
+				if($error==FALSE) {
+					$data['error'] = "Error al registrar los detalles de la compra";
+				}
+
 			}
 			
 
-			// Si se recibe Transferencia
-			if((isset($_POST["transferencia"])) and ($_POST['transferencia'])) {
-				
-				$data = array(
-					"id_cliente"       => 0,
-					"id_webpay"        => 0,
-					"token"            => "0",
-					"nro_transferencia"=> "",
-					"tipo"             => $dcompra['tipo'],
-					"rut_con"          => $dcompra['rut_con'],
-					"nombre_con"       => $dcompra['nombre_con'],
-					"telefono_con"     => $dcompra['telefono_con'],
-					"correo_con"       => $dcompra['correo_con'],
-					"rut_fac"          => $dcompra['rut_fac'],
-					"razon_fac"        => $dcompra['razon_fac'],
-					"telefono_fac"     => $dcompra['telefono_fac'],
-					"correo_fac"       => $dcompra['correo_fac'],
-					"giro_fac"         => $dcompra['giro_fac'],
-					"region_fac"       => $dcompra['region_fac'],
-					"comuna_fac"       => $dcompra['comuna_fac'],
-					"sector_fac"       => $dcompra['sector_fac'],
-					"calle_fac"        => $dcompra['calle_fac'],
-					"nro_calle_fac"    => $dcompra['nro_calle_fac'],
-					'region_dir'       => $dcompra['region_dir'],
-					'comuna_dir'       => $dcompra['comuna_dir'],
-					'sector_dir'       => $dcompra['sector_dir'],
-					'calle_dir'        => $dcompra['calle_dir'],
-					'nro_calle_dir'    => $dcompra['nro_calle_dir'],
-					'indicaciones_dir' => $dcompra['indicaciones_dir'],
-					'fecha_visita'     => $dcompra['fecha_visita'],
-					'hora_visita'      => $dcompra['hora_visita'],
-					'metodo_pago'     => $dcompra['metodo_pago'],
-					'status_compra'    => "GENERADA",
-					'status_pago'      => "POR VERIFICAR",
-					'total'      	   => round($this->cart->total())
-				);
 
-				if($id_Compra = $this->CompraModel->RegistrarCompra($data)) {
-					$data['mensaje'] = "Compra por transferencia registrada";
-				} else {
-					$data['error'] = "Error al registrar losd datos";
-				}
-				//echo var_dump($dcompra);
-			}
 
 
 		} else {
@@ -603,19 +729,23 @@ class Carro extends CI_Controller {
 	public function Agregar() {
 		
 		// Recibe los datos
-		$codigo_producto   = $this->input->post('codigo_producto');
-		$nombre_producto   = $this->input->post('nombre_producto');
-		$cantidad_producto = $this->input->post('cantidad_producto');
-		$precio_producto   = $this->input->post('precio_producto');
-		$imagen_producto   = $this->input->post('imagen_producto');
+		$id_producto         = $this->input->post('id_producto');
+		$codigo_producto     = $this->input->post('codigo_producto');
+		$nombre_producto     = $this->input->post('nombre_producto');
+		$descripcion_producto= $this->input->post('descripcion_producto');
+		$cantidad_producto   = $this->input->post('cantidad_producto');
+		$precio_producto     = $this->input->post('precio_producto');
+		$imagen_producto     = $this->input->post('imagen_producto');
 
 		// Array con los datos
 		$insert = array(
-			'id'     => $codigo_producto,
-			'qty'    => $cantidad_producto,
-			'price'  => $precio_producto,
-			'name'   => $nombre_producto,
-			'imagen' => $imagen_producto
+			'id'         => $id_producto,
+			'codigo'     => $codigo_producto,
+			'qty'        => $cantidad_producto,
+			'price'      => $precio_producto,
+			'name'       => $nombre_producto,
+			'descripcion'=> $descripcion_producto,
+			'imagen'     => $imagen_producto
 		);
 
 		// Guarda los datos en la sesion del carrito

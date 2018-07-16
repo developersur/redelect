@@ -6,7 +6,7 @@
             url: "index.php/Carro/Mostrar",
             success:function(data){
                 //alert(data);
-                $("#carrito_cabecera").html(data);
+                //$("#carrito_cabecera").html(data);
                 //alert(data);
                 //$("#carro_de_compras").html(data);
             }

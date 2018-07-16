@@ -64,9 +64,10 @@
                                         </div>
                                         <div class="add-to-cart">
                                             <form action="<?php echo base_url(); ?>index.php/Carro/Agregar" method="POST" class="Form_Agregar">
+                                                <input type="hidden" name="id_producto" id="codigo_producto" value="<?php echo $p['id_producto']; ?>">
                                                 <input type="hidden" name="codigo_producto" id="codigo_producto" value="<?php echo $p['id_producto']; ?>">
-                                                <input type="hidden" name="codigo_producto" id="codigo_producto" value="<?php echo $p['id_producto']; ?>">
-                                                <input type="hidden" name="nombre_producto" id="nomre_producto" value="<?php echo $p['nombre']; ?>">
+                                                <input type="hidden" name="nombre_producto" id="nombre_producto" value="<?php echo $p['nombre']; ?>">
+                                                <input type="hidden" name="descripcion_producto" id="descripcion_producto" value="<?php echo $p['descripcion']; ?>">
                                                 <input type="hidden" name="precio_producto" id="precio_producto" value="<?php echo $p['precio']; ?>">
                                                 <input type="hidden" name="imagen_producto" id="imagen_producto" value="<?php echo $p['imagen']; ?>">
                                                 <b>Cantidad:</b><br>

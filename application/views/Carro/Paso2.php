@@ -155,7 +155,7 @@ $(document).ready(function () {
                                 </div>
                             </div>
                     </div>
-                    
+
                     <div class="col-md-12">
                         <legend class="text-center header titulo">Método de Pago</legend>
                                 <!-- WEBPAY -->
@@ -163,7 +163,7 @@ $(document).ready(function () {
                                     <div class="form-group boton_webpay_form">
                                         <label>WebPay</label><br>
                                         <label class="radio-inline">
-                                            <input type="radio" name="metodo_pago" id="metodo_pago" value="WEBPAY" checked=""> <img src="https://www.libreriagiorgio.cl/assets/img/icono_webpay.png" width="200px">
+                                            <input type="radio" name="metodo_pago" id="metodo_pago" value="WEBPAY" <?php if(isset($datasesion) and ($datasesion['metodo_pago']=="WEBPAY")) echo "checked"; ?>> <img src="<?php echo base_url(); ?>/assets/img/icono_webpay.png" width="200px">
                                         </label>
                                     </div>
                                 </div>
@@ -173,9 +173,8 @@ $(document).ready(function () {
                                     <div class="form-group boton_webpay_form">
                                         <label>Transferencias</label><br>
                                         <label class="radio-inline">
-                                            <input type="radio" name="metodo_pago" id="metodo_pago" value="TRANSFERENCIA"> 
-                                            <img src="https://www.libreriagiorgio.cl/assets/img/icono_transferencia.png" width="120px">
-                                            Al realizar la transferencia debe enviar la información del pago
+                                            <input type="radio" name="metodo_pago" id="metodo_pago" value="TRANSFERENCIA" <?php if(isset($datasesion) and ($datasesion['metodo_pago']=="TRANSFERENCIA")) echo "checked"; ?>> 
+                                            <img src="<?php echo base_url(); ?>/assets/img/icono_transferencia.png" width="120px">
                                         </label>
                                     </div>
                                 </div>

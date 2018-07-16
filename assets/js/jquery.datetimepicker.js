@@ -152,9 +152,9 @@ var datetimepickerFactory = function ($) {
 					"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
 				],
 				dayOfWeekShort: [
-					"Dom", "Lun", "Mar", "MiÃ©", "Jue", "Vie", "SÃ¡b"
+					"Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"
 				],
-				dayOfWeek: ["Domingo", "Lunes", "Martes", "MiÃ©rcoles", "Jueves", "Viernes", "SÃ¡bado"]
+				dayOfWeek: ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
 			},
 			th: { // Thai
 				months: [

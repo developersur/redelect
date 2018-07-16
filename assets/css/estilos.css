@@ -38,3 +38,11 @@ legend.titulo {
 #footer {
     margin-top: 200px;
 }
+
+.status_rojo {
+    color: red;
+}
+
+.status_verde {
+    color: green;
+}
