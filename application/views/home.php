@@ -50,7 +50,3 @@
             <!-- /shop -->
         </div>
         <!-- /row -->
-    </div>
-    <!-- /container -->
-</div>
-<!-- /SECTION -->
