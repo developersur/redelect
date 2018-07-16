@@ -43,6 +43,15 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="text-center">
+                                                <a href="Admin/login" tabindex="5" class="forgot-password">Acceso administrador</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             <?php echo form_close();?>
                             <!--</form>-->
 

@@ -77,7 +77,7 @@ class Contacto extends CI_Controller
      * en este caso al ser un formulario de contacto te lo enviarás a ti
      * mismo
      */
-      $this->email->to('luxoubeber@gmail.com', 'Luis Matamala');
+      $this->email->to('whernandez@redelect.cl', 'Walter Hernandez');
 
     //Definimos el asunto del mensaje
       $this->email->subject('Consulta');
