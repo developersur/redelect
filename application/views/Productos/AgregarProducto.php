@@ -143,6 +143,9 @@
           <legend class="text-center header">Agregar producto</legend>
               <div class="panel panel-default">
                   <div class="panel-body">
+                        <?php if(isset($error)){
+                            echo $error;
+                        } ?>
                       <form method="post" action="<?php echo base_url(); ?>index.php/Producto/AgregarProducto" enctype="multipart/form-data">
                           <div class="form-group">
                               <div class="col-md-6">
