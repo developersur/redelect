@@ -87,8 +87,12 @@ class Producto extends CI_Controller {
 
 					$this->ProductoModel->crearProducto($data);
 
-					$previous = $_SERVER['HTTP_REFERER'];
-					redirect($previous);
+					$exito = array('exito' => 'Producto creado con éxito');
+					$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
+
+					$this->load->view('/template/head',$data);
+					$this->load->view('Productos/AgregarProducto',$exito);
+					$this->load->view('/template/footer',$data);
 			}
 		}
 

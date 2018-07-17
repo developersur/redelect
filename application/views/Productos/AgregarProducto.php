@@ -143,9 +143,16 @@
           <legend class="text-center header">Agregar producto</legend>
               <div class="panel panel-default">
                   <div class="panel-body">
-                        <?php if(isset($error)){
-                            echo $error;
-                        } ?>
+                        <?php 
+                        if(isset($error))
+                        {
+                            echo '<div class="alert alert-danger" role="alert">'.$error.'</div>';
+                        }
+                        if(isset($exito))
+                        {
+                            echo '<div class="alert alert-success" role="alert">'.$exito.'</div>';
+                        }  
+                        ?>
                       <form method="post" action="<?php echo base_url(); ?>index.php/Producto/AgregarProducto" enctype="multipart/form-data">
                           <div class="form-group">
                               <div class="col-md-6">
