@@ -7,6 +7,8 @@ class Institucion extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('CategoriaModel');
+
+		date_default_timezone_set('America/Santiago');
 	}
 
 	public function index()
@@ -75,10 +77,10 @@ class Institucion extends CI_Controller {
 
 	 //Definimos el mensaje a enviar
 		 $this->email->message(
-			 'Institución: ' . $institucion .
-			 'Nombre contacto: ' . $nombre .
-			 'Telefono: ' . $telefono.
-			 'Email: '. $email.
+			 'Institución: ' . $institucion . '<br>'.
+			 'Nombre contacto: ' . $nombre . '<br>'.
+			 'Telefono: ' . $telefono. '<br>' .
+			 'Email: '. $email. '<br>'.
 			 'Mensaje: '. $mensaje
 		 );
 

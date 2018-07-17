@@ -8,6 +8,7 @@ class Contacto extends CI_Controller
         parent::__construct();
         $this->load->model('CategoriaModel');
         //$this->session->mensaje_email ='';
+				date_default_timezone_set('America/Santiago');
 	}
 
 	public function index()
@@ -84,8 +85,8 @@ class Contacto extends CI_Controller
 
     //Definimos el mensaje a enviar
       $this->email->message(
-        'Nombre: ' . $nombre . ' ' . $apellido.
-        'Email: ' . $email .
+        'Nombre: ' . $nombre . ' ' . $apellido. '<br>'.
+        'Email: ' . $email . '<br>'.
         'Mensaje: ' . $message
       );
 
