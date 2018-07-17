@@ -22,7 +22,7 @@ class Producto extends CI_Controller {
         $data['categorias'] = $this->CategoriaModel->obtenerCategorias();
 
         $this->load->view('/template/head',$data);
-				$this->load->view('Productos/AgregarProducto');
+				$this->load->view('Productos/AgregarProducto',$data);
 				$this->load->view('/template/footer',$data);
     }
 
@@ -69,7 +69,7 @@ class Producto extends CI_Controller {
 
 					$file_name = $this->upload->data('file_name');
 
-					$base = base_url();
+					$base = 'https://www.redelect.cl/';
 
 					$data = array(
 						'codigo' => $this->input->post('codigo'),

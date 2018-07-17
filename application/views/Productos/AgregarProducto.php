@@ -199,8 +199,8 @@
                               <div class="col-md-6">
                                   <label class="control-label" for="habilitado">Habilitado</label>
                                   <select name="habilitado" id="habilitado" class="form-control">
-                                      <option value="si">Si</option>
-                                      <option value="no">No</option>
+                                      <option value="Si">Si</option>
+                                      <option value="No">No</option>
                                   </select>
                               </div>
                           </div>
@@ -209,8 +209,8 @@
                               <div class="col-md-6">
                                   <label class="control-label" for="nuevo">Nuevo</label>
                                   <select name="nuevo" id="nuevo" class="form-control">
-                                      <option value="si">Si</option>
-                                      <option value="no">No</option>
+                                      <option value="Si">Si</option>
+                                      <option value="No">No</option>
                                   </select>
                               </div>
                           </div>
@@ -219,8 +219,15 @@
                               <div class="col-md-6">
                                   <label class="control-label" for="categoria">Categoria</label>
                                   <select name="categoria" id="categoria" class="form-control">
-                                      <option value="fuerza">Fuerza</option>
-                                      <option value="no">No</option>
+                                      <?php
+                                      if(isset($categorias)){
+                                        foreach($categorias->result() as $categoria) 
+                                        {
+                                        ?>
+                                        <option value="<?php echo $categoria->id; ?>"><?php echo $categoria->nombre; ?></option>
+                                        <?php
+                                        }
+                                    }?>
                                   </select>
                               </div>
                           </div>
