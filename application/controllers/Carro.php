@@ -627,11 +627,10 @@ class Carro extends CI_Controller {
 								'id_webpay'             => $id_pago_webpay,
 								'token'                 => $token,
 								'status_compra'         => "PAGADA",
-								'status_pago'           => "PAGO CONFIRMADO",
-								'informacion_adicional' => "Se recibio el Token pero ocurrio un error, probablemente la sesion cadudo o se recargo la pagina"
+								'status_pago'           => "PAGO CONFIRMADO"
 							);
 							if($this->CompraModel->ActualizarCompra($datos_compra,$id_compra)) {
-								$data['error'] = "Se recibio el Token pero ocurrio un error, probablemente la sesion cadudo o se recargo la pagina";
+								$data['mensaje'] = "Pago confirmado, su compra ha sido registrada con el nro: $id_compra";
 							}
 
 

@@ -86,4 +86,20 @@ class Producto extends CI_Controller {
 	 				redirect($previous);
 			 }
 		}
+
+
+    public function Categoria()
+    {		
+				$id_categoria = $_GET['id_categoria'];
+
+        $data['id_categoria'] = $id_categoria;
+        $data['categorias']   = $this->CategoriaModel->obtenerCategorias();
+				
+				// Productos de la categoria
+				$data['productos'] = $this->ProductoModel->ProductosPorCategoria($id_categoria);
+
+        $this->load->view('/template/head',$data);
+				$this->load->view('Productos/PorCategoria',$data);
+				$this->load->view('/template/footer',$data);
+    }
 }

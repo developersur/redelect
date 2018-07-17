@@ -45,5 +45,12 @@ class ProductoModel extends CI_Model {
   		}else{
   			return false;
   		}
-  	}
+    }
+    
+    public function ProductosPorCategoria($id_categoria){
+      $result_set = $this->db->query("select * from producto where categoria=$id_categoria");
+      return $result_set->result_array();
+    }
+    
+
 }

@@ -160,7 +160,7 @@
                         <tr>
 
                             <td align="right">Calle:</td>
-                            <td><?php echo $data_post['caller_dir']; ?></td>
+                            <td><?php echo $data_post['calle_dir']; ?></td>
                             <td align="right">Nro Calle:</td>
                             <td><?php echo $data_post['nro_calle_dir']; ?></td>
                             <td align="right">Indicaciones:</td>

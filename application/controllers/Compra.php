@@ -39,4 +39,20 @@ class Compra extends CI_Controller {
 		$this->load->view('/template/footer',$data);
     }
 
+
+    public function Detalle()
+    {   
+        $id_compra = $_GET['id_compra'];
+        
+        $data['id_compra']      = $id_compra;
+        $data['categorias']     = $this->CategoriaModel->obtenerCategorias();
+		$data['compra']         = $this->CompraModel->CompraDetalles($id_compra);
+		$data['compra_detalle'] = $this->CompraModel->ProductosCompra($id_compra);
+		$data['datospago']      = $this->CompraModel->DetallePagoWebPay($id_compra);
+        
+        $this->load->view('/template/head',$data);
+		$this->load->view('Compras/Detalle', $data);
+		$this->load->view('/template/footer',$data);
+    }
+
 }

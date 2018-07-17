@@ -1,3 +1,5 @@
+
+
 <div class="container" id="menuadmin">
     <div class="row">
         <div class="col-sm-3 col-md-3">
@@ -40,11 +42,11 @@
                     ?>
                     
                     <tr>
-                      <td><?php echo $compra['id_compra']; ?></td>
+                      <td><a href="<?php echo base_url(); ?>index.php/Compra/Detalle?id_compra=<?php echo $compra['id_compra'] ?>"><?php echo $compra['id_compra']; ?></a></td>
                       <td><?php echo $compra['tipo']; ?></td>
                       <td><?php echo $compra['nombre_con']; ?></td>
                       <td>$<?php echo number_format($compra['total'],'0',',','.'); ?></td>
-                      <td><?php echo date("d-m-Y H:m", strtotime($compra['fecha_creacion']));  ?></td>
+                      <td><?php echo date("d-m-Y H:i", strtotime($compra['fecha_creacion']));  ?></td>
                       <td class="<?php echo $color_status; ?>"><b><?php echo $compra['status_compra']; ?></b></td>
                     </tr>
                     <?php } ?>

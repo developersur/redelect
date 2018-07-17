@@ -18,7 +18,16 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <span class=""></span><a href="<?php echo base_url(); ?>index.php/Compra/">Buscar</a>
+                                        <form class="" action="<?php echo base_url(); ?>index.php/Compra/Detalle" method="GET">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <input type="text" name="id_compra" value="" placeholder="ID Compra">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <button type="submit"><i class="fas fa-search"></i></button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </td>
                                 </tr>
                             </table>

@@ -103,6 +103,18 @@
 		
 		<!-- Valida el RUT -->
 		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.rut.chileno.js"></script>
+		
+		<!-- Pluging DataTables  -->
+		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/datatables.min.js"></script>
+		
+		<link href="<?php echo base_url(); ?>assets/css/datatables.min.css" rel="stylesheet" type="text/css" />
+		
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('.dt_compras').DataTable();
+			});
+		</script>
 
 	</body>
 </html>

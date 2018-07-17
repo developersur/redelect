@@ -12,18 +12,31 @@
                     <h3 class="title">Productos</h3>
                     <div class="section-nav">
                         <ul class="section-tab-nav tab-nav">
-                            <?php if($categorias) { ?>
-                                <?php foreach ($categorias->result() as $categoria) { ?>
-                                    <li><a href="<?php echo base_url(); ?>index.php/Producto/Categoria?id_categoria=<?php echo $categoria->id; ?>"><?php echo $categoria->nombre; ?></a></li>
-                                <?php } ?>
-                            <?php } ?>
+                        
+                        <?php 
+                            if($categorias) { 
+                        ?>
+                        <?php 
+                            $active = "";
+                            foreach ($categorias->result() as $categoria) { 
+                                if($categoria->id==$id_categoria) $active = " class='active'";
+                        ?>
+								<li <?php echo $active; ?>><a href="<?php echo base_url(); ?>index.php/Producto/Categoria?id_categoria=<?php echo $categoria->id; ?>"><?php echo $categoria->nombre; ?></a></li>
+                        <?php 
+                            $active = "";
+                            } 
+                        ?>
+						<?php } ?>
+                                    
                         </ul>
                     </div>
                 </div>
             </div>
-            <!-- /section title -->
-
-            <?php if(count($ProductosPrincipal)>0) { ?>
+        </div>
+        <!-- /section title -->
+        
+        <div class="row">
+            <?php if(count($productos)>0) { ?>
                 <!-- Products tab & slick -->
                 <div class="col-md-12">
                     <div class="row">
@@ -32,7 +45,7 @@
                             <div id="tab2" class="tab-pane active">
                                 <div class="products-slick" data-nav="#slick-nav-1">
 
-                                    <?php foreach ($ProductosPrincipal as $p) { ?>
+                                    <?php foreach ($productos as $p) { ?>
                                       <div class="product">
                                         <div class="product-img">
                                           <img src="<?php echo $p["imagen"]; ?>" alt="">
@@ -85,6 +98,8 @@
                     </div>
                 </div>
                 <!-- Products tab & slick -->
+            <?php } else { ?>
+                <div class="alert alert-info">No se han encontrado productos en esta categorias</div>
             <?php } ?>
         </div>
         <!-- /row -->

@@ -30,6 +30,28 @@ class CompraModel extends CI_Model {
             fecha_creacion DESC");
         return $result_set->result_array();
     }
+    
+    public function CompraDetalles($data){
+        $result_set = $this->db->query("select * from compra where id_compra=$data");
+        return $result_set->result_array();
+    }
 
+    public function ProductosCompra($data){
+        $result_set = $this->db->query("select * from compra_detalle where id_compra=$data");
+        return $result_set->result_array();
+    }
+
+    public function DetallePagoWebPay($id_compra){
+        $result_set = $this->db->query("select * from pago_webpay where id_compra=$id_compra");
+        return $result_set->result_array();
+    }
+
+    public function ActualizarCompra($data,$id_compra){
+        if ($this->db->update('compra', $data, array('id_compra' => $id_compra))) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
 
 }
