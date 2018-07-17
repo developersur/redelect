@@ -7,11 +7,6 @@ class UsuarioModel extends CI_Model {
         $this->db = $this->load->database('default',true);
     }
 
-    public function ListarPrincipal(){
-    	//$result_set = $this->db->query("select * from producto");
-    	//return $result_set -> result_array();
-    }
-
     public function crearUsuario($data)
     {
       $query = $this->db->get_where('cliente', array('correo' => $data['correo']));
@@ -30,15 +25,21 @@ class UsuarioModel extends CI_Model {
   		}
     }
 
-    function obtenerProductos()
-  	{
-  		$query = $this->db->get('producto');
+    public function login($correo, $password)
+    {
+        $query = $this->db->get_where('cliente', array('correo' => $correo));
 
-  		if($query->num_rows() > 0)
-  		{
-  			return $query;
-  		}else{
-  			return false;
-  		}
-  	}
+        if($query->num_rows() == 1)
+        {
+            $row=$query->row();
+            if(password_verify($password, $row->clave))
+            {
+                $this->session->logged_in_user = TRUE;
+                return true;
+            }
+        }
+        $this->session->unset_userdata('user_data');
+        return false;
+    }
+
 }

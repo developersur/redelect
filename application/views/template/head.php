@@ -36,19 +36,19 @@
 
 		<!--  -->
 		<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/slick.css"/>
-		
+
 		<!-- Mis Estilos Alexis -->
 		<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/estilos.css"/>
 
 		<!---JQUERY-->
 		<script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
-		
+
 		<!-- Calendario con hora  -->
 		<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/jquery.datetimepicker.css"/>
 
 		<!-- Calendario con horas -->
 		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.datetimepicker.js"></script>
-		
+
 
 
 		<!-- Global site tag (gtag.js) - Google Analytics -->
@@ -90,16 +90,19 @@
 							<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="fas fa-user"></i> Mi cuenta</a>
 							<ul class="dropdown-menu">
 									<?php
-									if(!$this->session->logged_in)
+									if($this->session->logged_in)
 									{
 									?>
-											<li><a href="<?php echo base_url(); ?>index.php/Login">Ingresar</a></li>
+										<li><a href="<?php echo base_url(); ?>index.php/Admin">Administrar</a></li>
+										<li><a href="<?php echo base_url(); ?>index.php/Login/salir">Salir</a></li>
 										<?php
-									}else{?>
-											<li><a href="<?php echo base_url(); ?>index.php/Admin">Administrar</a></li>
-											<li><a href="<?php echo base_url(); ?>index.php/Login/salir">Salir</a></li>
+									}else if($this->session->logged_in_user){?>
+										<li><a href="<?php echo base_url(); ?>index.php/Usuario/index">Mis compras</a></li>
+										<li><a href="<?php echo base_url(); ?>index.php/Login/salir">Salir</a></li>
 									<?php
-									}?>
+								}else{?>
+									<li><a href="<?php echo base_url(); ?>index.php/Login">Ingresar</a></li>
+							<?php } ?>
 							</ul>
 						</li>
 
@@ -174,7 +177,7 @@
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
                 <li class="active"><a href="<?php echo base_url();?>index.php">Inicio</a></li>
-				
+
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Productos<span class="caret"></span></a>
 					<ul class="dropdown-menu">
@@ -185,7 +188,7 @@
 							<?php } ?>
 						<?php } ?>
 					</ul>
-				</li>	
+				</li>
 
                 <li><a href="<?php echo base_url();?>index.php/Servicio">Nuestros servicios</a></li>
                 <li><a href="<?php echo base_url();?>index.php/QuienesSomos">Quienes somos</a></li>

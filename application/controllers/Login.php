@@ -7,6 +7,7 @@ class Login extends CI_Controller
   {
         parent::__construct();
 				$this->load->model('CategoriaModel');
+				$this->load->model('UsuarioModel');
 	}
 
 	public function index()
@@ -24,7 +25,7 @@ class Login extends CI_Controller
 		else
 		{
 			 $this->load->view('template/head', $data);
-			 $this->load->view('admin/index');
+			 $this->load->view('Usuario/index');
 			 $this->load->view('template/footer', $data);
 		}
 	}
@@ -37,10 +38,10 @@ class Login extends CI_Controller
       $username = $this->input->post('username');
       $password = $this->input->post('password');
 
-      if($this->LoginModel->login($username, $password))
+      if($this->UsuarioModel->login($username, $password))
       {
 		  		$this->load->view('template/head', $data);
-          $this->load->view('admin/index');
+          $this->load->view('Usuario/index');
           $this->load->view('template/footer', $data);
       }
       else
