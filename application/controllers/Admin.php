@@ -30,10 +30,35 @@ class Admin extends CI_Controller
 
 	public function accesoAdmin()
 	{
+		//$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
+
 		$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
-		$this->form_validation->set_rules('username' ,'Correo', 'required');
-		$this->form_validation->set_rules('password' ,'Password', 'required|callback_verifica');
-		if($this->form_validation->run() == false)
+
+      	$username = $this->input->post('username');
+      	$password = $this->input->post('password');
+
+      	if($this->LoginModel->login($username, $password))
+      	{
+		  $this->load->view('template/head', $data);
+          $this->load->view('admin/index');
+          $this->load->view('template/footer', $data);
+      	}
+      	else
+      	{
+          $this->form_validation->set_message('verifica','Contraseña incorrecta');
+		  
+		  //redirect(base_url("index.php/Admin"));
+
+          $this->load->view('template/head', $data);
+          $this->load->view('login/login');
+          $this->load->view('template/footer', $data);
+      	}
+
+		//$this->form_validation->set_rules('username' ,'Correo', 'required');
+		//$this->form_validation->set_rules('password' ,'Password', 'required|callback_verifica');
+		
+		
+		/*if($this->form_validation->run() == false)
 		{
 			 $this->load->view('template/head', $data);
 			 $this->load->view('login/login');
@@ -44,11 +69,11 @@ class Admin extends CI_Controller
 			 $this->load->view('template/head', $data);
 			 $this->load->view('admin/index');
 			 $this->load->view('template/footer', $data);
-		}
+		}*/
 	}
 
-	public function verifica()
-  {
+	/*public function verifica()
+  	{
       // categorias para la pagina principal
       $data['categorias'] = $this->CategoriaModel->obtenerCategorias();
 
@@ -64,10 +89,12 @@ class Admin extends CI_Controller
       else
       {
           $this->form_validation->set_message('verifica','Contraseña incorrecta');
+		  
+		  //redirect(base_url("index.php/Admin"));
 
           $this->load->view('template/head', $data);
           $this->load->view('login/login');
           $this->load->view('template/footer', $data);
       }
-  }
+ 	}*/
 }
