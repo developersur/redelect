@@ -50,6 +50,9 @@ Table OF Contents
 /*=========================================================
 	01 -> GENERAL
 ===========================================================*/
+dropdown-menu{
+
+}
 
 /*nabvar admin*/
 #menuadmin
@@ -556,7 +559,8 @@ textarea.input {
 }
 
 .header-links li a {
-  color: #FFF;
+  /*color: #FFF;*/
+  color: #BFC1E8;
 }
 
 .header-links li a:hover {
@@ -1206,7 +1210,7 @@ textarea.input {
 }
 
 .product .add-to-cart .add-to-cart-btn:hover {
-  /* 
+  /*
   background-color: #FFF;
   color: #4056fb;
   border-color: #4056fb;
