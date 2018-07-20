@@ -119,30 +119,30 @@
                         <div class="col-md-12">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="rut">Tipo de comprobante</label>
+                                    <label for="rut">Tipo de comprobante <span class="obligatorio">*</span></label>
                                     <select name="tipo" id="tipo" class="form-control">
                                         <option value="Boleta">Boleta</option>
                                         <option value="Factura">Factura</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="telefono_con">Teléfono</label>
+                                    <label for="telefono_con">Teléfono <span class="obligatorio">*</span></label>
                                     <input type="text" class="form-control" id="telefono_con" name="telefono_con" value="<?php if(isset($datasesion)) echo $datasesion['telefono_con']; ?>" placeholder="Teléfono">
                                 </div>
                             </div>    
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="rut_con">RUT</label>
+                                    <label for="rut_con">RUT <span class="obligatorio">*</span></label>
                                     <input type="text" class="form-control input_rut" id="rut_con" name="rut_con" value="<?php if(isset($datasesion)) echo $datasesion['rut_con']; ?>" placeholder="RUT">
                                 </div>
                                 <div class="form-group">
-                                    <label for="correo_con">Correo</label>
+                                    <label for="correo_con">Correo <span class="obligatorio">*</span></label>
                                     <input type="text" class="form-control" id="correo_con" name="correo_con" value="<?php if(isset($datasesion)) echo $datasesion['correo_con']; ?>" placeholder="Correo">
                                 </div>
                             </div>  
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="nombre_con">Nombre</label>
+                                    <label for="nombre_con">Nombre <span class="obligatorio">*</span></label>
                                     <input type="text" class="form-control" id="nombre_con" name="nombre_con" value="<?php if(isset($datasesion)) echo $datasesion['nombre_con']; ?>" placeholder="Nombre">
                                 </div>
                             </div> 
@@ -155,47 +155,47 @@
                                 <legend class="text-center header titulo">Datos de Facturación</legend>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="rut_fac">RUT</label>
+                                        <label for="rut_fac">RUT <span class="obligatorio">*</span></label>
                                         <input type="text" class="form-control input_rut" id="rut_fac" name="rut_fac" placeholder="RUT" value="<?php if(isset($datasesion)) echo $datasesion['rut_fac']; ?>">
                                     </div>
                                     <div class="form-group">
-                                        <label for="telefono_fac">Teléfono</label>
+                                        <label for="telefono_fac">Teléfono <span class="obligatorio">*</span></label>
                                         <input type="text" class="form-control" id="telefono_fac" name="telefono_fac" placeholder="Teléfono" value="<?php if(isset($datasesion)) echo $datasesion['telefono_fac']; ?>">
                                     </div>
                                     <div class="form-group">
-                                        <label for="comuna_fac">Comuna</label>
+                                        <label for="comuna_fac">Comuna <span class="obligatorio">*</span></label>
                                         <select id="comuna_fac" name="comuna_fac" class="form-control comunas"></select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="nro_calle_fac">Número</label>
+                                        <label for="nro_calle_fac">Número <span class="obligatorio">*</span></label>
                                         <input type="text" class="form-control" id="nro_calle_fac" name="nro_calle_fac" placeholder="Nro Calle" value="<?php if(isset($datasesion)) echo $datasesion['nro_calle_fac']; ?>">
                                     </div>
                                 </div>    
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="razon_fac">Razon Social</label>
+                                        <label for="razon_fac">Razon Social <span class="obligatorio">*</span></label>
                                         <input type="text" class="form-control" id="razon_fac" name="razon_fac" placeholder="Razon Social" value="<?php if(isset($datasesion)) echo $datasesion['razon_fac']; ?>">
                                     </div>
                                     <div class="form-group">
-                                        <label for="cocorreo_facrreo">Correo</label>
+                                        <label for="cocorreo_facrreo">Correo <span class="obligatorio">*</span></label>
                                         <input type="text" class="form-control" id="correo_fac" name="correo_fac" placeholder="Correo" value="<?php if(isset($datasesion)) echo $datasesion['correo_fac']; ?>">
                                     </div>
                                     <div class="form-group">
-                                        <label for="sector_fac">Sector</label>
+                                        <label for="sector_fac">Sector <span class="obligatorio">*</span></label>
                                         <input type="text" class="form-control" id="sector_fac" name="sector_fac" placeholder="Sector" value="<?php if(isset($datasesion)) echo $datasesion['sector_fac']; ?>">
                                     </div>
                                 </div>  
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="giro_fac">Giro</label>
+                                        <label for="giro_fac">Giro <span class="obligatorio">*</span></label>
                                         <input type="text" class="form-control" id="giro_fac" name="giro_fac" placeholder="Giro" value="<?php if(isset($datasesion)) echo $datasesion['giro_fac']; ?>">
                                     </div>
                                     <div class="form-group">
-                                        <label for="region_fac">Región</label>
+                                        <label for="region_fac">Región <span class="obligatorio">*</span></label>
                                         <select id="region_fac" name="region_fac" class="form-control regiones"></select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="calle_fac">Calle</label>
+                                        <label for="calle_fac">Calle <span class="obligatorio">*</span></label>
                                         <input type="text" class="form-control" id="calle_fac" name="calle_fac" placeholder="Calle" value="<?php if(isset($datasesion)) echo $datasesion['calle_fac']; ?>">
                                     </div>
                                 </div> 

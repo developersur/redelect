@@ -168,9 +168,9 @@
                         </tr>
                         <tr>
                             <td align="right">Fecha visita:</td>
-                            <td></td>
+                            <td><?php echo $data_post['fecha_visita']; ?></td>
                             <td align="right">Hora visita</td>
-                            <td></td>
+                            <td><?php echo $data_post['hora_visita']; ?></td>
                             <td align="right"></td>
                             <td></td>
                         </tr>

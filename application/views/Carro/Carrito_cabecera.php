@@ -34,6 +34,6 @@
                                 </div>
                                 <div class="cart-btns">
                                     <a href="<?php echo base_url(); ?>index.php/Carro/">Ver carrito</a>
-                                    <a href="#">Comprar  <i class="fa fa-arrow-circle-right"></i></a>
+                                    <a href="<?php echo base_url(); ?>index.php/Carro/Paso1">Comprar  <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>

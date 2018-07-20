@@ -118,11 +118,11 @@ $(document).ready(function () {
                     <div class="col-md-12">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="region_dir">Región</label>
+                                    <label for="region_dir">Región <span class="obligatorio">*</span></label>
                                     <select id="region_dir" name="region_dir" class="form-control regiones"></select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="calle_dir">Calle</label>
+                                    <label for="calle_dir">Calle <span class="obligatorio">*</span></label>
                                     <input type="text" class="form-control" id="calle_dir" name="calle_dir" value="<?php if(isset($datasesion)) echo $datasesion['calle_dir']; ?>" placeholder="Calle">
                                 </div>
                                 <div class="form-group">
@@ -132,11 +132,11 @@ $(document).ready(function () {
                             </div>    
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="comuna_dir">Comuna</label>
+                                    <label for="comuna_dir">Comuna <span class="obligatorio">*</span></label>
                                     <select id="comuna_dir" name="comuna_dir" class="form-control comunas"></select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="nro_calle_dir">Número</label>
+                                    <label for="nro_calle_dir">Número <span class="obligatorio">*</span></label>
                                     <input type="text" class="form-control" id="nro_calle_dir" name="nro_calle_dir" value="<?php if(isset($datasesion)) echo $datasesion['nro_calle_dir']; ?>" placeholder="Nro Calle">
                                 </div>
                                 <div class="form-group">
@@ -146,7 +146,7 @@ $(document).ready(function () {
                             </div>  
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="sector_dir">Sector</label>
+                                    <label for="sector_dir">Sector <span class="obligatorio">*</span></label>
                                     <input type="text" class="form-control" id="sector_dir" name="sector_dir" value="<?php if(isset($datasesion)) echo $datasesion['sector_dir']; ?>" placeholder="Sector">
                                 </div>
                                 <div class="form-group">
@@ -157,7 +157,7 @@ $(document).ready(function () {
                     </div>
 
                     <div class="col-md-12">
-                        <legend class="text-center header titulo">Método de Pago</legend>
+                        <legend class="text-center header titulo">Método de Pago <span class="obligatorio">*</span></legend>
                                 <!-- WEBPAY -->
                                 <div class="col-md-4">
                                     <div class="form-group boton_webpay_form">

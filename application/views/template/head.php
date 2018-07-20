@@ -76,7 +76,7 @@
     </head>
     <body>
 		<!-- HEADER -->
-		<header>
+		<header class="altura_header">
 			<!-- TOP HEADER -->
 			<div id="top-header">
 				<div class="container">
@@ -93,15 +93,15 @@
 									if($this->session->logged_in)
 									{
 									?>
-										<li><a href="<?php echo base_url(); ?>index.php/Admin">Administrar</a></li>
-										<li><a href="<?php echo base_url(); ?>index.php/Login/salir">Salir</a></li>
+										<li class="block"><a href="<?php echo base_url(); ?>index.php/Admin">Administrar</a></li>
+										<li class="block"><a href="<?php echo base_url(); ?>index.php/Login/salir">Salir</a></li>
 										<?php
 									}else if($this->session->logged_in_user){?>
-										<li><a href="<?php echo base_url(); ?>index.php/Usuario/index">Mis compras</a></li>
-										<li><a href="<?php echo base_url(); ?>index.php/Login/salir">Salir</a></li>
+										<li class="block"><a href="<?php echo base_url(); ?>index.php/Usuario/index">Mis compras</a></li>
+										<li class="block"><a href="<?php echo base_url(); ?>index.php/Login/salir">Salir</a></li>
 									<?php
 								}else{?>
-									<li><a href="<?php echo base_url(); ?>index.php/Login">Ingresar</a></li>
+									<li class="block"><a href="<?php echo base_url(); ?>index.php/Login">Ingresar</a></li>
 							<?php } ?>
 							</ul>
 						</li>
