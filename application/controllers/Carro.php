@@ -445,6 +445,7 @@ class Carro extends CI_Controller {
 	// Procesa el Pago ya sea por Webpay o Transferencia
 	public function ProcesarPago()
 	{	
+		date_default_timezone_set('America/Santiago');
 
 		// Si no existe la sesion con los datos de la compra
 		if(!isset($_SESSION['datos'])) {
@@ -480,7 +481,7 @@ class Carro extends CI_Controller {
 		$this->load->model('CategoriaModel');
 		
 		// categorias para la pagina principal
-		$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
+		$datac['categorias'] = $this->CategoriaModel->obtenerCategorias();
 				
 		$data['mensaje'] = "";
 		$data['error']   = "";
@@ -1042,7 +1043,7 @@ class Carro extends CI_Controller {
 		
 		$this->load->view('/template/head');
 		$this->load->view('Carro/ProcesarPago',$data);
-		$this->load->view('/template/footer');
+		$this->load->view('/template/footer',$datac);
 	}
 
 
