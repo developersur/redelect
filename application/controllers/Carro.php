@@ -1110,6 +1110,15 @@ class Carro extends CI_Controller {
 			'descripcion'=> $descripcion_producto,
 			'imagen'     => $imagen_producto
 		);
+		echo var_dump($insert);
+		/*
+		echo $id_producto;
+		echo $codigo_producto;
+		echo $cantidad_producto;
+		echo $precio_producto;
+		echo $descripcion_producto;
+		echo $imagen_producto;
+		*/
 
 		// Guarda los datos en la sesion del carrito
 		if($this->cart->insert($insert)) {
