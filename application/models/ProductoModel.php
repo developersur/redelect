@@ -8,7 +8,26 @@ class ProductoModel extends CI_Model {
     }
 
     public function ListarPrincipal(){
-    	$result_set = $this->db->query("select * from producto inner join categoria on producto.categoria=categoria.id");
+      $result_set = $this->db->query("
+        select 
+          id_producto,
+          codigo,
+          producto.nombre,
+          producto.descripcion,
+          precio,
+          descuento,
+          marca,
+          cantidad,
+          producto.habilitado,
+          nuevo,
+          categoria.nombre as categoria,
+          imagen
+        from 
+          producto 
+        inner join 
+          categoria 
+        on 
+        producto.categoria=categoria.id");
     	return $result_set -> result_array();
     }
 
