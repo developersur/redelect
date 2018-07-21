@@ -1067,10 +1067,10 @@ class Carro extends CI_Controller {
 
 				// Correo a soporte
 				$this->email->initialize($configSMTP);
-				$this->email->from("alexi_evanescence@hotmail.com",$sistema);
-				$this->email->to("alexi_evanescence@hotmail.com");
-				//$this->email->to($correos_para);
-				//$this->email->cc($notificar_redelect); 
+				$this->email->from($from,$sistema);
+				//$this->email->to("alexi_evanescence@hotmail.com");
+				$this->email->to($correos_para);
+				$this->email->cc($notificar_redelect); 
 				$this->email->subject($asunto);
 				$this->email->reply_to($notificar_redelect);
 				$this->email->message($htmlContent);
