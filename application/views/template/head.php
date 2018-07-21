@@ -87,7 +87,14 @@
 					</ul>
 					<ul class="header-links pull-right">
 						<li class="dropdown">
-							<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="fas fa-user"></i> Mi cuenta</a>
+							<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="fas fa-user"></i>
+								<?php if(isset($this->session->nombre_user))
+								{
+									echo $this->session->nombre_user;
+								}else{
+									echo 'Mi cuenta';
+								}?>
+							</a>
 							<ul class="dropdown-menu">
 									<?php
 									if($this->session->logged_in)
