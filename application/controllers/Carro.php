@@ -1110,7 +1110,7 @@ class Carro extends CI_Controller {
 			'descripcion'=> $descripcion_producto,
 			'imagen'     => $imagen_producto
 		);
-		echo var_dump($insert);
+		//echo var_dump($insert);
 		/*
 		echo $id_producto;
 		echo $codigo_producto;
