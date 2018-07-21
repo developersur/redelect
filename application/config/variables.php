@@ -13,6 +13,7 @@
 		'newline'     => "\r\n",
 		'wordwrap'    => TRUE,
 		'validate'    => TRUE
+
 	);
 
 	// Correo Compra
@@ -21,8 +22,8 @@
 	$config['notificar_redelect'] = "alexi_evanescence@hotmail.com";
 	
 	// Mostrar en correo saliente a:
-	//$config['from']     = "compras@redelect";
-	$config['from']     = "alexi_evanescence@hotmail.com";
+	$config['from']     = "compras@redelect";
+	//$config['from']     = "notificador@redelect.cl";
 
 	// Con respuesta a:
 	//$config['reply_to'] = "compras@redelect";
@@ -37,7 +38,6 @@
 
 
 
-
 	// ----- DATOS BANCO TRANSFERENCIA ----- //
 	$config['rut_cuenta']     = "11.111.111-1";
 	$config['banco_cuenta']   = "Estado";
@@ -47,4 +47,5 @@
 	
 	// Correo al que se deben notificar los pagos
 	$config['notificar_pago'] = "pagos@redelect";
+
 ?>
