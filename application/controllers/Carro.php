@@ -432,7 +432,7 @@ class Carro extends CI_Controller {
 		$NroCompra      = rand();    // Orden de compra de la tienda
 		$SesionID       = uniqid();  //ID para la sesion 
 		$urlProcesar    = $base_url."index.php/Carro/ProcesarPago/"; // URL de retorno
-		$urlComprobante = $base_url."index.php/Carro/ResultadoNormal/?action=end";    // URL Final 
+		$urlComprobante = $base_url."index.php/Carro/Finalizado/";   // URL Final 
 		
 		// -- Inicio de la Transaccion para obtener Token -- //
 		$data['WebPayResultado'] = $webpay->getNormalTransaction()->initTransaction($total, $NroCompra, $SesionID, $urlProcesar, $urlComprobante);
@@ -630,7 +630,10 @@ class Carro extends CI_Controller {
 								'status_pago'           => "PAGO CONFIRMADO"
 							);
 							if($this->CompraModel->ActualizarCompra($datos_compra,$id_compra)) {
-								$data['mensaje'] = "Pago confirmado, su compra ha sido registrada con el nro: $id_compra";
+								$data['mensaje']  = "Pago confirmado, su compra ha sido registrada con el nro: #$id_compra";
+								$data['voucher']  = TRUE;
+								$data['url']      = $WebPayResultado->urlRedirection;
+								$data['token_ws'] = $token;
 							}
 
 
@@ -646,7 +649,7 @@ class Carro extends CI_Controller {
 								'informacion_adicional' => $RespuestaDescripcion
 							);
 							if($this->CompraModel->ActualizarCompra($datos_compra,$id_compra)) {
-								$data['error'] = "La compra fue registrada pero el pago fue rechazado por Webpay, motivo: " . $RespuestaDescripcion;
+								$data['error'] = "La compra fue registrada pero el pago fue rechazado por Webpay, motivo: <b>" . $RespuestaDescripcion . "</b>";
 							}
 						}
 
@@ -680,7 +683,7 @@ class Carro extends CI_Controller {
 					);
 					// Termina el proceso por Transferencia
 					if($this->CompraModel->ActualizarCompra($datos_compra,$id_compra)) {
-						$data['mensaje'] = "Compra por transferencia registrada";
+						$data['mensaje'] = "Su compra ha sido registrada correctamente con el nro: #$id_compra";
 					} else {
 						$data['error'] = "Error al actualizar los datos de la compra por Transferencia";
 					}
@@ -703,7 +706,9 @@ class Carro extends CI_Controller {
 
 			}
 			
-
+			// Borra los datos de la sesion para que no pueda recargar y volver a guardar
+			//unset($_SESSION['datos']);
+			//unset($_SESSION['carrito']);
 
 
 
@@ -716,6 +721,20 @@ class Carro extends CI_Controller {
 		$this->load->view('/template/footer');
 	}
 
+	// Procesa el Pago ya sea por Webpay o Transferencia
+	public function Finalizado()
+	{	
+		if(isset($_POST['token_ws'])) {
+			$data['mensaje'] = "Compra finalizada correctamente";
+		}
+		if(isset($_POST['TBK_TOKEN']) and isset($_POST['TBK_ID_SESION']) and isset($_POST['TBK_ORDEN_COMPRA'])) {
+			$data['error'] = "El pago ha sido anulado";
+		}
+
+		$this->load->view('/template/head');
+		$this->load->view('Carro/Finalizar',$data);
+		$this->load->view('/template/footer');
+	}
 
 
 	// Muestra contenido del carrito en la cabecera

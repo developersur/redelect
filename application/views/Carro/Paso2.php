@@ -105,8 +105,11 @@ $(document).ready(function () {
 
 <div class="row">
     <div class="col-md-12">
-    <a href="<?php echo base_url(); ?>index.php/Carro/Paso1">Paso 1 - Complete su información</a> / Paso 2
-    
+    <div class="pasos">
+        <a href="<?php echo base_url(); ?>index.php/Carro/Paso1">Paso 1 - Complete su información</a>
+        <span>Paso 2</span>
+    </div>
+
     <fieldset>
     <legend class="text-center header titulo">Paso 2 - Datos de la Instalación</legend>
         

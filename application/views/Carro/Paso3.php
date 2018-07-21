@@ -7,10 +7,11 @@
 
 <div class="row">
     <div class="col-md-12">
-    <a href="<?php echo base_url(); ?>index.php/Carro/Paso1">Paso 1 - Complete su información</a> / 
-    <a href="<?php echo base_url(); ?>index.php/Carro/Paso2">Paso 2 - Datos de la Instalación</a> /
-    Paso 3
-    
+    <div class="pasos">
+        <a href="<?php echo base_url(); ?>index.php/Carro/Paso1">Paso 1 - Complete su información</a> 
+        <a href="<?php echo base_url(); ?>index.php/Carro/Paso2">Paso 2 - Datos de la Instalación</a>
+        <span>Paso 3</span>
+    </div>
     <fieldset>
     <legend class="text-center header titulo">Paso 3 - Confirmación</legend>
 

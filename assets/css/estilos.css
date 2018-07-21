@@ -78,3 +78,19 @@ li.block a:hover {
     color: #fff;
     background-color: #999;
 }
+.pasos {
+    margin-top: 10px; 
+}
+.pasos a {
+    color: #fff;
+    background-color: #1879d4;
+    padding: 4px 10px;
+}
+.pasos a:hover {
+    background-color: #248df0;
+}
+.pasos span {
+    color: #fff;
+    background-color: #4aaf0f;
+    padding: 4px 10px;
+}

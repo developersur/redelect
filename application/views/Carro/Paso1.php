@@ -107,7 +107,9 @@
 
     <div class="row">
         <div class="col-md-12">
-        Paso 1        
+        <div class="pasos">
+            <span>Paso 1</span>
+        </div>      
         <fieldset>
         <legend class="text-center header titulo">Paso 1 - Complete su información</legend>
             
