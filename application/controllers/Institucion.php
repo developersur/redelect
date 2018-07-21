@@ -22,7 +22,10 @@ class Institucion extends CI_Controller {
 
 	public function consultaInstitucion()
 	{
-		date_default_timezone_set('America/Santiago');
+		if( ! ini_get('date.timezone') )
+		{
+		   date_default_timezone_set('GMT');
+		}
 	 //Cargamos la librería email
 	 $this->load->library('email');
 
