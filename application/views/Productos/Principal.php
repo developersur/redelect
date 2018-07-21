@@ -54,8 +54,11 @@
                                               <?php } ?>
                                           </h4>
                                           <div class="product-rating">
-                                          <i class="fas fa-star"></i>
-                                              <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
                                           </div>
                                           <div class="product-btns">
                                               <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">Vista rápida</span></button>
