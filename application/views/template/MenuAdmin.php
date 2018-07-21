@@ -1,5 +1,5 @@
 <div class="panel-group" id="accordion">
-                
+
                 <!-- Compras -->
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -25,7 +25,7 @@
                         </div>
                     </div>
                 </div>
-                   
+
                 <!-- Productos -->
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -39,12 +39,17 @@
                             <table class="table">
                                 <tr>
                                     <td>
-                                        <span class=""></span><a href="<?php echo base_url(); ?>index.php/Producto/formProducto">Agregar producto</a>
+                                        <span class=""></span><a href="<?php echo base_url(); ?>index.php/Producto/viewProductos">Listar</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <span class=""></span><a href="<?php echo base_url(); ?>index.php/Producto/modProducto">Modificar producto</a>
+                                        <span class=""></span><a href="<?php echo base_url(); ?>index.php/Producto/formProducto">Agregar</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class=""></span><a href="<?php echo base_url(); ?>index.php/Producto/modProducto">Modificar</a>
                                     </td>
                                 </tr>
                             </table>
@@ -66,12 +71,17 @@
                             <table class="table">
                                 <tr>
                                     <td>
-                                        <span class=""></span><a href="">Agregar categoría</a>
+                                        <span class=""></span><a href="<?php echo base_url(); ?>index.php/Categoria/viewCategorias">Listar</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <span class=""></span><a href="">Modificar categoría</a>
+                                        <span class=""></span><a href="<?php echo base_url(); ?>index.php/Categoria/addCategoria">Agregar</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class=""></span><a href="<?php echo base_url(); ?>index.php/Categoria/modCategoria">Modificar</a>
                                     </td>
                                 </tr>
                             </table>
@@ -104,7 +114,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Quienes Somos -->
                 <div class="panel panel-default">
                     <div class="panel-heading">
