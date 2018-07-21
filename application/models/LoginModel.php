@@ -16,16 +16,7 @@ class LoginModel extends CI_model
             if(password_verify($password, $row->password))
             {
                 $this->session->logged_in = TRUE;
-
-                /*$data=array('user_data'=>array(
-                    'nombre'=>$row->nombre,
-                    'apellido'=>$row->apellido,
-                    'id'=>$row->id,
-                    'correo'=>$row->correo,
-                    'rol'=>$row->rol,
-                    'password'=>$row->password)
-                );
-                $this->session->set_userdata($data);*/
+                $this->session->nombre_user = $row->nombre . ' ' . $row->apellido;
                 return true;
             }
         }

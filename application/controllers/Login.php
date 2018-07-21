@@ -27,39 +27,11 @@ class Login extends CI_Controller
 		{
 			$this->form_validation->set_message('verifica','Contraseña incorrecta');
 
-			//redirect(base_url("index.php/Login"));
-
 			$this->load->view('template/head', $data);
 			$this->load->view('login/login');
 			$this->load->view('template/footer', $data);
 		}
 	}
-
-  /*public function verifica()
-  {
-      // categorias para la pagina principal
-      $data['categorias'] = $this->CategoriaModel->obtenerCategorias();
-
-      $username = $this->input->post('username');
-      $password = $this->input->post('password');
-
-      if($this->UsuarioModel->login($username, $password))
-      {
-		  		$this->load->view('template/head', $data);
-          		$this->load->view('Usuario/index');
-          		$this->load->view('template/footer', $data);
-      }
-      else
-      {
-          $this->form_validation->set_message('verifica','Contraseña incorrecta');
-
-		  redirect(base_url("index.php/Login"));
-
-          //$this->load->view('template/head', $data);
-          //$this->load->view('login/login');
-          //$this->load->view('template/footer', $data);
-      }
-  }*/
 
 	function salir(){
 		$this->session->sess_destroy();

@@ -9,12 +9,44 @@ class Categoria extends CI_Controller {
 		$this->load->model('CategoriaModel');
 	}
 
-	public function index()
+	public function viewCategorias()
 	{
-		$data['categorias'] = $this->ServicioModel->obtenerCategorias();
+			$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
 
-		$this->load->view('/template/head');
-		$this->load->view('categorias/categoria', $data);
-		$this->load->view('/template/footer');
+			$this->load->view('/template/head');
+			$this->load->view('categorias/VerCategorias', $data);
+			$this->load->view('/template/footer');
+	}
+
+	public function addCategoria()
+	{
+		$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
+
+		$this->load->view('/template/head',$data);
+		$this->load->view('categorias/AgregarCategoria');
+		$this->load->view('/template/footer',$data);
+	}
+
+	public function modCategoria()
+	{
+			$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
+
+			$this->load->view('/template/head');
+			$this->load->view('categorias/ModificarCategoria', $data);
+			$this->load->view('/template/footer');
+	}
+
+	public function agregarCategoria()
+	{
+				$data = array(
+					'nombre' => $this->input->post('nombre'),
+					'descripcion' => $this->input->post('descripcion'),
+					'habilitado' => $this->input->post('habilitado'),
+				);
+
+				$res = $this->CategoriaModel->crearCategoria($data);
+
+				$previous = $_SERVER['HTTP_REFERER'];
+				redirect($previous);
 	}
 }
