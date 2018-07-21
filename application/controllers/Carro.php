@@ -756,7 +756,7 @@ class Carro extends CI_Controller {
 				$correos_para = array_unique($correos_para);
 
 				// Fecha
-			 	$fecha = date("d-m-Y");
+			 	//$fecha = date("d-m-Y");
 
 		     	// Libreria Email
 	 			$this->load->library("email");
@@ -773,7 +773,7 @@ class Carro extends CI_Controller {
 				}
 
 				// Asunto
-				$asunto = $sistema . " - Compra #" . $id_compra . " registrada correctamente - " . $nombre_con . "" . $razon_factura . " - " . $fecha;
+				$asunto = $sistema . " - Compra #" . $id_compra . " registrada correctamente - " . $nombre_con . "" . $razon_factura;
 
 				// Base URL 
 				$base_url = base_url();
@@ -981,22 +981,6 @@ class Carro extends CI_Controller {
 						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$numero_cuenta</b></td>
 						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Debe enviar el comprobante de pago a</td>
 						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$notifcar_pago</b></td>
-					</tr>
-					<tr>
-						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Tipo de pago:</td>
-						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$paymentTypeCodeDes ($paymentTypeCode)</b></td>
-						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Respuesta:</td>
-						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$responseDescription ($responseCode)</b></td>
-						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Total:</td>
-						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$amount</b></td>
-					</tr>
-					<tr>
-						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Fecha transacción:</td>
-						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$transactionDate</b></td>
-						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Más información::</td>
-						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$VCIDescription ($VCI)</b></td>
-						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'></td>
-						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b></b></td>
 					</tr>
 					</table>";
 						
