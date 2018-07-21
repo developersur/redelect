@@ -124,7 +124,7 @@
                             <td align="right">Sector:</td>
                             <td><?php echo $data_post['sector_fac']; ?></td>
                             <td align="right">Calle:/td>
-                            <td><?php echo $data_post['caller_fac']; ?></td>
+                            <td><?php echo $data_post['calle_fac']; ?></td>
                         </tr>
                         <tr>
                             <td align="right">Nro Calle:</td>
@@ -214,11 +214,19 @@
                         </tr>
                         <tr>
                             <td align="right">Banco:</td>
-                            <td>AQUI NOMBRE DEL BANCO:</td>
+                            <td><?php echo $this->config->item('banco_cuenta'); ?></td>
                             <td align="right">Titular:</td>
-                            <td>AQUI LOS DATOS DEL TITULAR</td>
+                            <td><?php echo $this->config->item('titular_cuenta'); ?></td>
                             <td align="right">RUT:</td>
-                            <td>AQUI RUT</td>
+                            <td><?php echo $this->config->item('rut_cuenta'); ?></td>
+                        </tr>
+                        <tr>
+                            <td align="right">Tipo de cuenta:</td>
+                            <td><?php echo $this->config->item('tipo_cuenta'); ?></td>
+                            <td align="right">Número cuenta:</td>
+                            <td><?php echo $this->config->item('numero_cuenta'); ?></td>
+                            <td align="right">Debe enviar el comprobante de pago a:</td>
+                            <td><?php echo $this->config->item('notificar_pago'); ?></td>
                         </tr>
                         <?php } ?>
                     </table>

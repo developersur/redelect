@@ -93,9 +93,9 @@
 <script type="text/javascript">
     $(document).ready(function () {
         setTimeout(function() {
-            $(".regiones option[value='<?php echo $datasesion['region_dir']; ?>']").prop('selected', true);
+            $(".regiones option[value='<?php echo $datasesion['region_fac']; ?>']").prop('selected', true);
             jQuery('.regiones').change();
-            $(".comunas option[value='<?php echo $datasesion['comuna_dir']; ?>']").prop('selected', true);
+            $(".comunas option[value='<?php echo $datasesion['comuna_fac']; ?>']").prop('selected', true);
             $("#tipo option[value='<?php echo $datasesion['tipo']; ?>']").prop('selected', true);
             jQuery('#tipo').change();
         }, 500)

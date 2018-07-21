@@ -73,7 +73,7 @@
                                     <td align="right">Sector:</td>
                                     <td><?php echo $data_post['sector_fac']; ?></td>
                                     <td align="right">Calle:/td>
-                                    <td><?php echo $data_post['caller_fac']; ?></td>
+                                    <td><?php echo $data_post['calle_fac']; ?></td>
                                 </tr>
                                 <tr>
                                     <td align="right">Nro Calle:</td>
