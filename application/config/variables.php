@@ -11,28 +11,29 @@
 		'mailtype'    => 'html',
 		'charset'     => 'utf-8',
 		'newline'     => "\r\n",
-		'wordwrap'    => TRUE
+		'wordwrap'    => TRUE,
+		'validate'    => TRUE
+
 	);
 
 	// Correo Compra
 	// Notificar compra a:
-	//$config['notificar_redelect'] = "compras@redelect";
-	$config['notificar_redelect'] = "alexi_evanescence@hotmail.com";
+	$config['notificar_redelect'] = "compras@redelect";
+	//$config['notificar_redelect'] = "alexi_evanescence@hotmail.com";
 	
 	// Mostrar en correo saliente a:
 	//$config['from']     = "compras@redelect";
-	$config['from']     = "alexi_evanescence@hotmail.com";
+	$config['from']     = "notificador@redelect.cl";
 
 	// Con respuesta a:
-	//$config['reply_to'] = "compras@redelect";
-	$config['reply_to'] = "alexi_evanescence@hotmail.com";
+	$config['reply_to'] = "compras@redelect";
+	//$config['reply_to'] = "alexi_evanescence@hotmail.com";
 	
 	// Nombre del Sistema
 	$config['sistema'] = "Redelect";
 
 
 	// ----------------------------------- //
-
 
 
 
@@ -46,4 +47,5 @@
 	
 	// Correo al que se deben notificar los pagos
 	$config['notificar_pago'] = "pagos@redelect";
+
 ?>

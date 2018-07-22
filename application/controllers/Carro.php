@@ -445,6 +445,7 @@ class Carro extends CI_Controller {
 	// Procesa el Pago ya sea por Webpay o Transferencia
 	public function ProcesarPago()
 	{	
+		date_default_timezone_set('America/Santiago');
 
 		// Si no existe la sesion con los datos de la compra
 		if(!isset($_SESSION['datos'])) {
@@ -480,7 +481,7 @@ class Carro extends CI_Controller {
 		$this->load->model('CategoriaModel');
 		
 		// categorias para la pagina principal
-		$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
+		$datac['categorias'] = $this->CategoriaModel->obtenerCategorias();
 				
 		$data['mensaje'] = "";
 		$data['error']   = "";
@@ -756,7 +757,7 @@ class Carro extends CI_Controller {
 				$correos_para = array_unique($correos_para);
 
 				// Fecha
-			 	$fecha = date("d-m-Y");
+			 	//$fecha = date("d-m-Y");
 
 		     	// Libreria Email
 	 			$this->load->library("email");
@@ -773,7 +774,7 @@ class Carro extends CI_Controller {
 				}
 
 				// Asunto
-				$asunto = $sistema . " - Compra #" . $id_compra . " registrada correctamente - " . $nombre_con . "" . $razon_factura . " - " . $fecha;
+				$asunto = $sistema . " - Compra #" . $id_compra . " - " . $nombre_con . "" . $razon_factura;
 
 				// Base URL 
 				$base_url = base_url();
@@ -781,7 +782,7 @@ class Carro extends CI_Controller {
 				// Contenido Contacto
 				$html_datos_contacto = "
 				<br><br>
-				<table style='border: 1px solid #999; table-layout:fixed; word-wrap:break-word;' cellspacing='0'>
+				<table style='width: 100%; border: 1px solid #999; table-layout:fixed; word-wrap:break-word;' cellspacing='0'>
 				<tr>
 					<td style='padding: 8px; background-color: #333; color: #fff;' colspan='6'>Datos de Contacto</td>
 				</tr>
@@ -810,7 +811,7 @@ class Carro extends CI_Controller {
 					// Contenido Factura
 					$html_datos_factura = "
 					<br><br>
-					<table style='border: 1px solid #999; table-layout:fixed; word-wrap:break-word;' cellspacing='0'>
+					<table style='width: 100%; border: 1px solid #999; table-layout:fixed; word-wrap:break-word;' cellspacing='0'>
 					<tr>
 						<td style='padding: 8px; background-color: #333; color: #fff;' colspan='6'>Datos de Facturación</td>
 					</tr>
@@ -853,7 +854,7 @@ class Carro extends CI_Controller {
 				// Contenido Instalación
 				$html_datos_instalacion = "
 				<br><br>
-				<table style='border: 1px solid #999; table-layout:fixed; word-wrap:break-word;' cellspacing='0'>
+				<table style='width: 100%; border: 1px solid #999; table-layout:fixed; word-wrap:break-word;' cellspacing='0'>
 				<tr>
 					<td style='padding: 8px; background-color: #333; color: #fff;' colspan='6'>Datos de Instalación/Visita</td>
 				</tr>
@@ -896,10 +897,12 @@ class Carro extends CI_Controller {
 						$cardNumber          = $webpay['cardNumber'];
 						$cardExpirationDate  = $webpay['cardExpirationDate'];
 						$authorizationCode   = $webpay['authorizationCode'];
+						$sharesNumber        = $webpay['sharesNumber'];
 						$paymentTypeCodeDes  = $webpay['paymentTypeCodeDes'];
 						$paymentTypeCode     = $webpay['paymentTypeCode'];
+						$responseCode        = $webpay['responseCode'];
 						$responseDescription = $webpay['responseDescription'];
-						$amount              = number_format($webpay['amount'],'0',',','.');;
+						$amount              = number_format($webpay['amount'],'0',',','.');
 						$commerceCode        = $webpay['commerceCode'];
 						$transactionDate     = date("d-m-Y H:i", strtotime($webpay['transactionDate']));
 						$VCIDescription      = $webpay['VCIDescription']; 
@@ -908,7 +911,7 @@ class Carro extends CI_Controller {
 						// Contenido WebPay
 						$html_datos_webpay = "
 							<br><br>
-							<table style='border: 1px solid #999; table-layout:fixed; word-wrap:break-word;' cellspacing='0'>
+							<table style='width: 100%; border: 1px solid #999; table-layout:fixed; word-wrap:break-word;' cellspacing='0'>
 							<tr>
 								<td style='padding: 8px; background-color: #333; color: #fff;' colspan='6'>Detalles de la Transaccion Webpay </td>
 							</tr>
@@ -958,11 +961,11 @@ class Carro extends CI_Controller {
 					$rut_cuenta     = $this->config->item('rut_cuenta');
 					$tipo_cuenta    = $this->config->item('tipo_cuenta');
 					$numero_cuenta  = $this->config->item('numero_cuenta');
-					$notifcar_pago  = $this->config->item('notifcar_pago');
+					$notificar_pago = $this->config->item('notificar_pago');
 
 					$html_datos_transferencia = "
 					<br><br>
-					<table style='border: 1px solid #999; table-layout:fixed; word-wrap:break-word;' cellspacing='0'>
+					<table style='width: 100%; border: 1px solid #999; table-layout:fixed; word-wrap:break-word;' cellspacing='0'>
 					<tr>
 						<td style='padding: 8px; background-color: #333; color: #fff;' colspan='6'>Datos para Realizar el Pago por Transferencia</td>
 					</tr>
@@ -980,30 +983,68 @@ class Carro extends CI_Controller {
 						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Número de cuenta:</td>
 						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$numero_cuenta</b></td>
 						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Debe enviar el comprobante de pago a</td>
-						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$notifcar_pago</b></td>
-					</tr>
-					<tr>
-						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Tipo de pago:</td>
-						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$paymentTypeCodeDes ($paymentTypeCode)</b></td>
-						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Respuesta:</td>
-						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$responseDescription ($responseCode)</b></td>
-						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Total:</td>
-						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$amount</b></td>
-					</tr>
-					<tr>
-						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Fecha transacción:</td>
-						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$transactionDate</b></td>
-						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Más información::</td>
-						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$VCIDescription ($VCI)</b></td>
-						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'></td>
-						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b></b></td>
+						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$notificar_pago</b></td>
 					</tr>
 					</table>";
 						
 				} else $html_datos_transferencia = "";
+				
+				
+				// Detalles de los productos
+				if (isset($compra_detalle) and count($compra_detalle)>0) {
 
+					// Contenido Transferencia
+					$banco_cuenta   = $this->config->item('banco_cuenta');
+					$titular_cuenta = $this->config->item('titular_cuenta');
+					$rut_cuenta     = $this->config->item('rut_cuenta');
+					$tipo_cuenta    = $this->config->item('tipo_cuenta');
+					$numero_cuenta  = $this->config->item('numero_cuenta');
+					$notificar_pago = $this->config->item('notificar_pago');
 
+					$html_datos_productos = "
+					<br><br>
+					<table style='width: 100%; border: 1px solid #999; table-layout:fixed; word-wrap:break-word;' cellspacing='0'>
+					<tr>
+						<td style='padding: 8px; background-color: #333; color: #fff;'>Código</td>
+						<td style='padding: 8px; background-color: #333; color: #fff;'>Nombre</td>
+						<td style='padding: 8px; background-color: #333; color: #fff;'>Descripción</td>
+						<td style='padding: 8px; background-color: #333; color: #fff;'>Precio</td>
+						<td style='padding: 8px; background-color: #333; color: #fff;'>Cantidad</td>
+						<td style='padding: 8px; background-color: #333; color: #fff;'>Subtotal</td>
+					</tr>";
+					$total_compra = 0;
+					foreach ($compra_detalle as $p) {
+						$producto_codigo      = $p['codigo_producto'];
+						$producto_nombre      = $p['nombre_producto'];
+						$producto_descripcion = $p['descripcion_producto'];
+						$producto_cantidad    = $p['cantidad'];
+						$producto_precio      = $p['precio'];
+						$precio_formato       = number_format($p['precio'],'0',',','.');
+						$subtotal             = round($producto_cantidad*$producto_precio);
+						$total_compra         = $total_compra+$subtotal;
 
+						$html_datos_productos .= "
+						<tr>
+							<td style='padding: 8px; border-top: 1px solid #999;'>$producto_codigo</td>
+							<td style='padding: 8px; border-top: 1px solid #999;'>$producto_nombre</td>
+							<td style='padding: 8px; border-top: 1px solid #999;'>$producto_descripcion</td>
+							<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>$producto_cantidad</td>
+							<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>$ $precio_formato</td>
+							<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>$ $subtotal</td>
+						</tr>";
+					}
+					
+					$total_formato         = number_format($total_compra,'0',',','.');
+					$html_datos_productos .= "
+					<tr>
+						<td style='padding: 8px; border-top: 1px solid #999;' colspan='5'></td>
+						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'><b>$ $total_formato</b></td>
+					</tr>";
+					$html_datos_productos .= "</table>";
+						
+				} else $html_datos_productos = "";
+
+				
 
 				// Contenido Final Correo
 				$htmlContent = "
@@ -1020,11 +1061,14 @@ class Carro extends CI_Controller {
 
 					$html_datos_transferencia
 
+					$html_datos_productos
+
 				</div>";
 
 				// Correo a soporte
 				$this->email->initialize($configSMTP);
 				$this->email->from($from,$sistema);
+				//$this->email->to("alexi_evanescence@hotmail.com");
 				$this->email->to($correos_para);
 				$this->email->cc($notificar_redelect); 
 				$this->email->subject($asunto);
@@ -1033,8 +1077,10 @@ class Carro extends CI_Controller {
 
 				// Si se envia correctamente
 				if($this->email->send()) {
+					//echo $this->email->print_debugger();
 					$data['correo_ok'] = TRUE;
 				} else {
+					//echo $this->email->print_debugger();
 					$data['correo_ok'] = FALSE;
 				}
 			}
@@ -1058,7 +1104,7 @@ class Carro extends CI_Controller {
 		
 		$this->load->view('/template/head');
 		$this->load->view('Carro/ProcesarPago',$data);
-		$this->load->view('/template/footer');
+		$this->load->view('/template/footer',$datac);
 	}
 
 
