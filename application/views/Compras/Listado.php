@@ -3,7 +3,7 @@
 <div class="container" id="menuadmin">
     <div class="row">
         <div class="col-sm-3 col-md-3">
-            <?php //include("/views/admin/MenuAdmin.php"); ?>
+            <?php $this->load->view('template/MenuAdmin'); ?>
         </div>
         <div class="col-sm-9 col-md-9">
           <fieldset>
@@ -21,26 +21,26 @@
                   </tr>
                 </thead>
                 <tbody>
-                
+
                 <?php if($compras) { ?>
                     <?php foreach ($compras as $compra) {?>
-                    
-                    <?php 
+
+                    <?php
                         $color_status = "";
                         switch ($compra['status_compra']) {
                             case 'ANULADA':
                                 $color_status = "status_rojo";
                                 break;
-                            
+
                             case 'REGISTRADA':
                                 $color_status = "status_verde";
                                 break;
                             default:
-                               
+
                                 break;
                         }
                     ?>
-                    
+
                     <tr>
                       <td><a href="<?php echo base_url(); ?>index.php/Compra/Detalle?id_compra=<?php echo $compra['id_compra'] ?>"><?php echo $compra['id_compra']; ?></a></td>
                       <td><?php echo $compra['tipo']; ?></td>

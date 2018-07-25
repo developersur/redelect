@@ -1,21 +1,31 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Producto extends CI_Controller {
+class Producto extends CI_Controller
+{
 
-	function __construct()
-	{
-        parent::__construct();
-        $this->load->model('ProductoModel');
-        $this->load->model('CategoriaModel');
-	}
+		function __construct()
+		{
+	        parent::__construct();
+	        $this->load->model('ProductoModel');
+	        $this->load->model('CategoriaModel');
+		}
 
-	public function index()
-	{
-		$this->load->view('/template/head');
-		$this->load->view('servicios/servicio');
-		$this->load->view('/template/footer');
+		public function index()
+		{
+			$this->load->view('/template/head');
+			$this->load->view('servicios/servicio');
+			$this->load->view('/template/footer');
     }
+
+		public function viewProductos()
+		{
+				$data['productos'] = $this->ProductoModel->obtenerProductos();
+
+				$this->load->view('/template/head');
+				$this->load->view('Productos/VerProductos', $data);
+				$this->load->view('/template/footer');
+		}
 
     public function formProducto()
     {
@@ -32,17 +42,7 @@ class Producto extends CI_Controller {
 				$data['productos'] = $this->ProductoModel->obtenerProductos();
 
         $this->load->view('/template/head',$data);
-				$this->load->view('Productos/modificarProducto', $data);
-				$this->load->view('/template/footer',$data);
-    }
-
-		public function borrarProducto()
-    {
-        $data['categorias'] = $this->CategoriaModel->obtenerCategorias();
-				$data['productos'] = $this->ProductoModel->obtenerProductos();
-
-        $this->load->view('/template/head',$data);
-				$this->load->view('Productos/borrarProducto', $data);
+				$this->load->view('Productos/ModificarProducto', $data);
 				$this->load->view('/template/footer',$data);
     }
 
@@ -98,12 +98,12 @@ class Producto extends CI_Controller {
 
 
     public function Categoria()
-    {		
+    {
 				$id_categoria = $_GET['id_categoria'];
 
         $data['id_categoria'] = $id_categoria;
         $data['categorias']   = $this->CategoriaModel->obtenerCategorias();
-				
+
 				// Productos de la categoria
 				$data['productos'] = $this->ProductoModel->ProductosPorCategoria($id_categoria);
 

@@ -7,10 +7,11 @@
 
 <div class="row">
     <div class="col-md-12">
-    <a href="<?php echo base_url(); ?>index.php/Carro/Paso1">Paso 1 - Complete su información</a> / 
-    <a href="<?php echo base_url(); ?>index.php/Carro/Paso2">Paso 2 - Datos de la Instalación</a> /
-    Paso 3
-    
+    <div class="pasos">
+        <a href="<?php echo base_url(); ?>index.php/Carro/Paso1">Paso 1 - Complete su información</a> 
+        <a href="<?php echo base_url(); ?>index.php/Carro/Paso2">Paso 2 - Datos de la Instalación</a>
+        <span>Paso 3</span>
+    </div>
     <fieldset>
     <legend class="text-center header titulo">Paso 3 - Confirmación</legend>
 
@@ -123,7 +124,7 @@
                             <td align="right">Sector:</td>
                             <td><?php echo $data_post['sector_fac']; ?></td>
                             <td align="right">Calle:/td>
-                            <td><?php echo $data_post['caller_fac']; ?></td>
+                            <td><?php echo $data_post['calle_fac']; ?></td>
                         </tr>
                         <tr>
                             <td align="right">Nro Calle:</td>
@@ -168,9 +169,9 @@
                         </tr>
                         <tr>
                             <td align="right">Fecha visita:</td>
-                            <td></td>
+                            <td><?php echo $data_post['fecha_visita']; ?></td>
                             <td align="right">Hora visita</td>
-                            <td></td>
+                            <td><?php echo $data_post['hora_visita']; ?></td>
                             <td align="right"></td>
                             <td></td>
                         </tr>
@@ -213,11 +214,19 @@
                         </tr>
                         <tr>
                             <td align="right">Banco:</td>
-                            <td>AQUI NOMBRE DEL BANCO:</td>
+                            <td><?php echo $this->config->item('banco_cuenta'); ?></td>
                             <td align="right">Titular:</td>
-                            <td>AQUI LOS DATOS DEL TITULAR</td>
+                            <td><?php echo $this->config->item('titular_cuenta'); ?></td>
                             <td align="right">RUT:</td>
-                            <td>AQUI RUT</td>
+                            <td><?php echo $this->config->item('rut_cuenta'); ?></td>
+                        </tr>
+                        <tr>
+                            <td align="right">Tipo de cuenta:</td>
+                            <td><?php echo $this->config->item('tipo_cuenta'); ?></td>
+                            <td align="right">Número cuenta:</td>
+                            <td><?php echo $this->config->item('numero_cuenta'); ?></td>
+                            <td align="right">Debe enviar el comprobante de pago a:</td>
+                            <td><?php echo $this->config->item('notificar_pago'); ?></td>
                         </tr>
                         <?php } ?>
                     </table>

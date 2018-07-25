@@ -63,45 +63,52 @@
 
 		<!-- Smartsupp Live Chat script -->
 		<script type="text/javascript">
-			var _smartsupp = _smartsupp || {};
-			_smartsupp.key = 'c79ce29cea7a4d112f3e853546c4343e8f456615';
-			window.smartsupp||(function(d) {
-			var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
-			s=d.getElementsByTagName('script')[0];c=d.createElement('script');
-			c.type='text/javascript';c.charset='utf-8';c.async=true;
-			c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
-			})(document);
+		var _smartsupp = _smartsupp || {};
+		_smartsupp.key = '86b501d3323c02a14dc28f7fbc27e907009ac3a1';
+		window.smartsupp||(function(d) {
+		  var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
+		  s=d.getElementsByTagName('script')[0];c=d.createElement('script');
+		  c.type='text/javascript';c.charset='utf-8';c.async=true;
+		  c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
+		})(document);
 		</script>
 
     </head>
     <body>
 		<!-- HEADER -->
-		<header>
+		<header class="altura_header">
 			<!-- TOP HEADER -->
 			<div id="top-header">
 				<div class="container">
 					<ul class="header-links pull-left">
-						<li><a href="#"><i class="fa fa-phone"></i> +56950077896</a></li>
-						<li><a href="#"><i class="fas fa-envelope"></i> whernandez.fobos@gmail.com</a></li>
+						<li><a href="#"><i class="fa fa-phone"></i> +569 99373838</a></li>
+						<li><a href="#"><i class="fas fa-envelope"></i> contacto@redelect.cl</a></li>
 						<li><a href="#"><i class="fa fa-map-marker"></i> Barros Arana 492 oficina 78, Torre Ligure, Concepción</a></li>
 					</ul>
 					<ul class="header-links pull-right">
 						<li class="dropdown">
-							<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="fas fa-user"></i> Mi cuenta</a>
+							<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="fas fa-user"></i>
+								<?php if(isset($this->session->nombre_user))
+								{
+									echo $this->session->nombre_user;
+								}else{
+									echo 'Mi cuenta';
+								}?>
+							</a>
 							<ul class="dropdown-menu">
 									<?php
 									if($this->session->logged_in)
 									{
 									?>
-										<li><a href="<?php echo base_url(); ?>index.php/Admin">Administrar</a></li>
-										<li><a href="<?php echo base_url(); ?>index.php/Login/salir">Salir</a></li>
+										<li class="block"><a href="<?php echo base_url(); ?>index.php/Admin">Administrar</a></li>
+										<li class="block"><a href="<?php echo base_url(); ?>index.php/Login/salir">Salir</a></li>
 										<?php
 									}else if($this->session->logged_in_user){?>
-										<li><a href="<?php echo base_url(); ?>index.php/Usuario/index">Mis compras</a></li>
-										<li><a href="<?php echo base_url(); ?>index.php/Login/salir">Salir</a></li>
+										<li class="block"><a href="<?php echo base_url(); ?>index.php/Usuario/index">Mis compras</a></li>
+										<li class="block"><a href="<?php echo base_url(); ?>index.php/Login/salir">Salir</a></li>
 									<?php
 								}else{?>
-									<li><a href="<?php echo base_url(); ?>index.php/Login">Ingresar</a></li>
+									<li class="block"><a href="<?php echo base_url(); ?>index.php/Login">Ingresar</a></li>
 							<?php } ?>
 							</ul>
 						</li>

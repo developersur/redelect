@@ -432,7 +432,7 @@ class Carro extends CI_Controller {
 		$NroCompra      = rand();    // Orden de compra de la tienda
 		$SesionID       = uniqid();  //ID para la sesion 
 		$urlProcesar    = $base_url."index.php/Carro/ProcesarPago/"; // URL de retorno
-		$urlComprobante = $base_url."index.php/Carro/ResultadoNormal/?action=end";    // URL Final 
+		$urlComprobante = $base_url."index.php/Carro/Finalizado/";   // URL Final 
 		
 		// -- Inicio de la Transaccion para obtener Token -- //
 		$data['WebPayResultado'] = $webpay->getNormalTransaction()->initTransaction($total, $NroCompra, $SesionID, $urlProcesar, $urlComprobante);
@@ -445,6 +445,7 @@ class Carro extends CI_Controller {
 	// Procesa el Pago ya sea por Webpay o Transferencia
 	public function ProcesarPago()
 	{	
+		date_default_timezone_set('America/Santiago');
 
 		// Si no existe la sesion con los datos de la compra
 		if(!isset($_SESSION['datos'])) {
@@ -480,11 +481,12 @@ class Carro extends CI_Controller {
 		$this->load->model('CategoriaModel');
 		
 		// categorias para la pagina principal
-		$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
+		$datac['categorias'] = $this->CategoriaModel->obtenerCategorias();
 				
 		$data['mensaje'] = "";
 		$data['error']   = "";
-		
+		$todo_bien       = FALSE;
+
 		// Si se recibe token o transferencia la compra va bien
 		if(((isset($_POST["token_ws"]) and $_POST["token_ws"]!="")) or ((isset($_POST["transferencia"])) and ($_POST['transferencia']))) {
 
@@ -495,36 +497,62 @@ class Carro extends CI_Controller {
 				$total     = $_SESSION['total'];
 			}
 
+			// Recibe los datos en variable para registrarlos y ocuparlos para el correo
+			$tipo             = $dcompra['tipo'];
+			$rut_con          = $dcompra['rut_con'];
+			$nombre_con       = $dcompra['nombre_con'];
+			$telefono_con     = $dcompra['telefono_con'];
+			$correo_con       = $dcompra['correo_con'];
+			$rut_fac          = $dcompra['rut_fac'];
+			$razon_fac        = $dcompra['razon_fac'];
+			$telefono_fac     = $dcompra['telefono_fac'];
+			$correo_fac       = $dcompra['correo_fac'];
+			$giro_fac         = $dcompra['giro_fac'];
+			$region_fac       = $dcompra['region_fac'];
+			$comuna_fac       = $dcompra['comuna_fac'];
+			$sector_fac       = $dcompra['sector_fac'];
+			$calle_fac        = $dcompra['calle_fac'];
+			$nro_calle_fac    = $dcompra['nro_calle_fac'];
+			$region_dir       = $dcompra['region_dir'];
+			$comuna_dir       = $dcompra['comuna_dir'];
+			$sector_dir       = $dcompra['sector_dir'];
+			$calle_dir        = $dcompra['calle_dir'];
+			$nro_calle_dir    = $dcompra['nro_calle_dir'];
+			$indicaciones_dir = $dcompra['indicaciones_dir'];
+			$fecha_visita     = $dcompra['fecha_visita'];
+			$hora_visita      = $dcompra['hora_visita'];
+			$metodo_pago      = $dcompra['metodo_pago'];
+			
 			// -- Inicialmente registra la compra sin los datos del pago -- // 
 			$data = array(
 				"id_cliente"       => 0,
 				"id_webpay"        => 0,
 				"token"            => "0",
 				"nro_transferencia"=> "",
-				"tipo"             => $dcompra['tipo'],
-				"rut_con"          => $dcompra['rut_con'],
-				"nombre_con"       => $dcompra['nombre_con'],
-				"telefono_con"     => $dcompra['telefono_con'],
-				"correo_con"       => $dcompra['correo_con'],
-				"rut_fac"          => $dcompra['rut_fac'],
-				"razon_fac"        => $dcompra['razon_fac'],
-				"telefono_fac"     => $dcompra['telefono_fac'],
-				"correo_fac"       => $dcompra['correo_fac'],
-				"giro_fac"         => $dcompra['giro_fac'],
-				"region_fac"       => $dcompra['region_fac'],
-				"comuna_fac"       => $dcompra['comuna_fac'],
-				"sector_fac"       => $dcompra['sector_fac'],
-				"calle_fac"        => $dcompra['calle_fac'],
-				"nro_calle_fac"    => $dcompra['nro_calle_fac'],
-				'region_dir'       => $dcompra['region_dir'],
-				'comuna_dir'       => $dcompra['comuna_dir'],
-				'sector_dir'       => $dcompra['sector_dir'],
-				'calle_dir'        => $dcompra['calle_dir'],
-				'nro_calle_dir'    => $dcompra['nro_calle_dir'],
-				'indicaciones_dir' => $dcompra['indicaciones_dir'],
-				'fecha_visita'     => $dcompra['fecha_visita'],
-				'hora_visita'      => $dcompra['hora_visita'],
-				'metodo_pago'     =>  $dcompra['metodo_pago'],
+				"tipo"             => $tipo,
+				"rut_con"          => $rut_con,
+				"nombre_con"       => $nombre_con,
+				"telefono_con"     => $telefono_con,
+				"correo_con"       => $correo_con,
+				"rut_fac"          => $rut_fac,
+				"razon_fac"        => $razon_fac,
+				"telefono_fac"     => $telefono_fac,
+				"correo_fac"       => $correo_fac,
+				"giro_fac"         => $giro_fac,
+				"region_fac"       => $region_fac,
+				"comuna_fac"       => $comuna_fac,
+				"sector_fac"       => $sector_fac,
+				"calle_fac"        => $calle_fac,
+				"nro_calle_fac"    => $nro_calle_fac,
+				"region_dir"       => $region_dir,
+				"comuna_dir"       => $comuna_dir,
+				"sector_dir"       => $sector_dir,
+				"calle_dir"        => $calle_dir,
+				"nro_calle_dir"    => $nro_calle_dir,
+				"indicaciones_dir" => $indicaciones_dir,
+				"fecha_visita"     => $fecha_visita,
+				"hora_visita"      => $hora_visita,
+				"metodo_pago"     =>  $metodo_pago,
 				'status_compra'    => "REGISTRADA",
 				'status_pago'      => "SIN PROCESAR",
 				'total'      	   => $total
@@ -532,8 +560,6 @@ class Carro extends CI_Controller {
 
 			// Registra el encabezado de la compra
 			if($id_compra = $this->CompraModel->RegistrarCompra($data)) {
-				//unset($_SESSION['datos']);
-				//unset($_SESSION['carrito']);
 
 				// Recorre los productos del carrito para guardarlo en los detalles
 				foreach ($dproducto as $item) {
@@ -612,12 +638,12 @@ class Carro extends CI_Controller {
 							'VCI'                 => $WebPayResultado->VCI,
 							'VCIDescription'      => $VCIDescripcion,
 							'id_cliente'          => 1,
-							'rut_contacto'        => 11111111,
-							'rut_facturacion'     => 11111111
+							'rut_contacto'        => $rut_con,
+							'rut_facturacion'     => $rut_fac
 						);
 
+						// Registra los datos del pago
 						$id_pago_webpay = $this->WebpayModel->RegistrarPago($data_pago);
-
 
 						// PAGO ACEPTADO
 						if ($WebPayResultado->detailOutput->responseCode === 0) {
@@ -630,7 +656,13 @@ class Carro extends CI_Controller {
 								'status_pago'           => "PAGO CONFIRMADO"
 							);
 							if($this->CompraModel->ActualizarCompra($datos_compra,$id_compra)) {
-								$data['mensaje'] = "Pago confirmado, su compra ha sido registrada con el nro: $id_compra";
+								$data['mensaje']  = "Pago confirmado, su compra ha sido registrada con el nro: #$id_compra";
+								$todo_bien        = TRUE;
+								
+								// Crea 3 variables que seran utilizadas para mostrar el voucher webpay
+								$data['voucher']  = TRUE;
+								$data['url']      = $WebPayResultado->urlRedirection;
+								$data['token_ws'] = $token;
 							}
 
 
@@ -646,7 +678,7 @@ class Carro extends CI_Controller {
 								'informacion_adicional' => $RespuestaDescripcion
 							);
 							if($this->CompraModel->ActualizarCompra($datos_compra,$id_compra)) {
-								$data['error'] = "La compra fue registrada pero el pago fue rechazado por Webpay, motivo: " . $RespuestaDescripcion;
+								$data['error'] = "La compra fue registrada pero el pago fue rechazado por Webpay, motivo: <b>" . $RespuestaDescripcion . "</b>";
 							}
 						}
 
@@ -680,7 +712,8 @@ class Carro extends CI_Controller {
 					);
 					// Termina el proceso por Transferencia
 					if($this->CompraModel->ActualizarCompra($datos_compra,$id_compra)) {
-						$data['mensaje'] = "Compra por transferencia registrada";
+						$data['mensaje'] = "Su compra ha sido registrada correctamente con el nro: #$id_compra";
+						$todo_bien       = TRUE;
 					} else {
 						$data['error'] = "Error al actualizar los datos de la compra por Transferencia";
 					}
@@ -702,8 +735,366 @@ class Carro extends CI_Controller {
 				}
 
 			}
-			
 
+
+			// ----------------------------------------------- //
+			// ------------ Notifica por correo -------------- //
+			// ----------------------------------------------- //
+			
+			if($todo_bien==TRUE) {
+				
+				$compra_detalle = $this->CompraModel->ProductosCompra($id_compra);
+				$datospago      = $this->CompraModel->DetallePagoWebPay($id_compra);
+
+				// Para Administrador de Redelect
+				$notificar_redelect = $this->config->item('notificar_redelect');
+				
+				// Para el cliente
+				$correos_para[] = $correo_con;
+				$correos_para[] = $correo_fac;
+				
+				// Elimina correos duplicados
+				$correos_para = array_unique($correos_para);
+
+				// Fecha
+			 	//$fecha = date("d-m-Y");
+
+		     	// Libreria Email
+	 			$this->load->library("email");
+
+				// Datos
+				$configSMTP = $this->config->item('configSMTP');
+				$from       = $this->config->item('from');
+				$sistema    = $this->config->item('sistema');
+				
+				// Si tiene razon social la muestra en el asunto
+				$razon_factura = "";
+				if($razon_fac!=""){
+					$razon_factura = " (" . $razon_fac . ")";
+				}
+
+				// Asunto
+				$asunto = $sistema . " - Compra #" . $id_compra . " - " . $nombre_con . "" . $razon_factura;
+
+				// Base URL 
+				$base_url = base_url();
+
+				// Contenido Contacto
+				$html_datos_contacto = "
+				<br><br>
+				<table style='width: 100%; border: 1px solid #999; table-layout:fixed; word-wrap:break-word;' cellspacing='0'>
+				<tr>
+					<td style='padding: 8px; background-color: #333; color: #fff;' colspan='6'>Datos de Contacto</td>
+				</tr>
+				<tr>
+					<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Tipo de comprobante:</td>
+					<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$tipo</b></td>
+					<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>RUT:</td>
+					<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$rut_con</b></td>
+					<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Nombre:</td>
+					<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$nombre_con</b></td>
+				</tr>
+				<tr>
+					<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Teléfono:</td>
+					<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$telefono_con</b></td>
+					<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Correo:</td>
+					<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$correo_con</b></td>
+					<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'></td>
+					<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b></b></td>
+				</tr>
+				</table>";
+				
+
+				// Contenido Factura
+				if($tipo=="Factura") {
+
+					// Contenido Factura
+					$html_datos_factura = "
+					<br><br>
+					<table style='width: 100%; border: 1px solid #999; table-layout:fixed; word-wrap:break-word;' cellspacing='0'>
+					<tr>
+						<td style='padding: 8px; background-color: #333; color: #fff;' colspan='6'>Datos de Facturación</td>
+					</tr>
+					<tr>
+						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>RUT:</td>
+						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$rut_fac</b></td>
+						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Razón Social:</td>
+						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$razon_fac</b></td>
+						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Giro:</td>
+						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$giro_fac</b></td>
+					</tr>
+					<tr>
+						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Teléfono:</td>
+						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$telefono_fac</b></td>
+						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Correo:</td>
+						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$correo_fac</b></td>
+						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Región</td>
+						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$region_fac</b></td>
+					</tr>
+					<tr>
+						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Comuna:</td>
+						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$comuna_fac</b></td>
+						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Sector:</td>
+						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$sector_fac</b></td>
+						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Calle</td>
+						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$calle_fac</b></td>
+					</tr>
+					<tr>
+						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Nro calle:</td>
+						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$nro_calle_fac</b></td>
+						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'></td>
+						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b></b></td>
+						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'></td>
+						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b></b></td>
+					</tr>
+					</table>";
+				} else { $html_datos_factura = ""; }
+
+
+				// Contenido Instalación
+				$html_datos_instalacion = "
+				<br><br>
+				<table style='width: 100%; border: 1px solid #999; table-layout:fixed; word-wrap:break-word;' cellspacing='0'>
+				<tr>
+					<td style='padding: 8px; background-color: #333; color: #fff;' colspan='6'>Datos de Instalación/Visita</td>
+				</tr>
+				<tr>
+					<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Región:</td>
+					<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$region_dir</b></td>
+					<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Comuna:</td>
+					<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$comuna_dir</b></td>
+					<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Sector:</td>
+					<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$sector_dir</b></td>
+				</tr>
+				<tr>
+					<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Calle:</td>
+					<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$calle_dir</b></td>
+					<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Nro Calle:</td>
+					<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$nro_calle_dir</b></td>
+					<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Indicaciones</td>
+					<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$indicaciones_dir</b></td>
+				</tr>
+				<tr>
+					<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Fecha visita:</td>
+					<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$fecha_visita</b></td>
+					<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Hora visita:</td>
+					<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$hora_visita</b></td>
+					<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'></td>
+					<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b></b></td>
+				</tr>
+				</table>";
+
+
+			    // Detalles de la Transaccion Webpay 
+				if (($metodo_pago=="WEBPAY") and (count($datospago)>0)) {
+					foreach ($datospago as $webpay) {
+					
+						$buyOrder            = $webpay['buyOrder'];
+						
+						if($webpay['responseCode']=="0") $numero_tarjeta = "XXXX-XXXX-XXXX-" . $webpay['cardNumber']; 
+						else                             $numero_tarjeta = "";
+
+						$cardNumber          = $webpay['cardNumber'];
+						$cardExpirationDate  = $webpay['cardExpirationDate'];
+						$authorizationCode   = $webpay['authorizationCode'];
+						$sharesNumber        = $webpay['sharesNumber'];
+						$paymentTypeCodeDes  = $webpay['paymentTypeCodeDes'];
+						$paymentTypeCode     = $webpay['paymentTypeCode'];
+						$responseCode        = $webpay['responseCode'];
+						$responseDescription = $webpay['responseDescription'];
+						$amount              = number_format($webpay['amount'],'0',',','.');
+						$commerceCode        = $webpay['commerceCode'];
+						$transactionDate     = date("d-m-Y H:i", strtotime($webpay['transactionDate']));
+						$VCIDescription      = $webpay['VCIDescription']; 
+						$VCI                 = $webpay['VCI']; 
+
+						// Contenido WebPay
+						$html_datos_webpay = "
+							<br><br>
+							<table style='width: 100%; border: 1px solid #999; table-layout:fixed; word-wrap:break-word;' cellspacing='0'>
+							<tr>
+								<td style='padding: 8px; background-color: #333; color: #fff;' colspan='6'>Detalles de la Transaccion Webpay </td>
+							</tr>
+							<tr>
+								<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>ID Webpay:</td>
+								<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$id_pago_webpay</b></td>
+								<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>ID Compra:</td>
+								<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$buyOrder</b></td>
+								<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Nro de Tarjeta:</td>
+								<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$numero_tarjeta</b></td>
+							</tr>
+							<tr>
+								<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Tarjeta Expiración:</td>
+								<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$cardExpirationDate</b></td>
+								<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Código de autorización:</td>
+								<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$authorizationCode</b></td>
+								<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Nro de cuotas:</td>
+								<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$sharesNumber</b></td>
+							</tr>
+							<tr>
+								<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Tipo de pago:</td>
+								<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$paymentTypeCodeDes ($paymentTypeCode)</b></td>
+								<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Respuesta:</td>
+								<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$responseDescription ($responseCode)</b></td>
+								<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Total:</td>
+								<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$amount</b></td>
+							</tr>
+							<tr>
+								<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Fecha transacción:</td>
+								<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$transactionDate</b></td>
+								<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Más información::</td>
+								<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$VCIDescription ($VCI)</b></td>
+								<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'></td>
+								<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b></b></td>
+							</tr>
+							</table>";
+					}
+				} else $html_datos_webpay = "";
+
+
+			    // Detalles de la Transferencia 
+				if ($metodo_pago=="TRANSFERENCIA") {
+
+					// Contenido Transferencia
+					$banco_cuenta   = $this->config->item('banco_cuenta');
+					$titular_cuenta = $this->config->item('titular_cuenta');
+					$rut_cuenta     = $this->config->item('rut_cuenta');
+					$tipo_cuenta    = $this->config->item('tipo_cuenta');
+					$numero_cuenta  = $this->config->item('numero_cuenta');
+					$notificar_pago = $this->config->item('notificar_pago');
+
+					$html_datos_transferencia = "
+					<br><br>
+					<table style='width: 100%; border: 1px solid #999; table-layout:fixed; word-wrap:break-word;' cellspacing='0'>
+					<tr>
+						<td style='padding: 8px; background-color: #333; color: #fff;' colspan='6'>Datos para Realizar el Pago por Transferencia</td>
+					</tr>
+					<tr>
+						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Banco:</td>
+						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$banco_cuenta</b></td>
+						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Titular:</td>
+						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$titular_cuenta</b></td>
+						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>RUT:</td>
+						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$rut_cuenta</b></td>
+					</tr>
+					<tr>
+						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Tipo de cuenta:</td>
+						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$tipo_cuenta</b></td>
+						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Número de cuenta:</td>
+						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$numero_cuenta</b></td>
+						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>Debe enviar el comprobante de pago a</td>
+						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$notificar_pago</b></td>
+					</tr>
+					</table>";
+						
+				} else $html_datos_transferencia = "";
+				
+				
+				// Detalles de los productos
+				if (isset($compra_detalle) and count($compra_detalle)>0) {
+
+					// Contenido Transferencia
+					$banco_cuenta   = $this->config->item('banco_cuenta');
+					$titular_cuenta = $this->config->item('titular_cuenta');
+					$rut_cuenta     = $this->config->item('rut_cuenta');
+					$tipo_cuenta    = $this->config->item('tipo_cuenta');
+					$numero_cuenta  = $this->config->item('numero_cuenta');
+					$notificar_pago = $this->config->item('notificar_pago');
+
+					$html_datos_productos = "
+					<br><br>
+					<table style='width: 100%; border: 1px solid #999; table-layout:fixed; word-wrap:break-word;' cellspacing='0'>
+					<tr>
+						<td style='padding: 8px; background-color: #333; color: #fff;'>Código</td>
+						<td style='padding: 8px; background-color: #333; color: #fff;'>Nombre</td>
+						<td style='padding: 8px; background-color: #333; color: #fff;'>Descripción</td>
+						<td style='padding: 8px; background-color: #333; color: #fff;'>Precio</td>
+						<td style='padding: 8px; background-color: #333; color: #fff;'>Cantidad</td>
+						<td style='padding: 8px; background-color: #333; color: #fff;'>Subtotal</td>
+					</tr>";
+					$total_compra = 0;
+					foreach ($compra_detalle as $p) {
+						$producto_codigo      = $p['codigo_producto'];
+						$producto_nombre      = $p['nombre_producto'];
+						$producto_descripcion = $p['descripcion_producto'];
+						$producto_cantidad    = $p['cantidad'];
+						$producto_precio      = $p['precio'];
+						$precio_formato       = number_format($p['precio'],'0',',','.');
+						$subtotal             = round($producto_cantidad*$producto_precio);
+						$total_compra         = $total_compra+$subtotal;
+
+						$html_datos_productos .= "
+						<tr>
+							<td style='padding: 8px; border-top: 1px solid #999;'>$producto_codigo</td>
+							<td style='padding: 8px; border-top: 1px solid #999;'>$producto_nombre</td>
+							<td style='padding: 8px; border-top: 1px solid #999;'>$producto_descripcion</td>
+							<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>$producto_cantidad</td>
+							<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>$ $precio_formato</td>
+							<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>$ $subtotal</td>
+						</tr>";
+					}
+					
+					$total_formato         = number_format($total_compra,'0',',','.');
+					$html_datos_productos .= "
+					<tr>
+						<td style='padding: 8px; border-top: 1px solid #999;' colspan='5'></td>
+						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'><b>$ $total_formato</b></td>
+					</tr>";
+					$html_datos_productos .= "</table>";
+						
+				} else $html_datos_productos = "";
+
+				
+
+				// Contenido Final Correo
+				$htmlContent = "
+				<div>
+					Estimado(a) $nombre_con su compra número #$id_compra se ha registrado correctamente, le presentamos los detalles a continuación: 
+				
+					$html_datos_contacto
+
+					$html_datos_factura
+
+					$html_datos_instalacion
+					
+					$html_datos_webpay 
+
+					$html_datos_transferencia
+
+					$html_datos_productos
+
+				</div>";
+
+				// Correo a soporte
+				$this->email->initialize($configSMTP);
+				$this->email->from($from,$sistema);
+				//$this->email->to("alexi_evanescence@hotmail.com");
+				$this->email->to($correos_para);
+				$this->email->cc($notificar_redelect); 
+				$this->email->subject($asunto);
+				$this->email->reply_to($notificar_redelect);
+				$this->email->message($htmlContent);
+
+				// Si se envia correctamente
+				if($this->email->send()) {
+					//echo $this->email->print_debugger();
+					$data['correo_ok'] = TRUE;
+				} else {
+					//echo $this->email->print_debugger();
+					$data['correo_ok'] = FALSE;
+				}
+			}
+			
+			// ----------------------------------------------- //
+			// ---------- Fin Notifica por correo ------------ //
+			// ----------------------------------------------- //
+
+
+
+
+			// Borra los datos de la sesion para que no pueda recargar y volver a guardar
+			//unset($_SESSION['datos']);
+			//unset($_SESSION['carrito']);
 
 
 
@@ -713,9 +1104,28 @@ class Carro extends CI_Controller {
 		
 		$this->load->view('/template/head');
 		$this->load->view('Carro/ProcesarPago',$data);
-		$this->load->view('/template/footer');
+		$this->load->view('/template/footer',$datac);
 	}
 
+
+
+
+
+
+	// Procesa el Pago ya sea por Webpay o Transferencia
+	public function Finalizado()
+	{	
+		if(isset($_POST['token_ws'])) {
+			$data['mensaje'] = "Compra finalizada correctamente";
+		}
+		if(isset($_POST['TBK_TOKEN']) and isset($_POST['TBK_ID_SESION']) and isset($_POST['TBK_ORDEN_COMPRA'])) {
+			$data['error'] = "El pago ha sido anulado";
+		}
+
+		$this->load->view('/template/head');
+		$this->load->view('Carro/Finalizar',$data);
+		$this->load->view('/template/footer');
+	}
 
 
 	// Muestra contenido del carrito en la cabecera
@@ -746,6 +1156,15 @@ class Carro extends CI_Controller {
 			'descripcion'=> $descripcion_producto,
 			'imagen'     => $imagen_producto
 		);
+		//echo var_dump($insert);
+		/*
+		echo $id_producto;
+		echo $codigo_producto;
+		echo $cantidad_producto;
+		echo $precio_producto;
+		echo $descripcion_producto;
+		echo $imagen_producto;
+		*/
 
 		// Guarda los datos en la sesion del carrito
 		if($this->cart->insert($insert)) {

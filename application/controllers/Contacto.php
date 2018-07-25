@@ -22,17 +22,11 @@ class Contacto extends CI_Controller
 
 	public function enviar_correo()
 	{
-		//error_reporting(E_ALL);
-		//ini_set('display_errors, TRUE');
-
+		if ( function_exists( 'date_default_timezone_set' ) )
+			date_default_timezone_set('America/Santiago');
 		//Cargamos la librería email
     $this->load->library('email');
 
-		//$this->form_validation->set_rules('name' ,'Name', 'required');
-		//$this->form_validation->set_rules('apellido' ,'Apellido', 'required');
-		//$this->form_validation->set_rules('email' ,'Email', 'required');
-		//$this->form_validation->set_rules('phone' ,'Phone', 'required');
-		//$this->form_validation->set_rules('message' ,'Message', 'required');
 
 		$nombre = $this->input->post('name');
 		$apellido = $this->input->post('apellido');

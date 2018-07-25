@@ -3,12 +3,12 @@
 <div class="container" id="menuadmin">
     <div class="row">
         <div class="col-sm-3 col-md-3">
-            <?php //include("/views/admin/MenuAdmin.php"); ?>
+            <?php $this->load->view('template/MenuAdmin'); ?>
         </div>
         <div class="col-sm-9 col-md-9">
           <fieldset>
           <legend class="text-center header">Detalle de la Compra #<?php echo $id_compra; ?></legend>
-         
+
             <?php if(isset($compra) and count($compra)>0) { ?>
                 <?php foreach ($compra as $data_post) { ?>
                     <!-- Datos del Cliente-->
@@ -37,9 +37,9 @@
                                     <td></td>
                                 </tr>
                             </table>
-                        </div>    
+                        </div>
                     </div>
-            
+
 
                     <!-- Datos de Facturación-->
                     <?php if ($data_post['tipo']=="Factura") { ?>
@@ -73,7 +73,7 @@
                                     <td align="right">Sector:</td>
                                     <td><?php echo $data_post['sector_fac']; ?></td>
                                     <td align="right">Calle:/td>
-                                    <td><?php echo $data_post['caller_fac']; ?></td>
+                                    <td><?php echo $data_post['calle_fac']; ?></td>
                                 </tr>
                                 <tr>
                                     <td align="right">Nro Calle:</td>
@@ -84,7 +84,7 @@
                                     <td></td>
                                 </tr>
                             </table>
-                        </div>    
+                        </div>
                     </div>
                     <?php } ?>
 
@@ -125,7 +125,7 @@
                                     <td></td>
                                 </tr>
                             </table>
-                        </div>    
+                        </div>
                     </div>
 
 
@@ -151,13 +151,13 @@
                                 </tr>
                                 <?php } ?>
                             </table>
-                        </div>    
+                        </div>
                     </div>
 
 
-	
-                        
-                  
+
+
+
                     <!-- Detalles de la Transaccion Webpay-->
                     <?php if (($data_post['metodo_pago']=="WEBPAY") and (count($datospago)>0)) { ?>
                         <?php foreach ($datospago as $webpay) {  ?>
@@ -201,7 +201,7 @@
                                             <td><?php echo $webpay['VCIDescription'] . "(" . $webpay['VCI'] .")"; ?></td>
                                         </tr>
                                     </table>
-                                </div>    
+                                </div>
                             </div>
                         <?php } ?>
                     <?php } ?>

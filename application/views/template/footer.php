@@ -98,9 +98,10 @@
 		<!-- Selector de Region y Comuna -->
 		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/RegionesYcomunas.js"></script>
 
-		<!-- Funciones Carrito -->
-		<script src="<?php echo base_url(); ?>assets/js/Ajax_carrito.js"></script>
-		
+		<!-- Funciones Carrito
+		<script src="<?php echo base_url(); ?>assets/js/Ajax_carrito.js"></script> -->
+		<?php $this->load->view('template/Ajax_carrito.php');  ?>
+
 		<!-- Valida el RUT -->
 		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.rut.chileno.js"></script>
 		

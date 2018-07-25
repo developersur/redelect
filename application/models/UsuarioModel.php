@@ -35,6 +35,7 @@ class UsuarioModel extends CI_Model {
             if(password_verify($password, $row->clave))
             {
                 $this->session->logged_in_user = TRUE;
+                $this->session->nombre_user = $row->nombre_con;
                 return true;
             }
         }
