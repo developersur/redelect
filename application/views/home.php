@@ -15,7 +15,7 @@
                     </div>
                     <div class="shop-body">
                         <h3>Particulares</h3>
-                        <a href="#" class="cta-btn">Ver mas<i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="<?php echo base_url(); ?>index.php/Producto" class="cta-btn">Ver mas<i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                     </div>
                     <div class="shop-body">
                         <h3>Empresas</h3>
-                        <a href="#" class="cta-btn">Ver  mas<i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="<?php echo base_url(); ?>index.php/Institucion" class="cta-btn">Ver  mas<i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>

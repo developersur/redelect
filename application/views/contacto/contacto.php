@@ -26,7 +26,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <span class="col-md-1 col-md-offset-1 text-center"><i class="fa fa-envelope-o bigicon"></i></span>
+                                        <span class="col-md-1 col-md-offset-1 text-center"><i class="fas fa-envelope bigicon"></i></span>
                                         <div class="col-md-9">
                                             <input id="email" name="email" type="email" placeholder="Email" class="form-control">
                                         </div>
@@ -40,7 +40,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <span class="col-md-1 col-md-offset-1 text-center"><i class="fa fa-pencil-square-o bigicon"></i></span>
+                                        <span class="col-md-1 col-md-offset-1 text-center"><i class="fas fa-comment bigicon"></i></span>
                                         <div class="col-md-9">
                                             <textarea class="form-control" id="message" name="message" placeholder="Ingresa tu mensaje y te contactaremos." rows="7"></textarea>
                                         </div>
@@ -66,6 +66,7 @@
                                 <li><a href="#"><i class="fa fa-map-marker"></i>Barros Arana 492 oficina 78, Torre Ligure, Concepción</a></li>
                                 <li><a href="#"><i class="fa fa-phone"></i>+569 99373838</a></li>
                                 <li><a href="#"><i class="fas fa-envelope"></i>contacto@redelect.cl</a></li>
+                                <li><a href="#"><i class="fas fa-clock"></i>Lunes a domingo de 08:00 a 18:00 Hrs</a></li>
                             </ul>
                         </div>
                     </div>

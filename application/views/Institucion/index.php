@@ -9,27 +9,33 @@
                             <form class="form-horizontal" method="post" action="<?php echo base_url();?>index.php/Institucion/consultaInstitucion">
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                      <label for="institucion">Institución</label>
-                                        <input id="institucion" name="institucion" type="text" placeholder="Nombre institución" class="form-control" minlength="2" required>
+                                      <label for="institucion">Institución o empresa</label> <font color="red">*</font>
+                                        <input id="institucion" name="institucion" type="text" placeholder="Nombre institución o empresa" class="form-control" minlength="2" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <label for="nombre">Nombre</label>
+                                        <label for="licitacion">Código licitación</label>
+                                        <input id="licitacion" name="licitacion" type="text" placeholder="Código licitación" class="form-control" minlength="2">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label for="nombre">Nombre contacto</label> <font color="red">*</font>
                                         <input id="nombre" name="nombre" type="text" placeholder="Nombre contacto" class="form-control" minlength="4" required>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <label for="telefono">Número contacto</label>
+                                        <label for="telefono">Número contacto</label> <font color="red">*</font>
                                         <input id="telefono" name="telefono" type="text" placeholder="Número contacto" class="form-control" minlength="6" required>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <label for="email">Email</label>
+                                        <label for="email">Email</label> <font color="red">*</font>
                                         <input id="email" name="email" type="email" placeholder="Email" class="form-control" required>
                                     </div>
                                 </div>

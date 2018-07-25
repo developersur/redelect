@@ -61,7 +61,7 @@
                                                 <i class="fas fa-star"></i>
                                           </div>
                                           <div class="product-btns">
-                                              <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">Vista rápida</span></button>
+                                              <!--<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">Vista rápida</span></button>-->
                                           </div>
                                         </div>
                                         <div class="add-to-cart">

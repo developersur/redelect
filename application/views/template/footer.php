@@ -17,8 +17,8 @@
 									un punto de alumbrado.</p>
 								<ul class="footer-links">
 									<li><a href="#"><i class="fa fa-map-marker"></i>Barros Arana 492 oficina 78, Torre Ligure, Concepción</a></li>
-									<li><a href="#"><i class="fa fa-phone"></i>+56950077896</a></li>
-									<li><a href="#"><i class="fas fa-envelope"></i>whernandez.fobos@gmail.com</a></li>
+									<li><a href="#"><i class="fa fa-phone"></i>+569 99373838</a></li>
+									<li><a href="#"><i class="fas fa-envelope"></i>contacto@redelect.cl</a></li>
 								</ul>
 							</div>
 						</div>
