@@ -28,14 +28,20 @@ class UsuarioModel extends CI_Model {
     public function login($correo, $password)
     {
         $query = $this->db->get_where('cliente', array('correo' => $correo));
-
         if($query->num_rows() == 1)
         {
             $row=$query->row();
             if(password_verify($password, $row->clave))
             {
                 $this->session->logged_in_user = TRUE;
-                $this->session->nombre_user = $row->nombre_con;
+                $this->session->nombre_user    = $row->nombre_con;
+                
+                // Sesiones Cliente Alexis
+                $_SESSION['id_cliente']     = $row->id_cliente;
+                $_SESSION['nombre_cliente'] = $row->nombre_con;
+                $_SESSION['login_cliente']  = TRUE;
+                // ---------------------- //
+
                 return true;
             }
         }

@@ -33,6 +33,8 @@
                             <?php $productosC = $this->cart->contents(); ?>
                             <?php if(count($productosC)) { ?>
                             <?php foreach ($productosC as $p) { ?>
+                            
+                            <!-- Detalle de los productos del carrito -->
                             <tr>
                                 <td align="center"><img src="<?php echo $p["imagen"]; ?>" width="80px"></td>
                                 <td><?php echo $p["id"]; ?></td>
@@ -42,6 +44,31 @@
                                 <td align="right">$<?php echo number_format($p["subtotal"],'0',',','.'); ?></td>
                             </tr>
                             <?php } ?>
+                            
+
+                            <!-- Detalle del costo de visita a la comuna -->
+                            <tr>
+                                <td align="center"></td>
+                                <td></td>
+                                <td><?php echo $this->config->item('nombre_costo_visita') . " " . $data_post['comuna_dir']; ?></td>
+                                <td align="right">$<?php echo number_format($data_post["costo_visita"],'0',',','.'); ?></td>
+                                <td><?php echo 1; ?></td>
+                                <td align="right">$<?php echo number_format($data_post["costo_visita"],'0',',','.'); ?></td>
+                            </tr>
+
+
+                            <!-- Detalle del costo de visita a la comuna -->
+                            <?php if($data_post['metodo_pago']=="TRANSFERENCIA") { ?>
+                                    <tr>
+                                        <td align="center"></td>
+                                        <td></td>
+                                        <td><?php echo $this->config->item('nombre_descuento_transferencia'); ?></td>
+                                        <td align="right">- $<?php echo number_format($data_post['descuento'],'0',',','.'); ?></td>
+                                        <td><?php echo 1; ?></td>
+                                        <td align="right">- $<?php echo number_format($data_post['descuento'],'0',',','.'); ?></td>
+                                    </tr>
+                            <?php } ?>
+                         
                             <?php } else { ?>
                                 <tr>
                                     <td colspan="4">No hay productos en el carrito</td>
@@ -54,7 +81,7 @@
                                 <td></td>
                                 <td></td>
                                 <td align="right">Total: </td>
-                                <td align="right"><b>$<?php echo number_format($this->cart->total(),'0',',','.'); ?></b></td>
+                                <td align="right"><b>$<?php echo number_format($_SESSION['total'],'0',',','.'); ?></b></td>
                             </tr>
                     </table>
                 </div>    
@@ -108,7 +135,7 @@
                             <td align="right">Razón Social:</td>
                             <td><?php echo $data_post['razon_fac']; ?></td>
                             <td align="right">Giro:</td>
-                            <td><?php echo $data_post['gira_fac']; ?></td>
+                            <td><?php echo $data_post['giro_fac']; ?></td>
                         </tr>
                         <tr>
                             <td align="right">Teléfono:</td>
@@ -123,7 +150,7 @@
                             <td><?php echo $data_post['comuna_fac']; ?></td>
                             <td align="right">Sector:</td>
                             <td><?php echo $data_post['sector_fac']; ?></td>
-                            <td align="right">Calle:/td>
+                            <td align="right">Calle:</td>
                             <td><?php echo $data_post['calle_fac']; ?></td>
                         </tr>
                         <tr>

@@ -16,6 +16,9 @@ legend.titulo {
 }
 
 .cabecera_dark th {
+    border: 0px !important;
+    border-width: 0px !important;
+    border: 0px solid #ddd !important;
     font-weight: normal;
 }
 
@@ -43,6 +46,13 @@ legend.titulo {
     color: red;
 }
 
+.status_negro {
+    color: #333;
+}
+
+.status_naranja {
+    color: rgb(255, 123, 0);
+}
 .status_verde {
     color: green;
 }
@@ -93,4 +103,17 @@ li.block a:hover {
     color: #fff;
     background-color: #4aaf0f;
     padding: 4px 10px;
+}
+
+.btn-id {
+    color: #fff;
+    padding: 2px 4px 2px 3px;
+    border-radius: 2px;
+    background-color: #349dff;
+}
+
+.btn-id:hover {
+    color: #fff;
+    text-decoration: none;
+    background-color: #1075d3;
 }

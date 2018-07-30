@@ -221,3 +221,6 @@
         </div>
     </div>
 </div>
+
+<!-- Selector de Region y Comuna -->
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/RegionesYcomunas.js"></script>

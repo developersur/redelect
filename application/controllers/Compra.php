@@ -55,4 +55,43 @@ class Compra extends CI_Controller {
 		$this->load->view('/template/footer',$data);
     }
 
+
+    public function ActualizarStatusCompra()
+    {   
+        // Recibe los datos
+        $id_compra     = $_POST['id_compra'];
+        $status_compra = $_POST['status_compra'];
+        
+        // Status a actualizar
+        $data = array('status_compra' => $status_compra);
+
+        // Actualiza
+        if($this->CompraModel->ActualizarCompra($data,$id_compra)) {
+            echo "ok";
+        } else {
+            echo "error";
+        }
+    }
+
+
+
+    public function ActualizarStatusPago()
+    {   
+        // Recibe los datos
+        $id_compra     = $_POST['id_compra'];
+        $status_compra = $_POST['status_compra'];
+        
+        // Status a actualizar
+        $data = array('status_pago' => $status_compra);
+
+        // Actualiza
+        if($this->CompraModel->ActualizarCompra($data,$id_compra)) {
+            echo "ok";
+        } else {
+            echo "error";
+        }
+    }
+    
+
+
 }

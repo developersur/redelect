@@ -137,6 +137,8 @@ class Carro extends CI_Controller {
 		$fecha_visita     ="";
 		$hora_visita      ="";
 		$metodo_pago      ="";
+		$costo_visita     = 0;
+		$descuento        = 0;
 		
 		// Si existe la sesion da asiga valor a las variables
 		if(isset($_SESSION['datos_sesion'])) {
@@ -149,6 +151,8 @@ class Carro extends CI_Controller {
 			$fecha_visita     = $_SESSION['datos_sesion']['fecha_visita'];
 			$hora_visita      = $_SESSION['datos_sesion']['hora_visita'];
 			$metodo_pago      = $_SESSION['datos_sesion']['metodo_pago'];
+			$costo_visita     = $_SESSION['datos_sesion']['costo_visita'];
+			$descuento        = $_SESSION['datos_sesion']['descuento'];
 		}
 		// Fin Paso 2 - Inicializa variables 
 
@@ -181,7 +185,9 @@ class Carro extends CI_Controller {
 			'indicaciones_dir' => $indicaciones_dir,
 			'fecha_visita'     => $fecha_visita,
 			'hora_visita'      => $hora_visita,
-			'metodo_pago'      => $metodo_pago
+			'metodo_pago'      => $metodo_pago,
+			'costo_visita'     => $costo_visita,
+			'descuento'        => $descuento
 		);
 		
 		$_SESSION['datos_sesion'] = $data_sesion;
@@ -271,6 +277,8 @@ class Carro extends CI_Controller {
 		$fecha_visita     ="";
 		$hora_visita      ="";
 		$metodo_pago      ="";
+		$costo_visita     = 0;
+		$descuento        = 0;
 		
 		// Si existe la sesion da asiga valor a las variables
 		if(isset($_SESSION['datos_sesion'])) {
@@ -283,6 +291,8 @@ class Carro extends CI_Controller {
 			$fecha_visita     = $_SESSION['datos_sesion']['fecha_visita'];
 			$hora_visita      = $_SESSION['datos_sesion']['hora_visita'];
 			$metodo_pago      = $_SESSION['datos_sesion']['metodo_pago'];
+			$costo_visita     = $_SESSION['datos_sesion']['costo_visita'];
+			$descuento        = $_SESSION['datos_sesion']['descuento'];
 		}
 		// Fin Paso 2 - Inicializa variables 
 
@@ -315,7 +325,9 @@ class Carro extends CI_Controller {
 			'indicaciones_dir' => $indicaciones_dir,
 			'fecha_visita'     => $fecha_visita,
 			'hora_visita'      => $hora_visita,
-			'metodo_pago'      => $metodo_pago 
+			'metodo_pago'      => $metodo_pago, 
+			'costo_visita'     => $costo_visita,
+			'descuento'        => $descuento 
 		);	
 
 		$_SESSION['datos_sesion'] = $data_sesion;
@@ -377,9 +389,18 @@ class Carro extends CI_Controller {
 		$fecha_visita     = $_POST['fecha_visita'];
 		$hora_visita      = $_POST['hora_visita'];
 		$metodo_pago      = $_POST['metodo_pago'];
+		$costo_visita     = $_POST['costo_visita'];
 		// Fin Paso 2 - Asigna valor Inicializa variables 
 		
-		
+		// Calcula el descuento si el pago es por transferencia
+		$descuento  = 0;
+		if($metodo_pago=="TRANSFERENCIA") {
+			$porcen_des = $this->config->item('porcentaje_descuento_transferencia');
+			$descuento  = round((($this->cart->total()+$costo_visita)*$porcen_des)/100);
+		}
+		// El monto final la suma del costo de visita a la comuna mas el descuento por transferencia
+        $monto_final = ($this->cart->total()+$costo_visita)-$descuento; 
+
 		// Datos para la sesion
 		$data['data_post'] = array(
 			// Paso 1
@@ -408,7 +429,9 @@ class Carro extends CI_Controller {
 			'indicaciones_dir' => $indicaciones_dir,
 			'fecha_visita'     => $fecha_visita,
 			'hora_visita'      => $hora_visita,
-			'metodo_pago'     => $metodo_pago 
+			'metodo_pago'      => $metodo_pago, 
+			'costo_visita'     => $costo_visita,
+			'descuento'        => $descuento
 		);
 		
 		// Incluye los datos en la sesion por si se devuelve a un paso anterior
@@ -416,10 +439,12 @@ class Carro extends CI_Controller {
 		
 		// Datos Compra
 		$_SESSION['datos']   = $data['data_post'];
+		
 		// Datos Productos
 		$_SESSION['carrito'] = $this->cart->contents();
+		
 		// Datos Productos
-		$_SESSION['total']   = round($this->cart->total());
+		$_SESSION['total']   = $monto_final;
 
 		// ------- WEBPAY ------- //
 		require_once('assets/webpay/libwebpay/webpay.php');
@@ -441,6 +466,8 @@ class Carro extends CI_Controller {
 		$this->load->view('Carro/Paso3', $data);
 		$this->load->view('/template/footer');
 	}
+
+
 
 	// Procesa el Pago ya sea por Webpay o Transferencia
 	public function ProcesarPago()
@@ -490,6 +517,7 @@ class Carro extends CI_Controller {
 		// Si se recibe token o transferencia la compra va bien
 		if(((isset($_POST["token_ws"]) and $_POST["token_ws"]!="")) or ((isset($_POST["transferencia"])) and ($_POST['transferencia']))) {
 
+
 			// Recibe los datos de las sesiones de la compra
 			if($_SESSION['datos']!==null and $_SESSION['carrito']!==null and $_SESSION['total']!==null) {
 				$dcompra   = $_SESSION['datos'];
@@ -522,10 +550,61 @@ class Carro extends CI_Controller {
 			$fecha_visita     = $dcompra['fecha_visita'];
 			$hora_visita      = $dcompra['hora_visita'];
 			$metodo_pago      = $dcompra['metodo_pago'];
+			$costo_visita     = $dcompra['costo_visita'];
+			$descuento        = $dcompra['descuento'];
 			
+
+
+			// ---------------------------------------------- //
+			// Verifica la ID del cliente
+			// ---------------------------------------------- //
+			
+			$id_cliente       = 0;
+			$registrado       = FALSE;
+			$clave_automatica = "";
+
+			// Si el cliente ya esta logeado no se debe registrar y se toma la id de su sesion
+			if(isset($_SESSION['login']) and ($_SESSION['login']==TRUE)) {
+				$id_cliente = $_SESSION['id_cliente'];
+			} else {
+
+				// Si no esta logeado se verifica su rut en la BD para saber si se debe registrar o no
+				if(count($resultado = $this->CompraModel->VerificarRutCorreo($rut_con,$correo_con))>0) {
+					
+					// Selecciona la ID del cliente existente
+					foreach ($resultado as $r) {
+						$id_cliente  = $r['id_cliente'];
+					}
+
+				} else {
+
+					$clave_automatica = rand(00001, 99999);
+					$clave_hash       = password_hash($clave_automatica,PASSWORD_DEFAULT);
+
+					// Se registra el cliente si no esta logeado y no existe el rut en la BD
+					$datac = array(
+						'rut_con'    => $rut_con,
+						'nombre_con' => $nombre_con,
+						'telefono'   => $telefono_con,
+						'correo'     => $correo_con,
+						'clave'      => $clave_hash,
+						'status'     => "REGISTRADO DESDE CARRITO"
+					);
+					// Si se registra correctamente el cliente se toma su ID para la compra
+					if($id_cliente=$this->CompraModel->RegistrarCliente($datac)){
+						$registrado = TRUE;
+						$id_cliente = $id_cliente;
+					} 
+				}
+			}
+			// ----------------------- //
+			// ------ FIN CLIENTE ---- //
+			// ----------------------- //
+
+
 			// -- Inicialmente registra la compra sin los datos del pago -- // 
 			$data = array(
-				"id_cliente"       => 0,
+				"id_cliente"       => $id_cliente,
 				"id_webpay"        => 0,
 				"token"            => "0",
 				"nro_transferencia"=> "",
@@ -552,9 +631,11 @@ class Carro extends CI_Controller {
 				"indicaciones_dir" => $indicaciones_dir,
 				"fecha_visita"     => $fecha_visita,
 				"hora_visita"      => $hora_visita,
-				"metodo_pago"     =>  $metodo_pago,
+				"metodo_pago"      => $metodo_pago,
 				'status_compra'    => "REGISTRADA",
 				'status_pago'      => "SIN PROCESAR",
+				"costo_visita"     => $costo_visita,
+				'descuento'        => $descuento,
 				'total'      	   => $total
 			);
 
@@ -583,6 +664,58 @@ class Carro extends CI_Controller {
 						$error = TRUE; // Hubo error al registrar los detalles
 					}
 				}
+
+									
+				// -------------------------------------------------- //
+				// Registra el Costo de la comuna si es diferente de 0
+				// -------------------------------------------------- //
+				if($costo_visita!=0) {
+					$nombre_costo_visita = $this->config->item('nombre_costo_visita') . " " . $comuna_dir;
+					$data_productos = array(
+						'id_compra'            => $id_compra,
+						'id_producto'          => 0,
+						'codigo_producto'      => 0,
+						'nombre_producto'      => $nombre_costo_visita,
+						'descripcion_producto' => '',
+						'cantidad'             => 1,
+						'precio'               => $costo_visita,
+						'imagen'               => ''
+					);
+
+					if($this->CompraModel->RegistrarDetalles($data_productos)) {
+						$error = FALSE; // No hubo error al registrar los detalles
+					} else {
+						$error = TRUE; // Hubo error al registrar los detalles
+					}
+				}
+				// -------------------------------------- //
+
+							
+				// -------------------------------------- //
+				// Registra el Descuento si es transferencia
+				// -------------------------------------- //
+				if($metodo_pago=="TRANSFERENCIA") {
+					$nombre_descuento = $this->config->item('nombre_descuento_transferencia');
+					$data_productos = array(
+						'id_compra'            => $id_compra,
+						'id_producto'          => 0,
+						'codigo_producto'      => 0,
+						'nombre_producto'      => $nombre_descuento,
+						'descripcion_producto' => '',
+						'cantidad'             => 1,
+						'precio'               => -$descuento,
+						'imagen'               => ''
+					);
+
+					if($this->CompraModel->RegistrarDetalles($data_productos)) {
+						$error = FALSE; // No hubo error al registrar los detalles
+					} else {
+						$error = TRUE; // Hubo error al registrar los detalles
+					}
+				}
+				// -------------------------------------- //
+
+
 			// Si no se registra correctamente
 			} else {
 				$id_compra = 0;
@@ -755,7 +888,10 @@ class Carro extends CI_Controller {
 				
 				// Elimina correos duplicados
 				$correos_para = array_unique($correos_para);
-
+				
+				// Elimina los campos vacios
+				$correos_para = array_filter($correos_para);
+				 
 				// Fecha
 			 	//$fecha = date("d-m-Y");
 
@@ -778,6 +914,22 @@ class Carro extends CI_Controller {
 
 				// Base URL 
 				$base_url = base_url();
+
+
+				// Si se registra el cliente en el proceso de compra se envian sus datos de acceso
+				$html_cliente_clave = "";
+				$enlace_iniciar = base_url() . "index.php/Login";
+				if($registrado==TRUE){
+					$html_cliente_clave = "
+					<br><br>
+					Para ingresar a su cuenta puede acceder haciendo 
+					<a href='$enlace_iniciar' target='_blank'>Click aquí</a>.
+					<br>Usuario: <b>$correo_con</b>
+					<br>Clave: <b>$clave_automatica</b>
+					<br><br>
+					";
+				}
+
 
 				// Contenido Contacto
 				$html_datos_contacto = "
@@ -1049,7 +1201,11 @@ class Carro extends CI_Controller {
 				// Contenido Final Correo
 				$htmlContent = "
 				<div>
-					Estimado(a) $nombre_con su compra número #$id_compra se ha registrado correctamente, le presentamos los detalles a continuación: 
+					Estimado(a) $nombre_con su compra número #$id_compra se ha registrado correctamente.
+					
+					$html_cliente_clave
+					
+					Detalles de su compra: 
 				
 					$html_datos_contacto
 
@@ -1065,12 +1221,14 @@ class Carro extends CI_Controller {
 
 				</div>";
 
+				//echo var_dump($correos_para);
+				//exit;
 				// Correo a soporte
 				$this->email->initialize($configSMTP);
 				$this->email->from($from,$sistema);
-				//$this->email->to("alexi_evanescence@hotmail.com");
-				$this->email->to($correos_para);
-				$this->email->cc($notificar_redelect); 
+				$this->email->to("alexi_evanescence@hotmail.com");
+				//$this->email->to($correos_para);
+				//$this->email->cc($notificar_redelect); 
 				$this->email->subject($asunto);
 				$this->email->reply_to($notificar_redelect);
 				$this->email->message($htmlContent);

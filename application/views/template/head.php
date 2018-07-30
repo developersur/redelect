@@ -104,7 +104,7 @@
 										<li class="block"><a href="<?php echo base_url(); ?>index.php/Login/salir">Salir</a></li>
 										<?php
 									}else if($this->session->logged_in_user){?>
-										<li class="block"><a href="<?php echo base_url(); ?>index.php/Usuario/index">Mis compras</a></li>
+										<li class="block"><a href="<?php echo base_url(); ?>index.php/Cliente/">Mi Cuenta</a></li>
 										<li class="block"><a href="<?php echo base_url(); ?>index.php/Login/salir">Salir</a></li>
 									<?php
 								}else{?>

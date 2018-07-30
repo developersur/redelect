@@ -30,6 +30,52 @@ class CompraModel extends CI_Model {
             fecha_creacion DESC");
         return $result_set->result_array();
     }
+
+
+    public function ListarTopComprasCliente($id_cliente){
+        $result_set = $this->db->query("
+        select * 
+        from 
+            compra 
+        where 
+            id_cliente = $id_cliente
+        ORDER BY 
+            fecha_creacion DESC
+        LIMIT 5");
+        return $result_set->result_array();
+    }
+
+    public function VerificarRutCorreo($rut_con,$correo_con){
+        $result_set = $this->db->query("
+            select 
+                id_cliente 
+            from 
+                cliente 
+            where 
+                rut_con = '$rut_con'
+                or
+                correo = '$correo_con'
+            LIMIT 1");
+        return $result_set->result_array();
+    }
+
+    public function RegistrarCliente($data){
+		$this->db->insert('cliente', $data);
+         return $this->db->insert_id();
+    }
+
+    public function ListarComprasCliente($id_cliente){
+        $result_set = $this->db->query("
+        select * 
+        from 
+            compra 
+        where 
+            id_cliente = $id_cliente
+        ORDER BY 
+            fecha_creacion DESC");
+        return $result_set->result_array();
+    }
+
     
     public function CompraDetalles($data){
         $result_set = $this->db->query("select * from compra where id_compra=$data");

@@ -13,12 +13,7 @@
                             <table class="table">
                                 <tr>
                                     <td>
-                                        <span class=""></span><a href="<?php echo base_url(); ?>index.php/Compra/Listar">Listar</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class=""></span><a href="<?php echo base_url(); ?>index.php/Compra/">Buscar</a>
+                                        <span class=""></span><a href="<?php echo base_url(); ?>index.php/Compra/Listar">Listado de compras</a>
                                     </td>
                                 </tr>
                             </table>

@@ -16,18 +16,20 @@ $(document).ready(function () {
 
 // Muestra regiones y comunas
 $(document).ready(function () {
+    
     jQuery('.comunas').change(function () {
         if (jQuery(this).val() == '') {
-            //alert('selecciones Región');
-        } else if (jQuery(this).val() == '') {
-            //alert('selecciones Comuna');
+            $("#nombre_comuna").html('');
+            $("#costo_visita").val('0');
+        } else {
+            var costo_visita = $(this).find(':selected').data('costo');
+            $("#nombre_comuna").html(jQuery(this).val());
+            $("#costo_visita").val(costo_visita);
         }
     });
 
     jQuery('.regiones').change(function () {
-        //alert(jQuery(this).val());
         if (jQuery(this).val() == '') {
-            //alert('selecciones Región');
         }
     });
 });
@@ -92,6 +94,11 @@ $(document).ready(function () {
             $(".regiones option[value='<?php echo $datasesion['region_dir']; ?>']").prop('selected', true);
                 jQuery('.regiones').change();
                 $(".comunas option[value='<?php echo $datasesion['comuna_dir']; ?>']").prop('selected', true);
+                
+                var costo_visita = $(".comunas").find(':selected').data('costo');
+                $("#nombre_comuna").html('<?php echo $datasesion['comuna_dir']; ?>');
+                $("#costo_visita").val(costo_visita);
+
         }, 500)
     });
 </script>
@@ -125,12 +132,12 @@ $(document).ready(function () {
                                     <select id="region_dir" name="region_dir" class="form-control regiones"></select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="calle_dir">Calle <span class="obligatorio">*</span></label>
-                                    <input type="text" class="form-control" id="calle_dir" name="calle_dir" value="<?php if(isset($datasesion)) echo $datasesion['calle_dir']; ?>" placeholder="Calle">
+                                    <label for="sector_dir">Sector <span class="obligatorio">*</span></label>
+                                    <input type="text" class="form-control" id="sector_dir" name="sector_dir" value="<?php if(isset($datasesion)) echo $datasesion['sector_dir']; ?>" placeholder="Sector">
                                 </div>
                                 <div class="form-group">
-                                    <label for="fecha_visita">Fecha de visita</label>
-                                    <input type="text" class="form-control" id="fecha_visita" name="fecha_visita" value="<?php if(isset($datasesion)) echo $datasesion['fecha_visita']; ?>" placeholder="Fecha">
+                                    <label for="indicaciones_dir">Indicaciones</label>
+                                    <input type="text" class="form-control" id="indicaciones_dir" name="indicaciones_dir" value="<?php if(isset($datasesion)) echo $datasesion['indicaciones_dir']; ?>" placeholder="Indicaciones">
                                 </div>
                             </div>    
                             <div class="col-md-4">
@@ -139,22 +146,26 @@ $(document).ready(function () {
                                     <select id="comuna_dir" name="comuna_dir" class="form-control comunas"></select>
                                 </div>
                                 <div class="form-group">
+                                    <label for="calle_dir">Calle <span class="obligatorio">*</span></label>
+                                    <input type="text" class="form-control" id="calle_dir" name="calle_dir" value="<?php if(isset($datasesion)) echo $datasesion['calle_dir']; ?>" placeholder="Calle">
+                                </div>
+                                <div class="form-group">
+                                    <label for="fecha_visita">Fecha de visita</label>
+                                    <input type="text" class="form-control" id="fecha_visita" name="fecha_visita" value="<?php if(isset($datasesion)) echo $datasesion['fecha_visita']; ?>" placeholder="Fecha">
+                                </div>
+                            </div>  
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="costo_visita"><?php echo $this->config->item('nombre_costo_visita'); ?> <span id='nombre_comuna'></span> $</label>
+                                    <input type="text" class="form-control" id="costo_visita" name="costo_visita" value="" placeholder="Costo visita" readonly="TRUE">
+                                </div>
+                                <div class="form-group">
                                     <label for="nro_calle_dir">Número <span class="obligatorio">*</span></label>
                                     <input type="text" class="form-control" id="nro_calle_dir" name="nro_calle_dir" value="<?php if(isset($datasesion)) echo $datasesion['nro_calle_dir']; ?>" placeholder="Nro Calle">
                                 </div>
                                 <div class="form-group">
                                     <label for="hora_visita">Hora de visita</label>
                                     <input type="text" class="form-control" id="hora_visita" name="hora_visita" value="<?php if(isset($datasesion)) echo $datasesion['hora_visita']; ?>" placeholder="Hora">
-                                </div>
-                            </div>  
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="sector_dir">Sector <span class="obligatorio">*</span></label>
-                                    <input type="text" class="form-control" id="sector_dir" name="sector_dir" value="<?php if(isset($datasesion)) echo $datasesion['sector_dir']; ?>" placeholder="Sector">
-                                </div>
-                                <div class="form-group">
-                                    <label for="indicaciones_dir">Indicaciones</label>
-                                    <input type="text" class="form-control" id="indicaciones_dir" name="indicaciones_dir" value="<?php if(isset($datasesion)) echo $datasesion['indicaciones_dir']; ?>" placeholder="Indicaciones">
                                 </div>
                             </div>
                     </div>
@@ -178,6 +189,7 @@ $(document).ready(function () {
                                         <label class="radio-inline">
                                             <input type="radio" name="metodo_pago" id="metodo_pago" value="TRANSFERENCIA" <?php if(isset($datasesion) and ($datasesion['metodo_pago']=="TRANSFERENCIA")) echo "checked"; ?>> 
                                             <img src="<?php echo base_url(); ?>/assets/img/icono_transferencia.png" width="120px">
+                                            <b>5% de descuento</b>
                                         </label>
                                     </div>
                                 </div>
@@ -199,6 +211,7 @@ $(document).ready(function () {
                         <input type="hidden" name="sector_fac"    value="<?php if(isset($datasesion)) echo $datasesion['sector_fac']; ?>">
                         <input type="hidden" name="calle_fac"     value="<?php if(isset($datasesion)) echo $datasesion['calle_fac']; ?>">
                         <input type="hidden" name="nro_calle_fac" value="<?php if(isset($datasesion)) echo $datasesion['nro_calle_fac']; ?>">
+                        
 
 
                         <div class="col-md-12">
@@ -219,3 +232,7 @@ $(document).ready(function () {
     </div>
 </div>
 </div>
+
+
+<!-- Selector de Region y Comuna -->
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/RegionesYcomunasBioBio.js"></script>

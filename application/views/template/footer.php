@@ -95,8 +95,6 @@
 		<script src="<?php echo base_url(); ?>assets/js/nouislider.min.js"></script>
 		<script src="<?php echo base_url(); ?>assets/js/jquery.zoom.min.js"></script>
 
-		<!-- Selector de Region y Comuna -->
-		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/RegionesYcomunas.js"></script>
 
 		<!-- Funciones Carrito
 		<script src="<?php echo base_url(); ?>assets/js/Ajax_carrito.js"></script> -->
@@ -110,12 +108,27 @@
 		
 		<link href="<?php echo base_url(); ?>assets/css/datatables.min.css" rel="stylesheet" type="text/css" />
 		
-
 		<script type="text/javascript">
 			$(document).ready(function() {
 				$('.dt_compras').DataTable();
 			});
 		</script>
+
+
+		<!-- Ventana Modal de Confirmacion  -->
+		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery-confirm.min.js"></script>
+		<link href="<?php echo base_url(); ?>assets/css/jquery-confirm.min.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript">
+		
+		$(document).ready(function(){
+			jconfirm.defaults = {
+				closeIcon: true,
+				bgOpacity: 0.5,
+			};
+		})
+  
+  
+    </script>
 
 	</body>
 </html>

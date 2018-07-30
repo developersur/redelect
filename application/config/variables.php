@@ -13,8 +13,11 @@
 		'newline'     => "\r\n",
 		'wordwrap'    => TRUE,
 		'validate'    => TRUE
-
 	);
+
+	$config['nombre_costo_visita']                = "COSTO DE VISITA A: ";
+	$config['nombre_descuento_transferencia']     = "DESCUENTO POR TRANSFERENCIA";
+	$config['porcentaje_descuento_transferencia'] = 5;
 
 	// Correo Compra
 	// Notificar compra a:

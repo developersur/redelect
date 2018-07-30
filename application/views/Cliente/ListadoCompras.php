@@ -2,10 +2,9 @@
 
 <div class="container" id="menuadmin">
     <div class="row">
-        
-        <!-- Menu Izquierdo Usuario -->
+        <!-- Menu Izquierdo Cliente -->
         <div class="col-sm-3 col-md-3">
-            <?php $this->load->view('template/MenuAdmin'); ?>
+            <?php $this->load->view('template/MenuCliente'); ?>
         </div>
         
         <!-- Contenido Cliente -->
@@ -30,27 +29,33 @@
                     <?php foreach ($compras as $compra) {?>
 
                     <?php
-                        // Color del Status de la Compra
-                        $color_statuscompra = "";
+                        $color_status = "";
                         switch ($compra['status_compra']) {
-                            case 'ANULADA'   : $color_statuscompra = "status_rojo";       break;
-                            case 'REGISTRADA': $color_statuscompra = "status_naranja";    break;
-                            case 'GENERADA'  : $color_statuscompra = "status_naranja";    break;
-                            case 'PAGADA'    : $color_statuscompra = "status_verde";      break;
-                            case 'FINALIZADA': $color_statuscompra = "status_negro";      break;
-                            default:  break;
-                        }
+                            case 'ANULADA':
+                                $color_status = "status_rojo";
+                                break;
 
+                            case 'REGISTRADA':
+                                $color_status = "status_verde";
+                                break;
+
+                            case 'PAGADA':
+                                $color_status = "status_verde";
+                                break;
+
+                            default:
+                                break;
+                        }
                     ?>
 
                     <tr>
-                      <td><a class="btn-id" href="<?php echo base_url(); ?>index.php/Compra/Detalle?id_compra=<?php echo $compra['id_compra'] ?>">#<?php echo $compra['id_compra']; ?></a></td>
+                      <td><a class="btn-id" href="<?php echo base_url(); ?>index.php/Cliente/DetalleCompra?id_compra=<?php echo $compra['id_compra'] ?>">#<?php echo $compra['id_compra']; ?></a></td>
                       <td><?php echo $compra['tipo']; ?></td>
                       <td><?php echo $compra['nombre_con']; ?></td>
                       <td>$<?php echo number_format($compra['total'],'0',',','.'); ?></td>
                       <td><?php if($compra['metodo_pago']=="TRANSFERENCIA") echo "TRANSFE"; else echo $compra['metodo_pago']; ?></td>
                       <td><?php echo date("d-m-Y", strtotime($compra['fecha_creacion']));  ?></td>
-                      <td class="<?php echo $color_statuscompra; ?>"><b><?php echo $compra['status_compra']; ?></b></td>
+                      <td class="<?php echo $color_status; ?>"><b><?php echo $compra['status_compra']; ?></b></td>
                     </tr>
                     <?php } ?>
                 <?php } else { ?>

@@ -25,11 +25,11 @@ class Usuario extends CI_Controller
 		if( $this->input->post('pass1') ===  $this->input->post('pass2'))
 		{
 			$data = array(
-				 'nombre' => $this->input->post('nombre_con'),
-				 'rut' => $this->input->post('rut_con'),
-				 'telefono' => $this->input->post('telefono'),
-				 'correo' => $this->input->post('correo'),
-				 'password' => $this->input->post('pass1')
+				 'nombre'    => $this->input->post('nombre_con'),
+				 'rut'       => $this->input->post('rut_con'),
+				 'telefono'  => $this->input->post('telefono'),
+				 'correo'    => $this->input->post('correo'),
+				 'password'  => $this->input->post('pass1')
 			 );
 
 		 	$res = $this->UsuarioModel->crearUsuario($data);
