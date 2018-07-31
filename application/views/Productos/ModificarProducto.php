@@ -11,8 +11,8 @@ function open_edit_prod(){
         <div class="col-sm-9 col-md-9">
           <fieldset>
           <legend class="text-center header">Modificar producto</legend>
-              <table class="table table-borderde table-condensed">
-                <thead>
+              <table class="table table-bordeder">
+                <thead class="cabecera_dark">
                   <tr>
                     <th>Nombre</th>
                     <th>Descripción</th>
@@ -40,11 +40,11 @@ function open_edit_prod(){
                           {
                           ?>
                             <input type="checkbox" checked>
-                          <?php 
+                          <?php
                           }else{?>
                             <input type="checkbox">
                           <?php
-                          } 
+                          }
                           ?>
                           <span class="slider round"></span>
                         </label>
@@ -55,11 +55,11 @@ function open_edit_prod(){
                           {
                           ?>
                             <input type="checkbox" checked>
-                          <?php 
+                          <?php
                           }else{?>
                             <input type="checkbox">
                           <?php
-                          } 
+                          }
                           ?>
                           <span class="slider round"></span>
                         </label>
@@ -87,7 +87,7 @@ function open_edit_prod(){
         <h4 class="modal-title" id="myModalLabel">Editar producto</h4>
       </div>
       <div class="modal-body">
-         
+
         <form class="form-horizontal">
           <div class="form-group">
             <label for="nombre" class="col-sm-2 control-label">Nombre</label>
@@ -107,13 +107,6 @@ function open_edit_prod(){
               <input type="number" class="form-control" id="precio" name="precio">
             </div>
           </div>
-          <!--<div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button type="submit" class="btn btn-default">Editar</button>
-            </div>
-          </div>-->
-        
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

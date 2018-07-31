@@ -13,21 +13,21 @@
                         } ?>
                       <form class="form form-horizontal" method="post" action="<?php echo base_url(); ?>index.php/Categoria/agregarCategoria">
                           <div class="form-group">
-                              <div class="col-md-6">
+                              <div class="col-md-5">
                                   <label class="control-label" for="nombre">Nombre</label>
                                   <input id="nombre" name="nombre" type="text" placeholder="Nombre" class="form-control">
                               </div>
                           </div>
 
                           <div class="form-group">
-                              <div class="col-md-6">
+                              <div class="col-md-5">
                                   <label class="control-label" for="codigo">Descripción</label>
-                                  <input id="descripcion" name="descripcion" type="text" placeholder="Descripción" class="form-control">
+                                  <textarea id="descripcion" name="descripcion" class="form-control"></textarea>
                               </div>
                           </div>
 
                           <div class="form-group">
-                              <div class="col-md-6">
+                              <div class="col-md-5">
                                   <label class="control-label" for="habilitado">Habilitado</label>
                                   <select name="habilitado" id="habilitado" class="form-control">
                                       <option value="Si">Si</option>
@@ -37,7 +37,7 @@
                           </div>
 
                           <div class="form-group">
-                            <div class="col-md-12">
+                            <div class="col-md-5">
                                 <input type="submit" class="btn btn-primary" value="Agregar">
                             </div>
                           </div>

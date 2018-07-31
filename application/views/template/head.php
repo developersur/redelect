@@ -5,8 +5,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-  		<meta name="description" content="">
-  		<meta name="author" content="developersur">
+  	<meta name="description" content="">
+  	<meta name="author" content="developersur">
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 		<title>Redelect. Instalaciones electricas.</title>
@@ -19,10 +19,7 @@
 		<!-- Bootstrap -->
 		<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css"/>
 
-		<!-- Font Awesome Icon -->
-		<!--  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/font-awesome.min.css"> -->
-
-        <!-- Font Awesome Icon VERSION MAS RECIENTE -->
+    <!-- Font Awesome Icon VERSION MAS RECIENTE -->
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/fontawesome.css">
 
 		<!-- Custom stlylesheet -->
@@ -39,6 +36,9 @@
 
 		<!-- Mis Estilos Alexis -->
 		<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/estilos.css"/>
+
+		<!--Jquery confirm-->
+		<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/jquery-confirm.css"/>
 
 		<!---JQUERY-->
 		<script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
@@ -63,14 +63,29 @@
 
 		<!-- Smartsupp Live Chat script -->
 		<script type="text/javascript">
-		var _smartsupp = _smartsupp || {};
-		_smartsupp.key = '86b501d3323c02a14dc28f7fbc27e907009ac3a1';
-		window.smartsupp||(function(d) {
-		  var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
-		  s=d.getElementsByTagName('script')[0];c=d.createElement('script');
-		  c.type='text/javascript';c.charset='utf-8';c.async=true;
-		  c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
-		})(document);
+			var _smartsupp = _smartsupp || {};
+			_smartsupp.key = '86b501d3323c02a14dc28f7fbc27e907009ac3a1';
+			window.smartsupp||(function(d) {
+			  var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
+			  s=d.getElementsByTagName('script')[0];c=d.createElement('script');
+			  c.type='text/javascript';c.charset='utf-8';c.async=true;
+			  c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
+			})(document);
+
+			function mostrar_qsomos(){
+				$.confirm({
+						columnClass: 'col-md-8 col-md-offset-2',
+						title: '¿Quiénes somos?',
+						content: 'Redelect, una empresa cuyo principal producto es la SEGURIDAD ELECTRICA. En Redelect nos enfocamos en entregar un resultado en formato OBRA VENDIDA, así, el cliente no se preocupa de las tradicionales instalaciones donde además de buscar al técnico o en muchos casos al “maestro eléctrico” también tiene que ocuparse de las compras de materiales y todo para instalar un par de enchufes o un punto de alumbrado. Redelect se encarga de todo en forma sencilla, clara y transparente para el usuario final, en cualquiera de los productos que Redelect ofrece, usted tiene que seguir tres simples pasos.',
+						type: 'dark',
+						draggable: true,
+						typeAnimated: true,
+						buttons: {
+								Salir: function () {
+								}
+						}
+				});
+			}
 		</script>
 
     </head>
@@ -198,7 +213,8 @@
 				</li>
 
                 <li><a href="<?php echo base_url();?>index.php/Servicio">Nuestros servicios</a></li>
-                <li><a href="<?php echo base_url();?>index.php/QuienesSomos">Quienes somos</a></li>
+                <!--<li><a href="<?php echo base_url();?>index.php/QuienesSomos">Quienes somos</a></li>-->
+								<li><a href="javascript:mostrar_qsomos();">Quienes somos</a></li>
                 <li><a href="<?php echo base_url(); ?>index.php/Contacto">Contactanos</a></li>
             </ul>
             <!-- /NAV -->

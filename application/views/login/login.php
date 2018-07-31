@@ -17,9 +17,9 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <?php
-                            echo validation_errors();
+                            //echo validation_errors();
                             $attributes = array('id' => 'login-form', 'style' => 'display: block');
-                            echo form_open('Login', $attributes); ?>
+                            echo form_open('Login/login', $attributes); ?>
                             <!--<form id="login-form" action="" method="post" role="form" style="display: block;">-->
                                 <div class="form-group">
                                     <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Correo">

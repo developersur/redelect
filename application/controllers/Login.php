@@ -12,11 +12,19 @@ class Login extends CI_Controller
 
 	public function index()
 	{
+		$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
 
+		$this->load->view('template/head', $data);
+		$this->load->view('login/login');
+		$this->load->view('template/footer', $data);
+	}
+
+	function login()
+	{
 		// Si ya inicio sesion lo redirecciono a su panel
 		if(isset($_SESSION['login_cliente']) and ($_SESSION['login_cliente']==TRUE)) {
 			header("Location: ".base_url()."index.php/Cliente/");
-		} 
+		}
 
 		$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
 
@@ -24,21 +32,13 @@ class Login extends CI_Controller
 		$password = $this->input->post('password');
 
 		if($this->UsuarioModel->login($username, $password))
-		{			
-			header("Location: ".base_url()."index.php/Cliente/");
-			/*
-			$this->load->view('template/head', $data);
-			$this->load->view('Usuario/index');
-			$this->load->view('template/footer', $data);
-			*/
-		}
-		else
 		{
-			
-			$this->form_validation->set_message('verifica','Contraseña incorrecta');
-			
+			header("Location: ".base_url()."index.php/Cliente/");
+		}else{
+			$data['error'] = '<div class="alert alert-danger"><i class="fas fa-exclamation-triangle"></i>Error de usuario o contraseña</div>';
+
 			$this->load->view('template/head', $data);
-			$this->load->view('login/login');
+			$this->load->view('login/login', $data);
 			$this->load->view('template/footer', $data);
 		}
 	}

@@ -6,8 +6,8 @@
         <div class="col-sm-9 col-md-9">
           <fieldset>
           <legend class="text-center header">Productos</legend>
-              <table class="table table-borderde table-condensed">
-                <thead>
+              <table class="table table-bordered">
+                <thead class="cabecera_dark">
                   <tr>
                     <th>Nombre</th>
                     <th>Descripción</th>

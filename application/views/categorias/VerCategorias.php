@@ -5,9 +5,9 @@
         </div>
         <div class="col-sm-9 col-md-9">
           <fieldset>
-          <legend class="text-center header">Categorias</legend>
-              <table class="table table-borderde table-condensed">
-                <thead>
+          <legend class="text-center header">Categorías</legend>
+              <table class="table table-bordered table-condensed">
+                <thead class="cabecera_dark">
                   <tr>
                     <th>Nombre</th>
                     <th>Descripción</th>
