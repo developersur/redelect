@@ -42,10 +42,10 @@
 
 
 	// ----- DATOS BANCO TRANSFERENCIA ----- //
-	$config['rut_cuenta']     = "11.111.111-1";
-	$config['banco_cuenta']   = "Estado";
-	$config['numero_cuenta']  = "123456789";
-	$config['titular_cuenta'] = "123456789";
+	$config['rut_cuenta']     = "10.721.974-9";
+	$config['banco_cuenta']   = "SANTANDER BANEFE";
+	$config['numero_cuenta']  = "1704940714";
+	$config['titular_cuenta'] = "10.721.974-9";
 	$config['tipo_cuenta']    = "Corriente";
 	
 	// Correo al que se deben notificar los pagos
