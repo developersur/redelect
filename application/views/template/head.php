@@ -200,33 +200,36 @@
             <ul class="main-nav nav navbar-nav">
                 <li class="active"><a href="<?php echo base_url();?>index.php">Inicio</a></li>
 
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Productos<span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<?php if($categorias) { ?>
-							<?php foreach($categorias->result() as $categoria) { ?>
-								<li><a href="<?php echo base_url(); ?>index.php/Producto/Categoria?id_categoria=<?php echo $categoria->id; ?>"><?php echo $categoria->nombre; ?></a></li>
-				 				<li role="separator" class="divider"></li>
-							<?php } ?>
-						<?php } ?>
-					</ul>
-				</li>
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Productos<span class="caret"></span></a>
+									<ul class="dropdown-menu">
+										<?php
+											$this->load->model('CategoriaModel');
+											$categorias = $this->CategoriaModel->obtenerCategorias();
+											foreach($categorias->result() as $categoria) { ?>
+												<li><a href="<?php echo base_url(); ?>index.php/Producto/Categoria?id_categoria=<?php echo $categoria->id; ?>"><?php echo $categoria->nombre; ?></a></li>
+								 				<li role="separator" class="divider"></li>
+											<?php } ?>
+									</ul>
+								</li>
 
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Nuestros servicios<span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<?php if($servicios) { ?>
-							<?php foreach($servicios->result() as $servicio) { ?>
-								<li><a href=""><?php echo $servicio->titulo; ?></a></li>
-				 				<li role="separator" class="divider"></li>
-							<?php } ?>
-						<?php } ?>
-					</ul>
-				</li>
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Nuestros servicios<span class="caret"></span></a>
+									<ul class="dropdown-menu">
+										<?php
+											$this->load->model('ServicioModel');
+											$servicios = $this->ServicioModel->obtenerServicios();
+
+											foreach($servicios->result() as $servicio) { ?>
+												<li><a href=""><?php echo $servicio->titulo; ?></a></li>
+								 				<li role="separator" class="divider"></li>
+										<?php } ?>
+									</ul>
+								</li>
 
                 <!--<li><a href="<?php echo base_url();?>index.php/Servicio">Nuestros servicios</a></li>-->
                 <!--<li><a href="<?php echo base_url();?>index.php/QuienesSomos">Quienes somos</a></li>-->
-				<li><a href="javascript:mostrar_qsomos();">Quienes somos</a></li>
+								<li><a href="javascript:mostrar_qsomos();">Quienes somos</a></li>
                 <li><a href="<?php echo base_url(); ?>index.php/Contacto">Contactanos</a></li>
             </ul>
             <!-- /NAV -->

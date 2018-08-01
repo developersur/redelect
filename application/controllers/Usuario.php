@@ -8,19 +8,20 @@ class Usuario extends CI_Controller
         parent::__construct();
 				$this->load->model('CategoriaModel');
 				$this->load->model('UsuarioModel');
+				$this->load->model('ServicioModel');
 	}
 
 	public function index(){
-		$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
+		//$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
 
-		$this->load->view('template/head', $data);
-		$this->load->view('Usuario/index',$data);
-		$this->load->view('template/footer', $data);
+		$this->load->view('template/head');
+		$this->load->view('Usuario/index');
+		$this->load->view('template/footer');
 	}
 
 	public function registrarUsuario()
 	{
-		$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
+		//$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
 
 		if( $this->input->post('pass1') ===  $this->input->post('pass2'))
 		{
@@ -37,22 +38,22 @@ class Usuario extends CI_Controller
 			if(!$res){
 				$data['error'] = '<div class="alert alert-danger"><i class="fas fa-exclamation-triangle"></i> Ya existe un correo asociado</div>';
 
-				$this->load->view('/template/head',$data);
+				$this->load->view('/template/head');
 				$this->load->view('login/login', $data);
-				$this->load->view('/template/footer',$data);
+				$this->load->view('/template/footer');
 			}else {
 				$data['error'] = '<div class="alert alert-success"><i class="fas fa-check-circle"></i> Usuario registrado</div>';
 
-				$this->load->view('/template/head',$data);
+				$this->load->view('/template/head');
 				$this->load->view('login/login', $data);
-				$this->load->view('/template/footer',$data);
+				$this->load->view('/template/footer');
 			}
 	 	}else {
 				$data['error'] = '<div class="alert alert-danger"><i class="fas fa-exclamation-triangle"></i> Contraseñas no coinciden</div>';
 
-			$this->load->view('/template/head',$data);
+			$this->load->view('/template/head');
 			$this->load->view('login/login', $data);
-			$this->load->view('/template/footer',$data);
+			$this->load->view('/template/footer');
 	 	}
 	}
 }

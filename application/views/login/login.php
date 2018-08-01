@@ -17,15 +17,18 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <?php
+                            if(isset($error)){
+                              echo $error;
+                            }
                             //echo validation_errors();
-                            $attributes = array('id' => 'login-form', 'style' => 'display: block');
-                            echo form_open('Login/login', $attributes); ?>
-                            <!--<form id="login-form" action="" method="post" role="form" style="display: block;">-->
+                          /*  $attributes = array('id' => 'login-form', 'style' => 'display: block');
+                            echo form_open('Login/login', $attributes); */?>
+                            <form id="login-form" action="<?php echo base_url(); ?>index.php/Login/login" method="post" role="form" style="display: block;">
                                 <div class="form-group">
-                                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Correo">
+                                    <input type="email" name="username" id="username" tabindex="1" class="form-control" placeholder="Correo">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Contraseña">
+                                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Contraseña" min="4">
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
@@ -47,21 +50,21 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="text-center">
-                                                <a href="Admin/login" tabindex="5" class="forgot-password">Acceso administrador</a>
+                                                <a href="<?php echo base_url(); ?>index.php/Admin/login" tabindex="5" class="forgot-password">Acceso administrador</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            <?php echo form_close();?>
-                            <!--</form>-->
+                            <?php //echo form_close();?>
+                            </form>
 
                             <?php
-                            if(isset($error)){
+                            /*if(isset($error)){
                               echo $error;
                             }
                             $attributes = array('id' => 'register-form', 'style' => 'display: none');
-                            echo form_open('Usuario/registrarUsuario', $attributes); ?>
-                            <!--<form id="register-form" action="" method="post" role="form" style="display: none;">-->
+                            echo form_open('Usuario/registrarUsuario', $attributes);*/ ?>
+                            <form id="register-form" action="<?php echo base_url(); ?>index.php/Usuario/registrarUsuario" method="post" role="form" style="display: none;">
                                 <div class="form-group">
                                     <input type="text" name="nombre_con" id="nombre_con" class="form-control" placeholder="Nombre completo" class="form-control" minlength="5" required>
                                 </div>
@@ -92,8 +95,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            <?php echo form_close();?>
-                            <!--</form>-->
+                            <?php //echo form_close();?>
+                            </form>
                         </div>
                     </div>
                 </div>

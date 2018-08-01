@@ -1,7 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Carro extends CI_Controller {
+class Carro extends CI_Controller
+{
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->model('CategoriaModel');
+		$this->load->model('ServicioModel');
+	}
 
 	// Muestra el contenido del carrito
 	public function index()
@@ -23,7 +30,7 @@ class Carro extends CI_Controller {
 		$this->form_validation->set_rules('nombre_con', 'Nombre contacto', 'required|min_length[4]');
 		$this->form_validation->set_rules('telefono_con', 'Teléfono/Celular contacto', 'required|min_length[9]|max_length[20]|numeric');
 		$this->form_validation->set_rules('correo_con', 'Correo contacto', 'required|valid_email');
-		
+
 		if ($this->input->post('tipo')=="Factura") {
 			$this->form_validation->set_rules('rut_fac', 'RUT facturación', 'required|min_length[8]|max_length[13]');
 			$this->form_validation->set_rules('razon_fac', 'Razón Social facturación', 'required');
@@ -42,7 +49,7 @@ class Carro extends CI_Controller {
 			echo '<div class="alert alert-danger">';
 			echo validation_errors();
 			echo '</div>';
-	    
+
 	    // Si estan correctos
 	    } else {
 	    	echo "1";
@@ -69,7 +76,7 @@ class Carro extends CI_Controller {
 			echo '<div class="alert alert-danger">';
 			echo validation_errors();
 			echo '</div>';
-	    
+
 	    // Si estan correctos
 	    } else {
 	    	echo "1";
@@ -89,8 +96,8 @@ class Carro extends CI_Controller {
 		}
 
 		//unset($_SESSION['datos_sesion']);
-		
-		// Paso 1 - Inicializa variables 
+
+		// Paso 1 - Inicializa variables
 		$tipo          = "";
 		$nombre_con    = "";
 		$rut_con       = "";
@@ -125,9 +132,9 @@ class Carro extends CI_Controller {
             $calle_fac     = $_SESSION['datos_sesion']['calle_fac'];
             $nro_calle_fac = $_SESSION['datos_sesion']['nro_calle_fac'];
 		}
-		// Fin Paso 1 - Inicializa variables 
+		// Fin Paso 1 - Inicializa variables
 
-		// Paso 2 - Inicializa variables 
+		// Paso 2 - Inicializa variables
 		$region_dir       ="";
 		$comuna_dir       ="";
 		$sector_dir       ="";
@@ -139,7 +146,7 @@ class Carro extends CI_Controller {
 		$metodo_pago      ="";
 		$costo_visita     = 0;
 		$descuento        = 0;
-		
+
 		// Si existe la sesion da asiga valor a las variables
 		if(isset($_SESSION['datos_sesion'])) {
 			$region_dir       = $_SESSION['datos_sesion']['region_dir'];
@@ -154,9 +161,9 @@ class Carro extends CI_Controller {
 			$costo_visita     = $_SESSION['datos_sesion']['costo_visita'];
 			$descuento        = $_SESSION['datos_sesion']['descuento'];
 		}
-		// Fin Paso 2 - Inicializa variables 
+		// Fin Paso 2 - Inicializa variables
 
-		
+
 		// Datos para la sesion
 		$data_sesion = array(
 			// Paso 1
@@ -189,7 +196,7 @@ class Carro extends CI_Controller {
 			'costo_visita'     => $costo_visita,
 			'descuento'        => $descuento
 		);
-		
+
 		$_SESSION['datos_sesion'] = $data_sesion;
 
 		if(isset($_SESSION['datos_sesion'])) {
@@ -204,14 +211,14 @@ class Carro extends CI_Controller {
 
 	// Paso 2 para la compra
 	public function Paso2()
-	{	
+	{
 		// Si no hay productos en el carrito lo devuelve
 		$productosC = $this->cart->contents();
 		if(count($productosC)<=0) {
 			header("Location: ".base_url()."index.php/Carro/");
 		}
 
-		// Paso 1 - Inicializa variables 
+		// Paso 1 - Inicializa variables
 		$tipo          = "";
 		$nombre_con    = "";
 		$rut_con       = "";
@@ -265,9 +272,9 @@ class Carro extends CI_Controller {
 			$calle_fac     = $_SESSION['datos_sesion']['calle_fac'];
 			$nro_calle_fac = $_SESSION['datos_sesion']['nro_calle_fac'];
 		}
-		// Fin Paso 1 - Inicializa variables 
+		// Fin Paso 1 - Inicializa variables
 
-		// Paso 2 - Inicializa variables 
+		// Paso 2 - Inicializa variables
 		$region_dir       ="";
 		$comuna_dir       ="";
 		$sector_dir       ="";
@@ -279,7 +286,7 @@ class Carro extends CI_Controller {
 		$metodo_pago      ="";
 		$costo_visita     = 0;
 		$descuento        = 0;
-		
+
 		// Si existe la sesion da asiga valor a las variables
 		if(isset($_SESSION['datos_sesion'])) {
 			$region_dir       = $_SESSION['datos_sesion']['region_dir'];
@@ -294,9 +301,9 @@ class Carro extends CI_Controller {
 			$costo_visita     = $_SESSION['datos_sesion']['costo_visita'];
 			$descuento        = $_SESSION['datos_sesion']['descuento'];
 		}
-		// Fin Paso 2 - Inicializa variables 
+		// Fin Paso 2 - Inicializa variables
 
-		
+
 		// Datos para la sesion
 		$data_sesion = array(
 			// Paso 1
@@ -325,10 +332,10 @@ class Carro extends CI_Controller {
 			'indicaciones_dir' => $indicaciones_dir,
 			'fecha_visita'     => $fecha_visita,
 			'hora_visita'      => $hora_visita,
-			'metodo_pago'      => $metodo_pago, 
+			'metodo_pago'      => $metodo_pago,
 			'costo_visita'     => $costo_visita,
-			'descuento'        => $descuento 
-		);	
+			'descuento'        => $descuento
+		);
 
 		$_SESSION['datos_sesion'] = $data_sesion;
 		//echo var_dump($_SESSION['datos_sesion']);
@@ -355,7 +362,7 @@ class Carro extends CI_Controller {
 		if(!isset($_POST['tipo'])) {
 			header("Location: ".base_url()."index.php/Carro/Paso1");
 		}
-		
+
 		// Si no existe la sesion con los datos de la compra, lo devuelve al paso 1
 		if(!isset($_SESSION['datos_sesion'])) {
 			header("Location: ".base_url()."index.php/Carro/Paso1");
@@ -390,8 +397,8 @@ class Carro extends CI_Controller {
 		$hora_visita      = $_POST['hora_visita'];
 		$metodo_pago      = $_POST['metodo_pago'];
 		$costo_visita     = $_POST['costo_visita'];
-		// Fin Paso 2 - Asigna valor Inicializa variables 
-		
+		// Fin Paso 2 - Asigna valor Inicializa variables
+
 		// Calcula el descuento si el pago es por transferencia
 		$descuento  = 0;
 		if($metodo_pago=="TRANSFERENCIA") {
@@ -399,7 +406,7 @@ class Carro extends CI_Controller {
 			$descuento  = round((($this->cart->total()+$costo_visita)*$porcen_des)/100);
 		}
 		// El monto final la suma del costo de visita a la comuna mas el descuento por transferencia
-        $monto_final = ($this->cart->total()+$costo_visita)-$descuento; 
+        $monto_final = ($this->cart->total()+$costo_visita)-$descuento;
 
 		// Datos para la sesion
 		$data['data_post'] = array(
@@ -429,20 +436,20 @@ class Carro extends CI_Controller {
 			'indicaciones_dir' => $indicaciones_dir,
 			'fecha_visita'     => $fecha_visita,
 			'hora_visita'      => $hora_visita,
-			'metodo_pago'      => $metodo_pago, 
+			'metodo_pago'      => $metodo_pago,
 			'costo_visita'     => $costo_visita,
 			'descuento'        => $descuento
 		);
-		
+
 		// Incluye los datos en la sesion por si se devuelve a un paso anterior
 		$_SESSION['datos_sesion'] = $data['data_post'];
-		
+
 		// Datos Compra
 		$_SESSION['datos']   = $data['data_post'];
-		
+
 		// Datos Productos
 		$_SESSION['carrito'] = $this->cart->contents();
-		
+
 		// Datos Productos
 		$_SESSION['total']   = $monto_final;
 
@@ -455,13 +462,13 @@ class Carro extends CI_Controller {
 		$base_url       = base_url();
 		$total          = round($this->cart->total());    // Monto de la transacción
 		$NroCompra      = rand();    // Orden de compra de la tienda
-		$SesionID       = uniqid();  //ID para la sesion 
+		$SesionID       = uniqid();  //ID para la sesion
 		$urlProcesar    = $base_url."index.php/Carro/ProcesarPago/"; // URL de retorno
-		$urlComprobante = $base_url."index.php/Carro/Finalizado/";   // URL Final 
-		
+		$urlComprobante = $base_url."index.php/Carro/Finalizado/";   // URL Final
+
 		// -- Inicio de la Transaccion para obtener Token -- //
 		$data['WebPayResultado'] = $webpay->getNormalTransaction()->initTransaction($total, $NroCompra, $SesionID, $urlProcesar, $urlComprobante);
-		
+
 		$this->load->view('/template/head');
 		$this->load->view('Carro/Paso3', $data);
 		$this->load->view('/template/footer');
@@ -471,7 +478,7 @@ class Carro extends CI_Controller {
 
 	// Procesa el Pago ya sea por Webpay o Transferencia
 	public function ProcesarPago()
-	{	
+	{
 		date_default_timezone_set('America/Santiago');
 
 		// Si no existe la sesion con los datos de la compra
@@ -506,10 +513,10 @@ class Carro extends CI_Controller {
 		$this->load->model('WebpayModel');
 		$this->load->model('CompraModel');
 		$this->load->model('CategoriaModel');
-		
+
 		// categorias para la pagina principal
 		$datac['categorias'] = $this->CategoriaModel->obtenerCategorias();
-				
+
 		$data['mensaje'] = "";
 		$data['error']   = "";
 		$todo_bien       = FALSE;
@@ -552,13 +559,13 @@ class Carro extends CI_Controller {
 			$metodo_pago      = $dcompra['metodo_pago'];
 			$costo_visita     = $dcompra['costo_visita'];
 			$descuento        = $dcompra['descuento'];
-			
+
 
 
 			// ---------------------------------------------- //
 			// Verifica la ID del cliente
 			// ---------------------------------------------- //
-			
+
 			$id_cliente       = 0;
 			$registrado       = FALSE;
 			$clave_automatica = "";
@@ -570,7 +577,7 @@ class Carro extends CI_Controller {
 
 				// Si no esta logeado se verifica su rut en la BD para saber si se debe registrar o no
 				if(count($resultado = $this->CompraModel->VerificarRutCorreo($rut_con,$correo_con))>0) {
-					
+
 					// Selecciona la ID del cliente existente
 					foreach ($resultado as $r) {
 						$id_cliente  = $r['id_cliente'];
@@ -594,7 +601,7 @@ class Carro extends CI_Controller {
 					if($id_cliente=$this->CompraModel->RegistrarCliente($datac)){
 						$registrado = TRUE;
 						$id_cliente = $id_cliente;
-					} 
+					}
 				}
 			}
 			// ----------------------- //
@@ -602,7 +609,7 @@ class Carro extends CI_Controller {
 			// ----------------------- //
 
 
-			// -- Inicialmente registra la compra sin los datos del pago -- // 
+			// -- Inicialmente registra la compra sin los datos del pago -- //
 			$data = array(
 				"id_cliente"       => $id_cliente,
 				"id_webpay"        => 0,
@@ -665,7 +672,7 @@ class Carro extends CI_Controller {
 					}
 				}
 
-									
+
 				// -------------------------------------------------- //
 				// Registra el Costo de la comuna si es diferente de 0
 				// -------------------------------------------------- //
@@ -690,7 +697,7 @@ class Carro extends CI_Controller {
 				}
 				// -------------------------------------- //
 
-							
+
 				// -------------------------------------- //
 				// Registra el Descuento si es transferencia
 				// -------------------------------------- //
@@ -725,16 +732,16 @@ class Carro extends CI_Controller {
 
 			// Si los datos de la compra se registran correctamente se le asigna un numero de compra mayor a a cero
 			if($id_compra>0 and $error==FALSE) {
-				
+
 				// -- WEBPAY -- //
 				// Si se recibe el token es Webpay
 				if((isset($_POST["token_ws"]) and $_POST["token_ws"]!="")) {
-				
+
 					// ------- WEBPAY ------- //
 					require_once('assets/webpay/libwebpay/webpay.php');
 					require_once('assets/webpay/certificates/cert-normal.php');
 					require_once('assets/webpay/iniciar.php');
-					
+
 					$token = filter_input(INPUT_POST, 'token_ws');
 
 					// Rescatamos resultado y datos de la transaccion
@@ -742,12 +749,12 @@ class Carro extends CI_Controller {
 
 					// Se verificamos el resultado de la transacción
 					if(isset($WebPayResultado->detailOutput->responseCode))  {
-						
+
 						// Este o no aprobado se registran los datos de la transaccion
 						$TipoPagoDescripcion  = DescripcionTipoPago($WebPayResultado->detailOutput->paymentTypeCode);
 						$RespuestaDescripcion = DescripcionRespuesta($WebPayResultado->detailOutput->responseCode);
 						$VCIDescripcion       = DescripcionVCI($WebPayResultado->VCI);
-						
+
 						// --- REGISTRA LOS DETALLES DEL PAGO DE WEBPAY --- //
 						$data_pago = array(
 							'id_compra'           => $id_compra,
@@ -780,7 +787,7 @@ class Carro extends CI_Controller {
 
 						// PAGO ACEPTADO
 						if ($WebPayResultado->detailOutput->responseCode === 0) {
-							
+
 							// -- Actualiza compra con la informacion -- //
 							$datos_compra = array(
 								'id_webpay'             => $id_pago_webpay,
@@ -791,7 +798,7 @@ class Carro extends CI_Controller {
 							if($this->CompraModel->ActualizarCompra($datos_compra,$id_compra)) {
 								$data['mensaje']  = "Pago confirmado, su compra ha sido registrada con el nro: #$id_compra";
 								$todo_bien        = TRUE;
-								
+
 								// Crea 3 variables que seran utilizadas para mostrar el voucher webpay
 								$data['voucher']  = TRUE;
 								$data['url']      = $WebPayResultado->urlRedirection;
@@ -816,7 +823,7 @@ class Carro extends CI_Controller {
 						}
 
 					} else {
-						
+
 						// -- Actualiza compra con la informacion -- //
 						$datos_compra = array(
 							'status_compra'         => "ANULADA",
@@ -831,13 +838,13 @@ class Carro extends CI_Controller {
 					}
 				}
 				// -- FIN WEBPAY -- //
-				
+
 
 
 				// -- TRANSFERENCIA -- //
 				// Si se transferencia
 				if((isset($_POST["transferencia"])) and ($_POST['transferencia'])) {
-					
+
 					// Si es por transferencia actualiza el status del pago "Por Verificar"
 					$datos_compra = array(
 						'status_compra'    => "GENERADA",
@@ -873,25 +880,25 @@ class Carro extends CI_Controller {
 			// ----------------------------------------------- //
 			// ------------ Notifica por correo -------------- //
 			// ----------------------------------------------- //
-			
+
 			if($todo_bien==TRUE) {
-				
+
 				$compra_detalle = $this->CompraModel->ProductosCompra($id_compra);
 				$datospago      = $this->CompraModel->DetallePagoWebPay($id_compra);
 
 				// Para Administrador de Redelect
 				$notificar_redelect = $this->config->item('notificar_redelect');
-				
+
 				// Para el cliente
 				$correos_para[] = $correo_con;
 				$correos_para[] = $correo_fac;
-				
+
 				// Elimina correos duplicados
 				$correos_para = array_unique($correos_para);
-				
+
 				// Elimina los campos vacios
 				$correos_para = array_filter($correos_para);
-				 
+
 				// Fecha
 			 	//$fecha = date("d-m-Y");
 
@@ -902,7 +909,7 @@ class Carro extends CI_Controller {
 				$configSMTP = $this->config->item('configSMTP');
 				$from       = $this->config->item('from');
 				$sistema    = $this->config->item('sistema');
-				
+
 				// Si tiene razon social la muestra en el asunto
 				$razon_factura = "";
 				if($razon_fac!=""){
@@ -912,7 +919,7 @@ class Carro extends CI_Controller {
 				// Asunto
 				$asunto = $sistema . " - Compra #" . $id_compra . " - " . $nombre_con . "" . $razon_factura;
 
-				// Base URL 
+				// Base URL
 				$base_url = base_url();
 
 
@@ -922,7 +929,7 @@ class Carro extends CI_Controller {
 				if($registrado==TRUE){
 					$html_cliente_clave = "
 					<br><br>
-					Para ingresar a su cuenta puede acceder haciendo 
+					Para ingresar a su cuenta puede acceder haciendo
 					<a href='$enlace_iniciar' target='_blank'>Click aquí</a>.
 					<br>Usuario: <b>$correo_con</b>
 					<br>Clave: <b>$clave_automatica</b>
@@ -955,7 +962,7 @@ class Carro extends CI_Controller {
 					<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b></b></td>
 				</tr>
 				</table>";
-				
+
 
 				// Contenido Factura
 				if($tipo=="Factura") {
@@ -1037,13 +1044,13 @@ class Carro extends CI_Controller {
 				</table>";
 
 
-			    // Detalles de la Transaccion Webpay 
+			    // Detalles de la Transaccion Webpay
 				if (($metodo_pago=="WEBPAY") and (count($datospago)>0)) {
 					foreach ($datospago as $webpay) {
-					
+
 						$buyOrder            = $webpay['buyOrder'];
-						
-						if($webpay['responseCode']=="0") $numero_tarjeta = "XXXX-XXXX-XXXX-" . $webpay['cardNumber']; 
+
+						if($webpay['responseCode']=="0") $numero_tarjeta = "XXXX-XXXX-XXXX-" . $webpay['cardNumber'];
 						else                             $numero_tarjeta = "";
 
 						$cardNumber          = $webpay['cardNumber'];
@@ -1057,8 +1064,8 @@ class Carro extends CI_Controller {
 						$amount              = number_format($webpay['amount'],'0',',','.');
 						$commerceCode        = $webpay['commerceCode'];
 						$transactionDate     = date("d-m-Y H:i", strtotime($webpay['transactionDate']));
-						$VCIDescription      = $webpay['VCIDescription']; 
-						$VCI                 = $webpay['VCI']; 
+						$VCIDescription      = $webpay['VCIDescription'];
+						$VCI                 = $webpay['VCI'];
 
 						// Contenido WebPay
 						$html_datos_webpay = "
@@ -1104,7 +1111,7 @@ class Carro extends CI_Controller {
 				} else $html_datos_webpay = "";
 
 
-			    // Detalles de la Transferencia 
+			    // Detalles de la Transferencia
 				if ($metodo_pago=="TRANSFERENCIA") {
 
 					// Contenido Transferencia
@@ -1138,10 +1145,10 @@ class Carro extends CI_Controller {
 						<td style='padding: 8px; border-top: 1px solid #999; min-width: 200px'><b>$notificar_pago</b></td>
 					</tr>
 					</table>";
-						
+
 				} else $html_datos_transferencia = "";
-				
-				
+
+
 				// Detalles de los productos
 				if (isset($compra_detalle) and count($compra_detalle)>0) {
 
@@ -1185,7 +1192,7 @@ class Carro extends CI_Controller {
 							<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'>$ $subtotal</td>
 						</tr>";
 					}
-					
+
 					$total_formato         = number_format($total_compra,'0',',','.');
 					$html_datos_productos .= "
 					<tr>
@@ -1193,27 +1200,27 @@ class Carro extends CI_Controller {
 						<td style='padding: 8px; border-top: 1px solid #999; text-align: right;'><b>$ $total_formato</b></td>
 					</tr>";
 					$html_datos_productos .= "</table>";
-						
+
 				} else $html_datos_productos = "";
 
-				
+
 
 				// Contenido Final Correo
 				$htmlContent = "
 				<div>
 					Estimado(a) $nombre_con su compra número #$id_compra se ha registrado correctamente.
-					
+
 					$html_cliente_clave
-					
-					Detalles de su compra: 
-				
+
+					Detalles de su compra:
+
 					$html_datos_contacto
 
 					$html_datos_factura
 
 					$html_datos_instalacion
-					
-					$html_datos_webpay 
+
+					$html_datos_webpay
 
 					$html_datos_transferencia
 
@@ -1228,7 +1235,7 @@ class Carro extends CI_Controller {
 				$this->email->from($from,$sistema);
 				$this->email->to("alexi_evanescence@hotmail.com");
 				//$this->email->to($correos_para);
-				//$this->email->cc($notificar_redelect); 
+				//$this->email->cc($notificar_redelect);
 				$this->email->subject($asunto);
 				$this->email->reply_to($notificar_redelect);
 				$this->email->message($htmlContent);
@@ -1242,7 +1249,7 @@ class Carro extends CI_Controller {
 					$data['correo_ok'] = FALSE;
 				}
 			}
-			
+
 			// ----------------------------------------------- //
 			// ---------- Fin Notifica por correo ------------ //
 			// ----------------------------------------------- //
@@ -1259,7 +1266,7 @@ class Carro extends CI_Controller {
 		} else {
 			$data['error'] = "No existe información que procesar";
 		}
-		
+
 		$this->load->view('/template/head');
 		$this->load->view('Carro/ProcesarPago',$data);
 		$this->load->view('/template/footer',$datac);
@@ -1272,7 +1279,7 @@ class Carro extends CI_Controller {
 
 	// Procesa el Pago ya sea por Webpay o Transferencia
 	public function Finalizado()
-	{	
+	{
 		if(isset($_POST['token_ws'])) {
 			$data['mensaje'] = "Compra finalizada correctamente";
 		}
@@ -1294,7 +1301,7 @@ class Carro extends CI_Controller {
 
 	// Agrega producto al carrito
 	public function Agregar() {
-		
+
 		// Recibe los datos
 		$id_producto         = $this->input->post('id_producto');
 		$codigo_producto     = $this->input->post('codigo_producto');
@@ -1328,7 +1335,7 @@ class Carro extends CI_Controller {
 		if($this->cart->insert($insert)) {
 			//echo "Holaaaaa";
 			$this->load->view('/Carro/Carrito_cabecera');
-		} else { 
+		} else {
 			echo "mal";
 		};
 	}
@@ -1337,7 +1344,7 @@ class Carro extends CI_Controller {
 
 	// Actualiza la cantidad del producto
 	public function Actualizar() {
-		
+
 		// Recibe los datos
 		$rowid             = $this->input->post('rowid');
 		$cantidad_producto = $this->input->post('cantidad_producto');
@@ -1351,9 +1358,9 @@ class Carro extends CI_Controller {
 		// Actualiza los datos en la sesion del carrito
 		if($this->cart->update($data)) echo "ok"; else echo "mal";
 	}
-	
 
-	// Elimina el producto 
+
+	// Elimina el producto
 	public function Quitar() {
 
 		// Recibe los datos
@@ -1370,7 +1377,7 @@ class Carro extends CI_Controller {
 	}
 
 
-	
+
 	// Elimina el producto desde el carrito de la cabecera
 	public function QuitarCabecera() {
 
@@ -1386,7 +1393,7 @@ class Carro extends CI_Controller {
 		// Actualiza los datos en la sesion del carrito
 		if($this->cart->update($data)) {
 			$this->load->view('/Carro/Carrito_cabecera');
-		} else { 
+		} else {
 			echo "mal";
 		}
 	}

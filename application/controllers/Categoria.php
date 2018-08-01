@@ -7,6 +7,7 @@ class Categoria extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('CategoriaModel');
+		$this->load->model('ServicioModel');
 	}
 
 	public function viewCategorias()
@@ -20,11 +21,11 @@ class Categoria extends CI_Controller {
 
 	public function addCategoria()
 	{
-		$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
+		//$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
 
-		$this->load->view('/template/head',$data);
+		$this->load->view('/template/head');
 		$this->load->view('categorias/AgregarCategoria');
-		$this->load->view('/template/footer',$data);
+		$this->load->view('/template/footer');
 	}
 
 	public function modCategoria()

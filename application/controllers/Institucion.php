@@ -7,23 +7,24 @@ class Institucion extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('CategoriaModel');
+		$this->load->model('ServicioModel');
 
 		date_default_timezone_set('America/Santiago');
 	}
 
 	public function index()
 	{
-		$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
+		//$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
 
-		$this->load->view('/template/head',$data);
+		$this->load->view('/template/head');
 		$this->load->view('Institucion/index');
-		$this->load->view('/template/footer',$data);
+		$this->load->view('/template/footer');
 	}
 
 	public function consultaInstitucion()
 	{
 		if ( function_exists( 'date_default_timezone_set' ) )
-			date_default_timezone_set('America/Santiago');	
+			date_default_timezone_set('America/Santiago');
 	 //Cargamos la librería email
 	 $this->load->library('email');
 

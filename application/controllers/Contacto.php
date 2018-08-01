@@ -7,17 +7,18 @@ class Contacto extends CI_Controller
   {
         parent::__construct();
         $this->load->model('CategoriaModel');
+				$this->load->model('ServicioModel');
         //$this->session->mensaje_email ='';
 				date_default_timezone_set('America/Santiago');
 	}
 
 	public function index()
 	{
-		$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
+		//$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
 
-		$this->load->view('/template/head', $data);
+		$this->load->view('/template/head');
 		$this->load->view('contacto/contacto');
-		$this->load->view('/template/footer', $data);
+		$this->load->view('/template/footer');
 	}
 
 	public function enviar_correo()

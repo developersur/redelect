@@ -13,7 +13,7 @@ class Inicio extends CI_Controller
 		$this->load->model('ProductoModel');
 		// carga servicio
 		$this->load->model('ServicioModel');
-		
+
 	}
 
 	public function index()
@@ -25,13 +25,13 @@ class Inicio extends CI_Controller
 		$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
 
 		// servicios para la pagina principal
-		$data['servicios'] = $this->ServicioModel->obtenerServicios();
+		//$data['servicios'] = $this->ServicioModel->obtenerServicios();
 
-		$this->load->view('/template/head', $data);
+		$this->load->view('/template/head');
 		$this->load->view('home');
 
 		// Productos
 		$this->load->view('/Productos/Principal',$data);
-		$this->load->view('/template/footer', $data);
+		$this->load->view('/template/footer');
 	}
 }
