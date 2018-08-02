@@ -12,4 +12,9 @@ class WebpayModel extends CI_Model {
         return $this->db->insert_id();
     }
 
+    public function VerficarPagoToken($token){
+        $result_set = $this->db->query("select * from pago_webpay where token='$token'");
+        return $result_set->result_array();
+    }
+
 }

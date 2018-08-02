@@ -645,89 +645,7 @@ class Carro extends CI_Controller
 				'descuento'        => $descuento,
 				'total'      	   => $total
 			);
-
-			// Registra el encabezado de la compra
-			if($id_compra = $this->CompraModel->RegistrarCompra($data)) {
-
-				// Recorre los productos del carrito para guardarlo en los detalles
-				foreach ($dproducto as $item) {
-
-					// Array con los datos del carrito
-					$data_productos = array(
-						'id_compra'            => $id_compra,
-						'id_producto'          => $item['id'],
-						'codigo_producto'      => $item['codigo'],
-						'nombre_producto'      => $item['name'],
-						'descripcion_producto' => $item['descripcion'],
-						'cantidad'             => $item['qty'],
-						'precio'               => $item['price'],
-						'imagen'               => $item['imagen']
-					);
-
-					// Registra los detalles de los productos
-					if($this->CompraModel->RegistrarDetalles($data_productos)) {
-						$error = FALSE; // No hubo error al registrar los detalles
-					} else {
-						$error = TRUE; // Hubo error al registrar los detalles
-					}
-				}
-
-
-				// -------------------------------------------------- //
-				// Registra el Costo de la comuna si es diferente de 0
-				// -------------------------------------------------- //
-				if($costo_visita!=0) {
-					$nombre_costo_visita = $this->config->item('nombre_costo_visita') . " " . $comuna_dir;
-					$data_productos = array(
-						'id_compra'            => $id_compra,
-						'id_producto'          => 0,
-						'codigo_producto'      => 0,
-						'nombre_producto'      => $nombre_costo_visita,
-						'descripcion_producto' => '',
-						'cantidad'             => 1,
-						'precio'               => $costo_visita,
-						'imagen'               => ''
-					);
-
-					if($this->CompraModel->RegistrarDetalles($data_productos)) {
-						$error = FALSE; // No hubo error al registrar los detalles
-					} else {
-						$error = TRUE; // Hubo error al registrar los detalles
-					}
-				}
-				// -------------------------------------- //
-
-
-				// -------------------------------------- //
-				// Registra el Descuento si es transferencia
-				// -------------------------------------- //
-				if($metodo_pago=="TRANSFERENCIA") {
-					$nombre_descuento = $this->config->item('nombre_descuento_transferencia');
-					$data_productos = array(
-						'id_compra'            => $id_compra,
-						'id_producto'          => 0,
-						'codigo_producto'      => 0,
-						'nombre_producto'      => $nombre_descuento,
-						'descripcion_producto' => '',
-						'cantidad'             => 1,
-						'precio'               => -$descuento,
-						'imagen'               => ''
-					);
-
-					if($this->CompraModel->RegistrarDetalles($data_productos)) {
-						$error = FALSE; // No hubo error al registrar los detalles
-					} else {
-						$error = TRUE; // Hubo error al registrar los detalles
-					}
-				}
-				// -------------------------------------- //
-
-
-			// Si no se registra correctamente
-			} else {
-				$id_compra = 0;
-			}
-			// ---------------------- //
+ 
 
 
 			// Si los datos de la compra se registran correctamente se le asigna un numero de compra mayor a a cero
@@ -1280,11 +1198,227 @@ class Carro extends CI_Controller
 	// Procesa el Pago ya sea por Webpay o Transferencia
 	public function Finalizado()
 	{
+		date_default_timezone_set('America/Santiago');
+
 		if(isset($_POST['token_ws'])) {
 			$data['mensaje'] = "Compra finalizada correctamente";
 		}
+
 		if(isset($_POST['TBK_TOKEN']) and isset($_POST['TBK_ID_SESION']) and isset($_POST['TBK_ORDEN_COMPRA'])) {
-			$data['error'] = "El pago ha sido anulado";
+			
+			// Carga Modelo
+			$this->load->model('WebpayModel');
+			$this->load->model('CompraModel');
+
+			// Recibe el token del pago webpay
+        	$token_anulado = $_POST['TBK_TOKEN'];
+			
+			// Verifica si el pago ya esta registrado (en caso de que se recargue la pagina)
+			$verificatoken = $this->WebpayModel->VerficarPagoToken($token_anulado);
+
+			// Si no esta registrado es la primera vez que cancela el pago por lo tanto se guarda
+			if (count($verificatoken)<=0) {
+
+				// --- REGISTRA EL PAGO CANCELADO POR EL USUARIO --- //
+				// Calculo la fecha actual con el formato de la BD ya que al ser anulada no me devuelve la fecha webpay
+				$now      = DateTime::createFromFormat('U.u', number_format(microtime(true), 3, '.', ''));
+				$php_date = $now->format("Y-m-d H:i:s.u");
+
+				$data_pago = array(
+					'token'           => $_POST['TBK_TOKEN'],
+					'buyOrder'        => $_POST['TBK_ORDEN_COMPRA'],
+					'sessionId'       => $_POST['TBK_ID_SESION'],
+					'transactionDate' => $php_date
+				);
+				
+				// Registra el pago
+				$id_pago_webpay = $wp->Webpay_model->RegistrarPago($data_pago);
+				
+			    // Si registra el pago correctamente (a pesar de que haya sido cancelado) registra la compra
+				if ($id_pago_webpay>0) {
+					
+					
+					// Recibe los datos de las sesiones de la compra
+					if($_SESSION['datos']!==null and $_SESSION['carrito']!==null and $_SESSION['total']!==null) {
+						$dcompra   = $_SESSION['datos'];
+						$dproducto = $_SESSION['carrito'];
+						$total     = $_SESSION['total'];
+					}
+
+					// Recibe los datos en variable para registrarlos y ocuparlos para el correo
+					$tipo             = $dcompra['tipo'];
+					$rut_con          = $dcompra['rut_con'];
+					$nombre_con       = $dcompra['nombre_con'];
+					$telefono_con     = $dcompra['telefono_con'];
+					$correo_con       = $dcompra['correo_con'];
+					$rut_fac          = $dcompra['rut_fac'];
+					$razon_fac        = $dcompra['razon_fac'];
+					$telefono_fac     = $dcompra['telefono_fac'];
+					$correo_fac       = $dcompra['correo_fac'];
+					$giro_fac         = $dcompra['giro_fac'];
+					$region_fac       = $dcompra['region_fac'];
+					$comuna_fac       = $dcompra['comuna_fac'];
+					$sector_fac       = $dcompra['sector_fac'];
+					$calle_fac        = $dcompra['calle_fac'];
+					$nro_calle_fac    = $dcompra['nro_calle_fac'];
+					$region_dir       = $dcompra['region_dir'];
+					$comuna_dir       = $dcompra['comuna_dir'];
+					$sector_dir       = $dcompra['sector_dir'];
+					$calle_dir        = $dcompra['calle_dir'];
+					$nro_calle_dir    = $dcompra['nro_calle_dir'];
+					$indicaciones_dir = $dcompra['indicaciones_dir'];
+					$fecha_visita     = $dcompra['fecha_visita'];
+					$hora_visita      = $dcompra['hora_visita'];
+					$metodo_pago      = $dcompra['metodo_pago'];
+					$costo_visita     = $dcompra['costo_visita'];
+					$descuento        = $dcompra['descuento'];
+
+
+
+					// ---------------------------------------------- //
+					// Verifica la ID del cliente
+					// ---------------------------------------------- //
+					$id_cliente       = 0;
+					$registrado       = FALSE;
+					$clave_automatica = "";
+
+					// Si el cliente ya esta logeado no se debe registrar y se toma la id de su sesion
+					if(isset($_SESSION['login']) and ($_SESSION['login']==TRUE)) {
+						$id_cliente = $_SESSION['id_cliente'];
+					} else {
+
+						// Si no esta logeado se verifica su rut en la BD para saber si se debe registrar o no
+						if(count($resultado = $this->CompraModel->VerificarRutCorreo($rut_con,$correo_con))>0) {
+
+							// Selecciona la ID del cliente existente
+							foreach ($resultado as $r) {
+								$id_cliente  = $r['id_cliente'];
+							}
+
+						} else {
+
+							$clave_automatica = rand(00001, 99999);
+							$clave_hash       = password_hash($clave_automatica,PASSWORD_DEFAULT);
+
+							// Se registra el cliente si no esta logeado y no existe el rut en la BD
+							$datac = array(
+								'rut_con'    => $rut_con,
+								'nombre_con' => $nombre_con,
+								'telefono'   => $telefono_con,
+								'correo'     => $correo_con,
+								'clave'      => $clave_hash,
+								'status'     => "REGISTRADO DESDE CARRITO"
+							);
+							// Si se registra correctamente el cliente se toma su ID para la compra
+							if($id_cliente=$this->CompraModel->RegistrarCliente($datac)){
+								$registrado = TRUE;
+								$id_cliente = $id_cliente;
+							}
+						}
+					}
+					// ----------------------- //
+					// ------ FIN CLIENTE ---- //
+					// ----------------------- //
+
+
+					// -- Registra la compra con los datos del pago abortado -- //
+					$data = array(
+						"id_cliente"       => $id_cliente,
+						"id_webpay"        => $id_pago_webpay,
+						"token"            => "$token_anulado",
+						"nro_transferencia"=> "",
+						"tipo"             => $tipo,
+						"rut_con"          => $rut_con,
+						"nombre_con"       => $nombre_con,
+						"telefono_con"     => $telefono_con,
+						"correo_con"       => $correo_con,
+						"rut_fac"          => $rut_fac,
+						"razon_fac"        => $razon_fac,
+						"telefono_fac"     => $telefono_fac,
+						"correo_fac"       => $correo_fac,
+						"giro_fac"         => $giro_fac,
+						"region_fac"       => $region_fac,
+						"comuna_fac"       => $comuna_fac,
+						"sector_fac"       => $sector_fac,
+						"calle_fac"        => $calle_fac,
+						"nro_calle_fac"    => $nro_calle_fac,
+						"region_dir"       => $region_dir,
+						"comuna_dir"       => $comuna_dir,
+						"sector_dir"       => $sector_dir,
+						"calle_dir"        => $calle_dir,
+						"nro_calle_dir"    => $nro_calle_dir,
+						"indicaciones_dir" => $indicaciones_dir,
+						"fecha_visita"     => $fecha_visita,
+						"hora_visita"      => $hora_visita,
+						"metodo_pago"      => $metodo_pago,
+						'status_compra'    => "ANULADA",
+						'status_pago'      => "PAGO ABORTADO",
+						"costo_visita"     => $costo_visita,
+						'descuento'        => $descuento,
+						'total'      	   => $total
+					);
+
+					// Registra el encabezado de la compra
+					if($id_compra = $this->CompraModel->RegistrarCompra($data)) {
+
+						// Recorre los productos del carrito para guardarlo en los detalles
+						foreach ($dproducto as $item) {
+
+							// Array con los datos del carrito
+							$data_productos = array(
+								'id_compra'            => $id_compra,
+								'id_producto'          => $item['id'],
+								'codigo_producto'      => $item['codigo'],
+								'nombre_producto'      => $item['name'],
+								'descripcion_producto' => $item['descripcion'],
+								'cantidad'             => $item['qty'],
+								'precio'               => $item['price'],
+								'imagen'               => $item['imagen']
+							);
+
+							// Registra los detalles de los productos
+							if($this->CompraModel->RegistrarDetalles($data_productos)) {
+								$error = FALSE; // No hubo error al registrar los detalles
+							} else {
+								$error = TRUE; // Hubo error al registrar los detalles
+							}
+						}
+
+
+						// -------------------------------------------------- //
+						// Registra el Costo de la comuna si es diferente de 0
+						// -------------------------------------------------- //
+						if($costo_visita!=0) {
+							$nombre_costo_visita = $this->config->item('nombre_costo_visita') . " " . $comuna_dir;
+							$data_productos = array(
+								'id_compra'            => $id_compra,
+								'id_producto'          => 0,
+								'codigo_producto'      => 0,
+								'nombre_producto'      => $nombre_costo_visita,
+								'descripcion_producto' => '',
+								'cantidad'             => 1,
+								'precio'               => $costo_visita,
+								'imagen'               => ''
+							);
+
+							if($this->CompraModel->RegistrarDetalles($data_productos)) {
+								$error = FALSE; // No hubo error al registrar los detalles
+							} else {
+								$error = TRUE; // Hubo error al registrar los detalles
+							}
+						}
+						// -------------------------------------- //
+					} 
+					// ---------------------- //
+
+				}
+				
+				$data['error'] = "El pago ha sido anulado";
+
+			} else {
+				$data['error'] = "No existen datos que procesar";
+			}
+			
 		}
 
 		$this->load->view('/template/head');
