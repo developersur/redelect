@@ -49,4 +49,13 @@ class UsuarioModel extends CI_Model {
         return false;
     }
 
+    function rutUsuario($rut){
+        $query = $this->db->get_where('cliente', array('rut_con' => $rut));
+        if($query->num_rows() == 1)
+        {
+            return 'V';
+        }else{
+            return 'F';
+        }
+    }
 }

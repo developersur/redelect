@@ -28,9 +28,10 @@ class Servicio extends CI_Controller {
 		$res = $this->ServicioModel->getServicio($id);
 
 		foreach ($res as $key => $value) {
-			echo $value->descripcion;
+			$data[] = $value->titulo;
+			$data[] = $value->descripcion;
 		}
 
-		//echo $titulo;
+		echo json_encode($data);
 	}
 }

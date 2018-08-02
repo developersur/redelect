@@ -95,19 +95,25 @@
 					  data: { id: id}
 				})
 				.done(function( msg ) {
-					alert(msg);
-					/*$.confirm({
+					var val = [];
+					var newData = JSON.parse(msg);
+
+					newData.forEach(function(value, index) {
+						val[index] = value;
+					});
+					
+					$.confirm({
 							columnClass: 'col-md-8 col-md-offset-2',
-							title: '¿Quiénes somos?',
-							content: msg,
+							title: val[0],
+							content: val[1],
 							type: 'dark',
 							draggable: true,
-							typeAnimated: true,
+							typeAnimated: false,
 							buttons: {
-									Salir: function () {
+									Cerrar: function () {
 									}
 							}
-					});*/
+					});
 				});
 			}
 		</script>

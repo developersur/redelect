@@ -56,4 +56,10 @@ class Usuario extends CI_Controller
 			$this->load->view('/template/footer');
 	 	}
 	}
+
+	function validaRut(){
+		$res = $this->UsuarioModel->rutUsuario($this->input->post('rt'));
+
+		echo $res;
+	}
 }
