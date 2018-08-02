@@ -28,14 +28,14 @@ class ServicioModel extends CI_Model
 
 	function getServicio($id)
 	{
-		//$query = $this->db->get('producto', array('id' => $id));
-		/*$query = $this->db->get_where('categoria', array('id' => $id));
+		$query = $this->db->get('servicio', array('id' => $id));
+		/*$query = $this->db->get_where('categoria', array('id' => $id));*/
 
 		if($query->num_rows() > 0)
 		{
 			return $query->result();
 		}else{
 			return false;
-		}*/
+		}
 	}
 }

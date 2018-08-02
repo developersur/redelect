@@ -86,6 +86,30 @@
 						}
 				});
 			}
+
+			function mostrar_servicio(id)
+			{
+				$.ajax({
+					  method: "POST",
+					  url: "<?php echo base_url(); ?>index.php/Servicio/getServicio",
+					  data: { id: id}
+				})
+				.done(function( msg ) {
+					alert(msg);
+					/*$.confirm({
+							columnClass: 'col-md-8 col-md-offset-2',
+							title: '¿Quiénes somos?',
+							content: msg,
+							type: 'dark',
+							draggable: true,
+							typeAnimated: true,
+							buttons: {
+									Salir: function () {
+									}
+							}
+					});*/
+				});
+			}
 		</script>
 
     </head>
@@ -221,7 +245,7 @@
 											$servicios = $this->ServicioModel->obtenerServicios();
 
 											foreach($servicios->result() as $servicio) { ?>
-												<li><a href=""><?php echo $servicio->titulo; ?></a></li>
+												<li><a href="javascript:mostrar_servicio('<?=$servicio->id?>');"><?php echo $servicio->titulo; ?></a></li>
 								 				<li role="separator" class="divider"></li>
 										<?php } ?>
 									</ul>

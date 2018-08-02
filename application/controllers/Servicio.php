@@ -20,4 +20,17 @@ class Servicio extends CI_Controller {
 		$this->load->view('servicios/servicio', $data);
 		$this->load->view('/template/footer');
 	}
+
+	public function getServicio()
+	{
+		$id = $this->input->post('id');
+		//echo $id;
+		$res = $this->ServicioModel->getServicio($id);
+
+		foreach ($res as $key => $value) {
+			echo $value->descripcion;
+		}
+
+		//echo $titulo;
+	}
 }
