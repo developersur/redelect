@@ -9,7 +9,9 @@ class Compra extends CI_Controller {
         $this->load->model('CompraModel');
         $this->load->model('ProductoModel');
         $this->load->model('CategoriaModel');
-				$this->load->model('ServicioModel');
+        $this->load->model('ServicioModel');
+        date_default_timezone_set('America/Santiago');
+        
 	}
     /*
 	public function index()
