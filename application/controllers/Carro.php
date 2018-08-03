@@ -368,6 +368,9 @@ class Carro extends CI_Controller
 			header("Location: ".base_url()."index.php/Carro/Paso1");
 		}
 
+		// Carga Modelo
+		$this->load->model('CompraModel');
+
 		// Paso 1 - Asigna valor
 		$tipo          = $_POST['tipo'];
 		$nombre_con    = $_POST['nombre_con'];
@@ -458,11 +461,22 @@ class Carro extends CI_Controller
 		require_once('assets/webpay/certificates/cert-normal.php');
 		require_once('assets/webpay/iniciar.php');
 
+
+
+		// Ultimo ID Compra
+		$NroCompra    = 0;
+		$UltimaCompra = $this->CompraModel->UltimoIDCompra();
+		if(count($UltimaCompra)>0){
+			foreach ($UltimaCompra as $UCompra) {
+				$NroCompra = $UCompra['id_compra']+1;
+			}
+		}
+
 		// -- Inicio Datos para la transaccion --//
 		$base_url       = base_url();
 		$total          = round($this->cart->total());    // Monto de la transacción
-		$NroCompra      = rand();    // Orden de compra de la tienda
-		$SesionID       = uniqid();  //ID para la sesion
+		$NroCompra      = $NroCompra; // Orden de compra de la tienda
+		$SesionID       = uniqid();   //ID para la sesion
 		$urlProcesar    = $base_url."index.php/Carro/ProcesarPago/"; // URL de retorno
 		$urlComprobante = $base_url."index.php/Carro/Finalizado/";   // URL Final
 
@@ -1230,11 +1244,12 @@ class Carro extends CI_Controller
 					'token'           => $_POST['TBK_TOKEN'],
 					'buyOrder'        => $_POST['TBK_ORDEN_COMPRA'],
 					'sessionId'       => $_POST['TBK_ID_SESION'],
+					'id_compra'       => $_POST['TBK_ORDEN_COMPRA'],
 					'transactionDate' => $php_date
 				);
 				
-				// Registra el pago
-				$id_pago_webpay = $wp->Webpay_model->RegistrarPago($data_pago);
+				// Registra el pago 
+				$id_pago_webpay = $this->WebpayModel->RegistrarPago($data_pago);
 				
 			    // Si registra el pago correctamente (a pesar de que haya sido cancelado) registra la compra
 				if ($id_pago_webpay>0) {
@@ -1326,7 +1341,7 @@ class Carro extends CI_Controller
 						$data = array(
 							"id_cliente"       => $id_cliente,
 							"id_webpay"        => $id_pago_webpay,
-							"token"            => "$token_anulado",
+							"token"            => $token_anulado,
 							"nro_transferencia"=> "",
 							"tipo"             => $tipo,
 							"rut_con"          => $rut_con,
@@ -1361,6 +1376,25 @@ class Carro extends CI_Controller
 
 						// Registra el encabezado de la compra
 						if($id_compra = $this->CompraModel->RegistrarCompra($data)) {
+
+							
+							// ------------------------------- //
+							// - Datos a actualizar del pago - //
+							// ------------------------------- //
+							$data_pago_update = array(
+								'amount'          => $total,
+								'id_cliente'      => $id_cliente,
+								'id_compra'       => $id_compra,
+								'rut_contacto'    => $rut_con,
+								'rut_facturacion' => $rut_fac,
+								'respuestaPago'   => "Pago abortado por el usuario"
+							);
+
+							// Registra los detalles de los productos
+							if($this->WebpayModel->ActualizarPago($data_pago_update,$id_pago_webpay)) {
+							}
+							// ------------------------------- //
+
 
 							// Recorre los productos del carrito para guardarlo en los detalles
 							foreach ($dproducto as $item) {
@@ -1409,7 +1443,11 @@ class Carro extends CI_Controller
 								}
 							}
 							// -------------------------------------- //
+
 						} 
+							
+						$data['error'] = "El pago ha sido abortado por el usuario";
+						
 						// ---------------------- //
 
 					} else {

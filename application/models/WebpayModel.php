@@ -17,4 +17,13 @@ class WebpayModel extends CI_Model {
         return $result_set->result_array();
     }
 
+
+    public function ActualizarPago($data,$id_pago_webpay){
+        if ($this->db->update('pago_webpay', $data, array('id_pago_webpay' => $id_pago_webpay))) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
 }

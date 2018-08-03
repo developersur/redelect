@@ -31,6 +31,11 @@ class CompraModel extends CI_Model {
         return $result_set->result_array();
     }
 
+    public function UltimoIDCompra(){
+		$result_set = $this->db->query("
+			select max(id_compra) as id_compra from compra");
+        return $result_set->result_array();
+    }
 
     public function ListarTopComprasCliente($id_cliente){
         $result_set = $this->db->query("
