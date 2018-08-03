@@ -8,6 +8,8 @@ class Carro extends CI_Controller
 		parent::__construct();
 		$this->load->model('CategoriaModel');
 		$this->load->model('ServicioModel');
+		date_default_timezone_set('America/Santiago');
+
 	}
 
 	// Muestra el contenido del carrito
