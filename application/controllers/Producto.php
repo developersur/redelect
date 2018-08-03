@@ -17,7 +17,7 @@ class Producto extends CI_Controller
 			// Productos para la pagina principal
 			$data['ProductosPrincipal'] = $this->ProductoModel->ListarPrincipal();
 			// categorias para la pagina principal
-			$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
+			//$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
 
 			$this->load->view('/template/head');
 			$this->load->view('Productos/Principal',$data);

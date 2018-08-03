@@ -27,7 +27,8 @@ class ProductoModel extends CI_Model {
         inner join 
           categoria 
         on 
-        producto.categoria=categoria.id");
+        producto.categoria=categoria.id
+        where producto.habilitado = 'Si'");
     	return $result_set -> result_array();
     }
 
@@ -67,7 +68,7 @@ class ProductoModel extends CI_Model {
     }
     
     public function ProductosPorCategoria($id_categoria){
-      $result_set = $this->db->query("select * from producto where categoria=$id_categoria");
+      $result_set = $this->db->query("select * from producto where habilitado='Si' and categoria=$id_categoria");
       return $result_set->result_array();
     }
     
