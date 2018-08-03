@@ -5,8 +5,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-  	<meta name="description" content="">
-  	<meta name="author" content="developersur">
+  		<meta name="description" content="">
+  		<meta name="author" content="developersur">
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 		<title>Redelect. Instalaciones electricas.</title>
@@ -63,6 +63,7 @@
 
 		<!-- Smartsupp Live Chat script -->
 		<script type="text/javascript">
+
 			var _smartsupp = _smartsupp || {};
 			_smartsupp.key = '86b501d3323c02a14dc28f7fbc27e907009ac3a1';
 			window.smartsupp||(function(d) {
@@ -72,8 +73,37 @@
 			  c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
 			})(document);
 
-			function mostrar_qsomos(){
+			function mostrar_qsomos()
+			{
 				$.confirm({
+					columnClass: 'col-md-8 col-md-offset-2',
+					content: function () {
+						var self = this;
+						return $.ajax({
+							url: "<?php echo base_url(); ?>index.php/QuienesSomos/obtenerQS",
+							method: 'post',
+						}).done(function (response) {
+							var val = [];
+							var newData = JSON.parse(response);
+
+							newData.forEach(function(value, index) {
+								val[index] = value;
+							});
+
+							self.setContent(val[1]);
+							self.setTitle(val[0]);
+						}).fail(function(){
+							self.setContent('Error al cargar datos');
+						});
+					},
+					buttons: {
+						Cerrar: function () {
+						}
+					},
+					type: 'dark',
+				});
+
+				/*$.confirm({
 						columnClass: 'col-md-8 col-md-offset-2',
 						title: '¿Quiénes somos?',
 						content: 'Redelect, una empresa cuyo principal producto es la SEGURIDAD ELECTRICA. En Redelect nos enfocamos en entregar un resultado en formato OBRA VENDIDA, así, el cliente no se preocupa de las tradicionales instalaciones donde además de buscar al técnico o en muchos casos al “maestro eléctrico” también tiene que ocuparse de las compras de materiales y todo para instalar un par de enchufes o un punto de alumbrado. Redelect se encarga de todo en forma sencilla, clara y transparente para el usuario final, en cualquiera de los productos que Redelect ofrece, usted tiene que seguir tres simples pasos.',
@@ -84,14 +114,43 @@
 								Salir: function () {
 								}
 						}
-				});
+				});*/
 			}
 
 			function mostrar_servicio(id)
 			{
-				$.ajax({
+				$.confirm({
+					columnClass: 'col-md-8 col-md-offset-2',
+					content: function () {
+						var self = this;
+						return $.ajax({
+							url: "<?php echo base_url(); ?>index.php/Servicio/getServicio",
+							//dataType: 'json',
+							method: 'post',
+							data: { id: id}
+						}).done(function (response) {
+							var val = [];
+							var newData = JSON.parse(response);
+
+							newData.forEach(function(value, index) {
+								val[index] = value;
+							});
+
+							self.setContent(val[1]);
+							self.setTitle(val[0]);
+						}).fail(function(){
+							self.setContent('Error al cargar datos');
+						});
+					},
+					buttons: {
+						Cerrar: function () {
+						}
+					},
+					type: 'dark',
+				});
+				/*$.ajax({
 					  method: "POST",
-					  url: "<?php echo base_url(); ?>index.php/Servicio/getServicio",
+					  url: "<?php //echo base_url(); ?>index.php/Servicio/getServicio",
 					  data: { id: id}
 				})
 				.done(function( msg ) {
@@ -114,7 +173,7 @@
 									}
 							}
 					});
-				});
+				});*/
 			}
 		</script>
 

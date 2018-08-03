@@ -97,12 +97,17 @@
                             <table class="table">
                                 <tr>
                                     <td>
-                                        <span class=""></span><a href="">Agregar servicio</a>
+                                        <span class=""></span><a href="<?php echo base_url(); ?>index.php/Servicio/viewServicios">Listar</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <span class=""></span><a href="">Modificar servicio</a>
+                                        <span class=""></span><a href="<?php echo base_url(); ?>index.php/Servicio/addServicio">Agregar</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class=""></span><a href="<?php echo base_url(); ?>index.php/Servicio/modServicio">Modificar</a>
                                     </td>
                                 </tr>
                             </table>
@@ -110,47 +115,6 @@
                     </div>
                 </div>
 
-                <!-- Quienes Somos -->
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span class="">
-                            </span>Quienes somos</a>
-                        </h4>
-                    </div>
-                    <div id="collapseFour" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <span class=""></span><a href="">Modificar</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Informe -->
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive"><span class="">
-                            </span>Informe de ventas</a>
-                        </h4>
-                    </div>
-                    <div id="collapseFive" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <span class=""></span><a href="">Ventas por periódo</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
@@ -163,12 +127,17 @@
                             <table class="table">
                                 <tr>
                                     <td>
-                                        <span class=""></span><a href="">Valor visita técnico</a>
+                                        <span class=""></span><a href="">Ventas</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <span class=""></span><a href="">Planos y listado de materiales</a>
+                                        <span class=""></span><a href="">Quienes somos</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class=""></span><a href="">Mis datos</a>
                                     </td>
                                 </tr>
                             </table>

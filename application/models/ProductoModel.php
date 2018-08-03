@@ -71,5 +71,21 @@ class ProductoModel extends CI_Model {
       return $result_set->result_array();
     }
     
+    public function updHabilitado($data)
+    {
+      $this->db->set('habilitado', $data['estado']);
+      $this->db->where('id_producto', $data['codigo']);
+      $res = $this->db->update('producto'); 
 
-}
+      return $res;
+    }
+
+    public function updNuevo($data)
+    {
+      $this->db->set('nuevo', $data['estado']);
+      $this->db->where('id_producto', $data['codigo']);
+      $res = $this->db->update('producto'); 
+
+      return $res;
+    }
+  }

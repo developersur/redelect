@@ -34,4 +34,45 @@ class Servicio extends CI_Controller {
 
 		echo json_encode($data);
 	}
+
+	public function viewServicios()
+	{
+			$data['servicios'] = $this->ServicioModel->obtenerServicios();
+
+			$this->load->view('/template/head');
+			$this->load->view('servicios/VerServicios', $data);
+			$this->load->view('/template/footer');
+	}
+
+	public function addServicio()
+	{
+		$this->load->view('/template/head');
+		$this->load->view('servicios/AgregarServicio');
+		$this->load->view('/template/footer');
+	}
+
+	public function modServicio()
+	{
+			$data['servicios'] = $this->ServicioModel->obtenerServicios();
+
+			$this->load->view('/template/head');
+			$this->load->view('servicios/ModificarServicio', $data);
+			$this->load->view('/template/footer');
+	}
+
+
+	public function agregarServicio()
+	{
+		$data = array(
+			'codigo' => $this->input->post('codigo'),
+			'titulo' => $this->input->post('titulo'),
+			'descripcion' => $this->input->post('descripcion'),
+			'habilitado' => $this->input->post('habilitado'),
+		);
+
+		$res = $this->CategoriaModel->crearServicio($data);
+
+		$previous = $_SERVER['HTTP_REFERER'];
+		redirect($previous);
+	}
 }

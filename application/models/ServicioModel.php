@@ -38,4 +38,22 @@ class ServicioModel extends CI_Model
 			return false;
 		}
 	}
+
+	function crearCategoria($data)
+	{
+		$query = $this->db->get_where('servicio', array('codigo' => $data['codigo']));
+
+		if($query->num_rows() > 0)
+		{
+			return false;
+		}else{
+			$this->db->insert('servicio',
+								array(
+								'codigo' => $data['codigo'],
+								'titulo' => $data['titulo'],
+								'descripcion' => $data['descripcion'],
+								'habilitado' => $data['habilitado']));
+			return true;
+		}
+	}
 }

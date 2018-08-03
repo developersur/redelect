@@ -116,5 +116,25 @@ class Producto extends CI_Controller
         $this->load->view('/template/head',$data);
 				$this->load->view('Productos/PorCategoria',$data);
 				$this->load->view('/template/footer',$data);
-    }
+		}
+		
+		public function updateHabilitado()
+		{
+			$data = array(
+				'codigo' => $this->input->post('codigo'),
+				'estado' => $this->input->post('estado')
+			);
+			
+			echo $this->ProductoModel->updHabilitado($data);
+		}
+
+		public function updateNuevo()
+		{
+			$data = array(
+				'codigo' => $this->input->post('codigo'),
+				'estado' => $this->input->post('estado')
+			);
+
+			echo $this->ProductoModel->updNuevo($data);
+		}
 }

@@ -11,13 +11,15 @@ class QuienesSomos extends CI_Controller {
 		$this->load->model('ServicioModel');
 	}
 
-	public function index()
+	public function obtenerQS()
 	{
-		$data['quienessomos'] = $this->QuienesSomosModel->obtenerQuienesSomos();
-		//$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
+		$res = $this->QuienesSomosModel->obtenerQuienesSomos();
 
-		$this->load->view('/template/head');
-		$this->load->view('quienesSomos/quienesSomos',$data);
-		$this->load->view('/template/footer');
+		foreach ($res as $key => $value) {
+			$data[] = $value->titulo;
+			$data[] = $value->descripcion;
+		}
+
+		echo json_encode($data);
 	}
 }

@@ -2,6 +2,61 @@
 function open_edit_prod(){
   $('#modal_edit_prod').modal('show')
 }
+
+function habilita_prod(id, cod)
+{
+  var estado;
+  if( $('#'+id).prop('checked') ) 
+  {
+    estado = 'Si';
+  }else{
+    estado = 'No';
+  }
+  //alert(estado);
+  $.ajax({
+      method: "POST",
+      url: "<?php echo base_url(); ?>index.php/Producto/updateHabilitado",
+      data: { 
+        estado: estado,
+        codigo: cod
+      }
+  })
+  .done(function( msg ) {
+    if(msg){
+      location.reload();
+    }else{
+      alert('Ocurrio un error');
+    }
+  });
+}
+
+function nuevo_prod(id, cod)
+{
+  var estado;
+  if( $('#'+id).prop('checked') ) 
+  {
+    estado = 'Si';
+  }else{
+    estado = 'No';
+  }
+  //alert(estado);
+  $.ajax({
+      method: "POST",
+      url: "<?php echo base_url(); ?>index.php/Producto/updateNuevo",
+      data: { 
+        estado: estado,
+        codigo: cod
+      }
+  })
+  .done(function( msg ) {
+    if(msg){
+      location.reload();
+    }else{
+      alert('Ocurrio un error');
+    }
+  });
+}
+
 </script>
 <div class="container" id="menuadmin">
     <div class="row">
@@ -39,10 +94,10 @@ function open_edit_prod(){
                           <?php if($producto->habilitado == 'Si')
                           {
                           ?>
-                            <input type="checkbox" checked>
+                            <input type="checkbox" id="h<?=$producto->id_producto?>" onchange="habilita_prod('<?php echo 'h'.$producto->id_producto;?>', '<?=$producto->id_producto;?>');" checked>
                           <?php
                           }else{?>
-                            <input type="checkbox">
+                            <input type="checkbox" id="h<?=$producto->id_producto?>" onchange="habilita_prod('<?php echo 'h'.$producto->id_producto;?>', '<?=$producto->id_producto;?>');">
                           <?php
                           }
                           ?>
@@ -54,10 +109,10 @@ function open_edit_prod(){
                           <?php if($producto->nuevo == 'Si')
                           {
                           ?>
-                            <input type="checkbox" checked>
+                            <input type="checkbox" id="n<?=$producto->id_producto?>" onchange="nuevo_prod('<?php echo 'n'.$producto->id_producto;?>', '<?=$producto->id_producto;?>');" checked>
                           <?php
                           }else{?>
-                            <input type="checkbox">
+                            <input type="checkbox" id="n<?=$producto->id_producto?>" onchange="nuevo_prod('<?php echo 'n'.$producto->id_producto;?>', '<?=$producto->id_producto;?>');">
                           <?php
                           }
                           ?>
