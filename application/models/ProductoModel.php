@@ -89,4 +89,24 @@ class ProductoModel extends CI_Model {
 
       return $res;
     }
+
+    public function buscaProductos($data)
+    {
+      $texto = $data['texto'];
+
+      $this->db->like('descripcion', $texto);
+      $res = $this->db->get('producto');
+
+      if($res->num_rows() > 0)
+      {
+        return $res;
+      }else{
+        return false;
+      }
+
+      //$this->db->like('descripcion', $texto);
+      //$res = $this->db->get('producto');
+      //$result_set = $this->db->query("select * from producto where descripcion LIKE '%$texto%' ");
+      //return $res;
+    }
   }

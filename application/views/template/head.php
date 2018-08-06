@@ -242,9 +242,9 @@
 						<!-- SEARCH BAR -->
 						<div class="col-md-5">
 							<div class="header-search">
-								<form>
-									<input class="input" placeholder="¿Qué estás buscando?">
-									<button class="search-btn">Buscar</button>
+								<form method="post" action="<?php echo base_url(); ?>index.php/Producto/buscaProducto">
+									<input class="input" type="text" name="texto_buscar" minlength="2" maxlength="20" placeholder="¿Qué estás buscando?" required>
+									<button class="search-btn" type="submit">Buscar</button>
 								</form>
 							</div>
 						</div>

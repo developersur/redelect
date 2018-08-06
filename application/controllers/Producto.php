@@ -17,7 +17,7 @@ class Producto extends CI_Controller
 			// Productos para la pagina principal
 			$data['ProductosPrincipal'] = $this->ProductoModel->ListarPrincipal();
 			// categorias para la pagina principal
-			//$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
+			$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
 
 			$this->load->view('/template/head');
 			$this->load->view('Productos/Principal',$data);
@@ -137,4 +137,17 @@ class Producto extends CI_Controller
 
 			echo $this->ProductoModel->updNuevo($data);
 		}
+
+	 public function buscaProducto()
+	 {
+			$data = array(
+				'texto' => htmlspecialchars($this->input->post('texto_buscar')),
+			);
+			
+			$datos['productos'] = $this->ProductoModel->buscaProductos($data);
+
+			$this->load->view('/template/head');
+			$this->load->view('Productos/Busqueda',$datos);
+			$this->load->view('/template/footer');
+	 }
 }
