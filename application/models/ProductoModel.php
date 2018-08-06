@@ -94,8 +94,29 @@ class ProductoModel extends CI_Model {
     {
       $texto = $data['texto'];
 
-      $this->db->like('descripcion', $texto);
-      $res = $this->db->get('producto');
+      // ---------------------- //
+      $data_origin = str_replace(" ", "%", $texto);
+
+      // Separa las palabras en forma de array
+      $porciones = explode("%", $texto);
+
+      // Invierte las palabras
+      for ($i=count($porciones)-1; $i >= 0; $i--) { 
+
+          $invertir[] = $porciones[$i];
+
+      }
+
+      // Las convierte en string ya invertidas separadas por %
+      $data_invertida = implode($invertir, "%");
+
+      //$array = array('nombre' => $data_origin, 'nombre' => $data_invertida);
+
+      //$this->db->like('descripcion', $data_origin);
+      //$this->db->like($array);
+      //$res = $this->db->get('producto');
+
+      $res = $this->db->query("select * from producto where (nombre like '%".$data_origin."%' or nombre like '".$data_invertida."')");
 
       if($res->num_rows() > 0)
       {
