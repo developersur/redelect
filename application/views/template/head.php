@@ -102,19 +102,6 @@
 					},
 					type: 'dark',
 				});
-
-				/*$.confirm({
-						columnClass: 'col-md-8 col-md-offset-2',
-						title: '¿Quiénes somos?',
-						content: 'Redelect, una empresa cuyo principal producto es la SEGURIDAD ELECTRICA. En Redelect nos enfocamos en entregar un resultado en formato OBRA VENDIDA, así, el cliente no se preocupa de las tradicionales instalaciones donde además de buscar al técnico o en muchos casos al “maestro eléctrico” también tiene que ocuparse de las compras de materiales y todo para instalar un par de enchufes o un punto de alumbrado. Redelect se encarga de todo en forma sencilla, clara y transparente para el usuario final, en cualquiera de los productos que Redelect ofrece, usted tiene que seguir tres simples pasos.',
-						type: 'dark',
-						draggable: true,
-						typeAnimated: true,
-						buttons: {
-								Salir: function () {
-								}
-						}
-				});*/
 			}
 
 			function mostrar_servicio(id)
@@ -148,32 +135,6 @@
 					},
 					type: 'dark',
 				});
-				/*$.ajax({
-					  method: "POST",
-					  url: "<?php //echo base_url(); ?>index.php/Servicio/getServicio",
-					  data: { id: id}
-				})
-				.done(function( msg ) {
-					var val = [];
-					var newData = JSON.parse(msg);
-
-					newData.forEach(function(value, index) {
-						val[index] = value;
-					});
-					
-					$.confirm({
-							columnClass: 'col-md-8 col-md-offset-2',
-							title: val[0],
-							content: val[1],
-							type: 'dark',
-							draggable: true,
-							typeAnimated: false,
-							buttons: {
-									Cerrar: function () {
-									}
-							}
-					});
-				});*/
 			}
 		</script>
 

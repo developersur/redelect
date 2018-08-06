@@ -50,7 +50,7 @@
 							<div class="footer">
 								<h3 class="footer-title">Información</h3>
 								<ul class="footer-links">
-									<li><a href="<?php echo base_url();?>index.php/QuienesSomos">Acerca de</a></li>
+									<li><a href="javascript:mostrar_qsomos();">Acerca de</a></li>
 									<li><a href="<?php echo base_url(); ?>index.php/Contacto">Contáctanos</a></li>
 								</ul>
 							</div>
@@ -70,7 +70,7 @@
 						<div class="col-md-12 text-center">
 							<span class="copyright">
 								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-								Copyright &copy;<!-- <script>document.write(new Date().getFullYear());</script> --> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+								Desarrollado por <a href="https://www.developersur.cl" target="_blank">Developersur</a> | &copy; 2018<!-- <script>document.write(new Date().getFullYear());</script> --> Todos los derechos reservados<!--| This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>-->
 							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 							</span>
 						</div>
