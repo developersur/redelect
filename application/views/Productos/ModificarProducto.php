@@ -1,61 +1,96 @@
 <script>
-function open_edit_prod(){
-  $('#modal_edit_prod').modal('show')
-}
-
-function habilita_prod(id, cod)
-{
-  var estado;
-  if( $('#'+id).prop('checked') ) 
-  {
-    estado = 'Si';
-  }else{
-    estado = 'No';
+  function open_edit_prod(id, nombre, descripcion, precio){
+    $('#nombre_prod_edit').val(nombre);
+    $('#descripcion_prod_edit').val(descripcion);
+    $('#precio_prod_edit').val(precio);
+    $('#id_prod_edit').val(id);
+    
+    $('#modal_edit_prod').modal('show');
   }
-  //alert(estado);
-  $.ajax({
-      method: "POST",
-      url: "<?php echo base_url(); ?>index.php/Producto/updateHabilitado",
-      data: { 
-        estado: estado,
-        codigo: cod
-      }
-  })
-  .done(function( msg ) {
-    if(msg){
-      location.reload();
-    }else{
-      alert('Ocurrio un error');
-    }
-  });
-}
 
-function nuevo_prod(id, cod)
-{
-  var estado;
-  if( $('#'+id).prop('checked') ) 
+  function habilita_prod(id, cod)
   {
-    estado = 'Si';
-  }else{
-    estado = 'No';
-  }
-  //alert(estado);
-  $.ajax({
-      method: "POST",
-      url: "<?php echo base_url(); ?>index.php/Producto/updateNuevo",
-      data: { 
-        estado: estado,
-        codigo: cod
-      }
-  })
-  .done(function( msg ) {
-    if(msg){
-      location.reload();
+    var estado;
+    if( $('#'+id).prop('checked') ) 
+    {
+      estado = 'Si';
     }else{
-      alert('Ocurrio un error');
+      estado = 'No';
     }
-  });
-}
+    //alert(estado);
+    $.ajax({
+        method: "POST",
+        url: "<?php echo base_url(); ?>index.php/Producto/updateHabilitado",
+        data: { 
+          estado: estado,
+          codigo: cod
+        }
+    })
+    .done(function( msg ) {
+      if(msg){
+        location.reload();
+      }else{
+        alert('Ocurrio un error');
+      }
+    });
+  }
+
+  function nuevo_prod(id, cod)
+  {
+    var estado;
+    if( $('#'+id).prop('checked') ) 
+    {
+      estado = 'Si';
+    }else{
+      estado = 'No';
+    }
+    //alert(estado);
+    $.ajax({
+        method: "POST",
+        url: "<?php echo base_url(); ?>index.php/Producto/updateNuevo",
+        data: { 
+          estado: estado,
+          codigo: cod
+        }
+    })
+    .done(function( msg ) {
+      if(msg){
+        location.reload();
+      }else{
+        alert('Ocurrio un error');
+      }
+    });
+  }
+
+  $(document).ready( function () {
+      $('#mod_producto').DataTable({
+          "language":{
+              "sProcessing":     "Procesando...",
+              "sLengthMenu":     "Mostrar _MENU_ registros",
+              "sZeroRecords":    "No se encontraron resultados",
+              "sEmptyTable":     "Ningún dato disponible en esta tabla",
+              "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+              "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+              "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+              "sInfoPostFix":    "",
+              "sSearch":         "Buscar:",
+              "sUrl":            "",
+              "sInfoThousands":  ",",
+              "sLoadingRecords": "Cargando...",
+              "oPaginate": {
+                  "sFirst":    "Primero",
+                  "sLast":     "Último",
+                  "sNext":     "Siguiente",
+                  "sPrevious": "Anterior"
+              },
+              "oAria": {
+                  "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                  "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+              }
+          }
+      });
+  } );
+
 
 </script>
 <div class="container" id="menuadmin">
@@ -66,7 +101,7 @@ function nuevo_prod(id, cod)
         <div class="col-sm-9 col-md-9">
           <fieldset>
           <legend class="text-center header">Modificar producto</legend>
-              <table class="table table-bordeder">
+              <table id="mod_producto" class="table table-bordeder">
                 <thead class="cabecera_dark">
                   <tr>
                     <th>Nombre</th>
@@ -120,7 +155,7 @@ function nuevo_prod(id, cod)
                         </label>
                       </td>
                       <td><img src="<?php echo $producto->imagen; ?>" alt="" width="30" height="30"></td>
-                      <td><button type="button" class="btn btn-info btn-xs" onclick="open_edit_prod()">Modificar</button></td>
+                      <td><button type="button" class="btn btn-info btn-xs" onclick="open_edit_prod('<?=$producto->id_producto?>','<?=$producto->nombre?>','<?=$producto->descripcion?>','<?=$producto->precio?>')">Modificar</button></td>
                     </tr>
                     <?php
                     }
@@ -143,29 +178,30 @@ function nuevo_prod(id, cod)
       </div>
       <div class="modal-body">
 
-        <form class="form-horizontal">
+        <form class="form-horizontal" method="post" action="<?php echo base_url();?>index.php/Producto/editarProducto">
           <div class="form-group">
             <label for="nombre" class="col-sm-2 control-label">Nombre</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="nombre" name="nombre">
+              <input type="text"  minlength=2 maxlength=100 class="form-control" id="nombre_prod_edit" name="nombre" required>
             </div>
           </div>
           <div class="form-group">
             <label for="descripcion" class="col-sm-2 control-label">Descripción</label>
             <div class="col-sm-10">
-              <textarea type="text" class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
+              <textarea minlength=2 maxlength=500 class="form-control" id="descripcion_prod_edit" name="descripcion" rows="3" required></textarea>
             </div>
           </div>
           <div class="form-group">
             <label for="precio" class="col-sm-2 control-label">Precio</label>
             <div class="col-sm-10">
-              <input type="number" class="form-control" id="precio" name="precio">
+              <input type="number" minlength=1 maxlength=100 class="form-control" id="precio_prod_edit" name="precio" required>
             </div>
           </div>
+          <input type="hidden" name="id" id="id_prod_edit">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar cambios</button>
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
       </div>
       </form>
     </div>

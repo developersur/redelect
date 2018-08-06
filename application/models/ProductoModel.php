@@ -107,14 +107,7 @@ class ProductoModel extends CI_Model {
 
       }
 
-      // Las convierte en string ya invertidas separadas por %
       $data_invertida = implode($invertir, "%");
-
-      //$array = array('nombre' => $data_origin, 'nombre' => $data_invertida);
-
-      //$this->db->like('descripcion', $data_origin);
-      //$this->db->like($array);
-      //$res = $this->db->get('producto');
 
       $res = $this->db->query("select * from producto where (nombre like '%".$data_origin."%' or nombre like '".$data_invertida."')");
 
@@ -124,10 +117,13 @@ class ProductoModel extends CI_Model {
       }else{
         return false;
       }
+    }
 
-      //$this->db->like('descripcion', $texto);
-      //$res = $this->db->get('producto');
-      //$result_set = $this->db->query("select * from producto where descripcion LIKE '%$texto%' ");
-      //return $res;
+    public function editProducto($data)
+    {
+      $res = $this->db->query("update producto set nombre='".$data['nombre']."', descripcion='".$data['descripcion']."', precio=".$data['precio']." 
+                                where id_producto = ".$data['id']);
+
+      return $res;
     }
   }

@@ -150,4 +150,20 @@ class Producto extends CI_Controller
 			$this->load->view('Productos/Busqueda',$datos);
 			$this->load->view('/template/footer');
 	 }
+
+	 public function editarProducto()
+	 {
+			$data = array(
+				'nombre' => $this->input->post('nombre'),
+				'descripcion' => $this->input->post('descripcion'),
+				'precio' => $this->input->post('precio'),
+				'id' => $this->input->post('id')
+			);
+			
+			$res = $this->ProductoModel->editProducto($data);
+
+			//$this->load->view('/template/head');
+			//$this->load->view('Productos/Busqueda',$datos);
+			//$this->load->view('/template/footer');
+	 }
 }
