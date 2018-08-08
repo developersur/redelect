@@ -1,6 +1,10 @@
 <script>
-  function open_edit_cat()
+  function open_edit_cat(id, nombre, descripcion)
   {
+    $('#nombre_cat').val(nombre);
+    $('#descripcion_cat').val(descripcion);
+    $('#id_cat').val(id);
+    
     $('#modal_edit_cat').modal('show');
   }
 
@@ -33,6 +37,33 @@
       });
   } );
 
+   function habilita_cat(id, cod)
+  {
+    var estado;
+    if( $('#'+id).prop('checked') ) 
+    {
+      estado = 'Si';
+    }else{
+      estado = 'No';
+    }
+    //alert(estado);
+    $.ajax({
+        method: "POST",
+        url: "<?php echo base_url(); ?>index.php/Categoria/updateHabilitado",
+        data: { 
+          estado: estado,
+          codigo: cod
+        }
+    })
+    .done(function( msg ) {
+      if(msg){
+        location.reload();
+      }else{
+        alert('Ocurrio un error');
+      }
+    });
+  }
+
 </script>
 
 <div class="container" id="menuadmin">
@@ -62,8 +93,22 @@
                     <tr>
                       <td><?php echo $categoria->nombre; ?></td>
                       <td><?php echo $categoria->descripcion; ?></td>
-                      <td><?php echo $categoria->habilitado; ?></td>
-                      <td><button type="button" class="btn btn-info btn-xs" onclick="open_edit_cat()">Modificar</button></td>
+                      <td>
+                        <label class="switch">
+                            <?php if($categoria->habilitado == 'Si')
+                            {
+                            ?>
+                              <input type="checkbox" id="h<?=$categoria->id?>" onchange="habilita_cat('<?php echo 'h'.$categoria->id;?>', '<?=$categoria->id;?>');" checked>
+                            <?php
+                            }else{?>
+                              <input type="checkbox" id="h<?=$categoria->id?>" onchange="habilita_cat('<?php echo 'h'.$categoria->id;?>', '<?=$categoria->id;?>');">
+                            <?php
+                            }
+                            ?>
+                            <span class="slider round"></span>
+                        </label>
+                      </td>
+                      <td><button type="button" class="btn btn-info btn-xs" onclick="open_edit_cat('<?=$categoria->id?>','<?=$categoria->nombre?>','<?=$categoria->descripcion?>')">Modificar</button></td>
                     </tr>
                     <?php
                     }
@@ -85,23 +130,24 @@
       </div>
       <div class="modal-body">
 
-        <form class="form-horizontal">
+        <form class="form-horizontal" method="post" action="<?php echo base_url();?>index.php/Categoria/editarCategoria">
           <div class="form-group">
             <label for="nombre" class="col-sm-2 control-label">Nombre</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="nombre" name="nombre">
+              <input type="text" class="form-control" id="nombre_cat" name="nombre">
             </div>
           </div>
           <div class="form-group">
             <label for="descripcion" class="col-sm-2 control-label">Descripción</label>
             <div class="col-sm-10">
-              <textarea type="text" class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
+              <textarea type="text" class="form-control" id="descripcion_cat" name="descripcion" rows="3"></textarea>
             </div>
           </div>
+          <input type="hidden" name="id" id="id_cat">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar cambios</button>
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
       </div>
       </form>
     </div>

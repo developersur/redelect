@@ -39,15 +39,51 @@ class Categoria extends CI_Controller {
 
 	public function agregarCategoria()
 	{
-				$data = array(
-					'nombre' => $this->input->post('nombre'),
-					'descripcion' => $this->input->post('descripcion'),
-					'habilitado' => $this->input->post('habilitado'),
-				);
+		$data = array(
+			'nombre' => $this->input->post('nombre'),
+			'descripcion' => $this->input->post('descripcion'),
+			'habilitado' => $this->input->post('habilitado'),
+		);
 
-				$res = $this->CategoriaModel->crearCategoria($data);
+		$res = $this->CategoriaModel->crearCategoria($data);
 
+		$exito = array('exito' => 'Categoría creada con éxito');
+
+		$this->load->view('/template/head');
+		$this->load->view('categorias/AgregarCategoria', $exito);
+		$this->load->view('/template/footer');
+
+				//$previous = $_SERVER['HTTP_REFERER'];
+				//redirect($previous);
+	}
+
+	public function updateHabilitado()
+	{
+		$data = array(
+			'codigo' => $this->input->post('codigo'),
+			'estado' => $this->input->post('estado')
+		);
+		
+		echo $this->CategoriaModel->updHabilitado($data);
+	}
+
+	public function editarCategoria()
+	 {
+			$data = array(
+				'nombre' => $this->input->post('nombre'),
+				'descripcion' => $this->input->post('descripcion'),
+				'id' => $this->input->post('id')
+			);
+			
+			$res = $this->CategoriaModel->editCategoria($data);
+
+			if($res){
 				$previous = $_SERVER['HTTP_REFERER'];
 				redirect($previous);
-	}
+			}
+
+			//$this->load->view('/template/head');
+			//$this->load->view('Productos/Busqueda',$datos);
+			//$this->load->view('/template/footer');
+	 }
 }

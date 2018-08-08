@@ -1,6 +1,10 @@
 <script>
-  function open_edit_ser()
+  function open_edit_ser(id, titulo, descripcion)
   {
+    $('#titulo_ser').val(titulo);
+    $('#descripcion_ser').val(descripcion);
+    $('#id_ser').val(id);
+
     $('#modal_edit_ser').modal('show');
   }
 
@@ -32,6 +36,33 @@
           }
       });
   } );
+
+  function habilita_ser(id, cod)
+  {
+    var estado;
+    if( $('#'+id).prop('checked') ) 
+    {
+      estado = 'Si';
+    }else{
+      estado = 'No';
+    }
+    //alert(estado);
+    $.ajax({
+        method: "POST",
+        url: "<?php echo base_url(); ?>index.php/Servicio/updateHabilitado",
+        data: { 
+          estado: estado,
+          codigo: cod
+        }
+    })
+    .done(function( msg ) {
+      if(msg){
+        location.reload();
+      }else{
+        alert('Ocurrio un error');
+      }
+    });
+  }
 
 </script>
 
@@ -69,17 +100,17 @@
                           <?php if($servicio->habilitado == 'Si')
                           {
                           ?>
-                            <input type="checkbox" checked>
+                            <input type="checkbox" id="h<?=$servicio->id?>" onchange="habilita_ser('<?php echo 'h'.$servicio->id;?>', '<?=$servicio->id;?>');" checked>
                           <?php
                           }else{?>
-                            <input type="checkbox">
+                            <input type="checkbox" id="h<?=$servicio->id?>" onchange="habilita_ser('<?php echo 'h'.$servicio->id;?>', '<?=$servicio->id;?>');">
                           <?php
                           }
                           ?>
                           <span class="slider round"></span>
                         </label>
                       </td>
-                      <td><button type="button" class="btn btn-info btn-xs" onclick="open_edit_ser()">Modificar</button></td>
+                      <td><button type="button" class="btn btn-info btn-xs" onclick="open_edit_ser('<?=$servicio->id?>','<?=$servicio->titulo?>','<?=$servicio->descripcion?>')">Modificar</button></td>
                     </tr>
                     <?php
                     }
@@ -97,26 +128,27 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Editar categoria</h4>
+        <h4 class="modal-title" id="myModalLabel">Editar servicio</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal">
+        <form class="form-horizontal" method="post" action="<?php echo base_url();?>index.php/Servicio/editarServicio">
           <div class="form-group">
             <label for="titulo" class="col-sm-2 control-label">Título</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="titulo" name="titulo">
+              <input type="text" class="form-control" id="titulo_ser" name="titulo">
             </div>
           </div>
           <div class="form-group">
             <label for="descripcion" class="col-sm-2 control-label">Descripción</label>
             <div class="col-sm-10">
-              <textarea type="text" class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
+              <textarea type="text" class="form-control" id="descripcion_ser" name="descripcion" rows="5"></textarea>
             </div>
           </div>
+          <input type="hidden" id="id_ser" name="id">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar cambios</button>
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
       </div>
       </form>
     </div>

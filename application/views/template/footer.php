@@ -29,7 +29,7 @@
 								<ul class="footer-links">
 									<?php
 									$this->load->model('CategoriaModel');
-									$categorias = $this->CategoriaModel->obtenerCategorias();
+									$categorias = $this->CategoriaModel->obtenerCategoriasActivas();
 
 									if($categorias)
 									{

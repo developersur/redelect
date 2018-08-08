@@ -8,9 +8,16 @@
           <legend class="text-center header">Agregar categoría</legend>
               <div class="panel panel-default">
                   <div class="panel-body">
-                        <?php if(isset($error)){
-                            echo $error;
-                        } ?>
+                        <?php 
+                            if(isset($error)){
+                                echo $error;
+                            }
+                            
+                            if(isset($exito))
+                            {
+                                echo '<div class="alert alert-success" role="alert">'.$exito.'</div>';
+                            }  
+                        ?>
                       <form class="form form-horizontal" method="post" action="<?php echo base_url(); ?>index.php/Categoria/agregarCategoria">
                           <div class="form-group">
                               <div class="col-md-5">

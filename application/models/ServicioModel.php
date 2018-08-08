@@ -11,7 +11,27 @@ class ServicioModel extends CI_Model
 
 	function crearServicio($data)
 	{
-		//$this->db->insert('categoria', array('nombre' => $data['nombre'], 'descripcion' => $data['descripcion'], 'fecha_creacion' => $data['fecha_creacion']));
+		$query = $this->db->get_where('servicio', array('codigo' => $data['codigo']));
+
+		if($query->num_rows() > 0)
+		{
+			return false;
+		}else{
+			$this->db->insert('servicio', array('codigo' => $data['codigo'], 'titulo' => $data['titulo'] ,'descripcion' => $data['descripcion'], 'habilitado' => $data['habilitado']));
+			return true;
+		}
+	}
+
+	function obtenerServiciosActivos()
+	{
+		$query = $this->db->get_where('servicio', array('habilitado' => 'Si'));
+		
+		if($query->num_rows() > 0)
+		{
+			return $query;
+		}else{
+			return false;
+		}
 	}
 
 	function obtenerServicios()
@@ -56,4 +76,21 @@ class ServicioModel extends CI_Model
 			return true;
 		}
 	}
+
+	public function updHabilitado($data)
+    {
+      $this->db->set('habilitado', $data['estado']);
+      $this->db->where('id', $data['codigo']);
+      $res = $this->db->update('servicio'); 
+
+      return $res;
+	}
+
+	public function editServicio($data)
+    {
+      $res = $this->db->query("update servicio set titulo='".$data['titulo']."', descripcion='".$data['descripcion']."'
+                                where id = ".$data['id']);
+
+      return $res;
+    }
 }

@@ -22,7 +22,7 @@ class Inicio extends CI_Controller
 		$data['ProductosPrincipal'] = $this->ProductoModel->ListarPrincipal();
 
 		// categorias para la pagina principal
-		$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
+		$data['categorias'] = $this->CategoriaModel->obtenerCategoriasActivas();
 
 		// servicios para la pagina principal
 		//$data['servicios'] = $this->ServicioModel->obtenerServicios();

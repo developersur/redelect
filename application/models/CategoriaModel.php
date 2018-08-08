@@ -9,6 +9,18 @@ class CategoriaModel extends CI_Model
 		//$this->load->database();
 	}
 
+	function obtenerCategoriasActivas()
+	{
+		$query = $this->db->query('select * from categoria where habilitado = "Si"');
+
+		if($query->num_rows() > 0)
+		{
+			return $query;
+		}else{
+			return false;
+		}
+	}
+
 	function obtenerCategorias()
 	{
 		$query = $this->db->get('categoria');
@@ -37,4 +49,21 @@ class CategoriaModel extends CI_Model
 			return true;
 		}
 	}
+
+	public function updHabilitado($data)
+    {
+      $this->db->set('habilitado', $data['estado']);
+      $this->db->where('id', $data['codigo']);
+      $res = $this->db->update('categoria'); 
+
+      return $res;
+	}
+	
+	public function editCategoria($data)
+    {
+      $res = $this->db->query("update categoria set nombre='".$data['nombre']."', descripcion='".$data['descripcion']."'
+                                where id = ".$data['id']);
+
+      return $res;
+    }
 }

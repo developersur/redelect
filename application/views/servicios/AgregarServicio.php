@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" id="menuadmin">
     <div class="row">
         <div class="col-sm-3 col-md-3">
             <?php $this->load->view('template/MenuAdmin'); ?>
@@ -8,9 +8,16 @@
           <legend class="text-center header">Agregar servicio</legend>
               <div class="panel panel-default">
                   <div class="panel-body">
-                        <?php if(isset($error)){
-                            echo $error;
-                        } ?>
+                        <?php 
+                        if(isset($error))
+                        {
+                            echo '<div class="alert alert-danger" role="alert">'.$error.'</div>';
+                        }
+                        if(isset($exito))
+                        {
+                            echo '<div class="alert alert-success" role="alert">'.$exito.'</div>';
+                        }  
+                        ?>
                       <form class="form form-horizontal" method="post" action="<?php echo base_url(); ?>index.php/Servicio/agregarServicio">
                           <div class="form-group">
                               <div class="col-md-5">

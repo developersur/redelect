@@ -255,7 +255,7 @@
 									<ul class="dropdown-menu">
 										<?php
 											$this->load->model('CategoriaModel');
-											$categorias = $this->CategoriaModel->obtenerCategorias();
+											$categorias = $this->CategoriaModel->obtenerCategoriasActivas();
 											foreach($categorias->result() as $categoria) { ?>
 												<li><a href="<?php echo base_url(); ?>index.php/Producto/Categoria?id_categoria=<?php echo $categoria->id; ?>"><?php echo $categoria->nombre; ?></a></li>
 								 				<li role="separator" class="divider"></li>
@@ -268,7 +268,7 @@
 									<ul class="dropdown-menu">
 										<?php
 											$this->load->model('ServicioModel');
-											$servicios = $this->ServicioModel->obtenerServicios();
+											$servicios = $this->ServicioModel->obtenerServiciosActivos();
 
 											foreach($servicios->result() as $servicio) { ?>
 												<li><a href="javascript:mostrar_servicio('<?=$servicio->id?>');"><?php echo $servicio->titulo; ?></a></li>

@@ -70,9 +70,48 @@ class Servicio extends CI_Controller {
 			'habilitado' => $this->input->post('habilitado'),
 		);
 
-		$res = $this->CategoriaModel->crearServicio($data);
+		$res = $this->ServicioModel->crearServicio($data);
 
-		$previous = $_SERVER['HTTP_REFERER'];
-		redirect($previous);
+		if($res){
+			$mensaje = array('exito' => 'Producto creado con éxito');
+		}else{
+			$mensaje = array('error' => 'Ya existe un servicio con el mismo código');
+		}
+
+		$this->load->view('/template/head');
+		$this->load->view('servicios/AgregarServicio', $mensaje);
+		$this->load->view('/template/footer');
+		//$previous = $_SERVER['HTTP_REFERER'];
+		//redirect($previous);
 	}
+
+	public function updateHabilitado()
+	{
+		$data = array(
+			'codigo' => $this->input->post('codigo'),
+			'estado' => $this->input->post('estado')
+		);
+		
+		echo $this->ServicioModel->updHabilitado($data);
+	}
+
+	public function editarServicio()
+	 {
+			$data = array(
+				'titulo' => $this->input->post('titulo'),
+				'descripcion' => $this->input->post('descripcion'),
+				'id' => $this->input->post('id')
+			);
+			
+			$res = $this->ServicioModel->editServicio($data);
+
+			if($res){
+				$previous = $_SERVER['HTTP_REFERER'];
+				redirect($previous);
+			}
+
+			//$this->load->view('/template/head');
+			//$this->load->view('Productos/Busqueda',$datos);
+			//$this->load->view('/template/footer');
+	 }
 }
