@@ -137,7 +137,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <span class=""></span><a href="">Mis datos</a>
+                                        <span class=""></span><a href="<?php echo base_url(); ?>index.php/MisDatos/viewDatos">Mis datos</a>
                                     </td>
                                 </tr>
                             </table>

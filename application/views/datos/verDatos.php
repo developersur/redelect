@@ -1,5 +1,5 @@
 <script>
-    $(document).ready( function () {
+    /*$(document).ready( function () {
         $('#ltdo_categoria').DataTable({
             "language":{
                 "sProcessing":     "Procesando...",
@@ -26,7 +26,7 @@
                 }
             }
         });
-    } );
+    } );*/
 </script>
 
 <div class="container" id="menuadmin">
@@ -36,26 +36,26 @@
         </div>
         <div class="col-sm-9 col-md-9">
           <fieldset>
-          <legend class="text-center header">Categorías</legend>
+          <legend class="text-center header">Mis datos</legend>
               <table id="ltdo_categoria" class="table table-bordered table-condensed">
                 <thead class="cabecera_dark">
                   <tr>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Habilitado</th>
+                    <th>Telefono</th>
+                    <th>Correo</th>
+                    <th>Dirección</th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php
-                  if($categorias)
+                  if($datos)
                   {
-                    foreach ($categorias->result() as $categoria)
+                    foreach ($datos->result() as $dato)
                     {
                     ?>
                     <tr>
-                      <td><?php echo $categoria->nombre; ?></td>
-                      <td><?php echo $categoria->descripcion; ?></td>
-                      <td><?php echo $categoria->habilitado; ?></td>
+                      <td><?php echo $dato->telefono; ?></td>
+                      <td><?php echo $dato->correo; ?></td>
+                      <td><?php echo $dato->direccion; ?></td>
                     </tr>
                     <?php
                     }

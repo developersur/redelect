@@ -28,7 +28,7 @@
         });
     } );
 </script>
-<div class="container">
+<div class="container" id="menuadmin">
     <div class="row">
         <div class="col-sm-3 col-md-3">
             <?php $this->load->view('template/MenuAdmin'); ?>
