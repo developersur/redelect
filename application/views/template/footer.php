@@ -9,12 +9,12 @@
 						<div class="col-md-5 col-xs-6">
 							<div class="footer">
 								<h3 class="footer-title">Nosotros</h3>
-								<p align="justify">Redelec, una empresa cuyo principal producto es la SEGURIDAD ELECTRICA.
+								<!--<p align="justify">Redelec, una empresa cuyo principal producto es la SEGURIDAD ELECTRICA.
 									En Redelec nos enfocamos en entregar un resultado en formato OBRA VENDIDA,
 									así, el cliente no se preocupa de las tradicionales instalaciones donde además
 									de buscar al técnico o en muchos casos al “maestro eléctrico” también tiene que
 									ocuparse de las compras de materiales y todo para instalar un par de enchufes o
-									un punto de alumbrado.</p>
+									un punto de alumbrado.</p>-->
 								<ul class="footer-links">
 									<li><a href="#"><i class="fa fa-map-marker"></i>Barros Arana 492 oficina 78, Torre Ligure, Concepción</a></li>
 									<li><a href="#"><i class="fa fa-phone"></i>+569 99373838</a></li>

@@ -81,25 +81,29 @@ function valida_rut(){
 
                             <form id="register-form" action="<?php echo base_url(); ?>index.php/Usuario/registrarUsuario" method="post" role="form" style="display: none;">
                                 <div class="form-group">
+                                    <font color="red" size="2">*</font>
                                     <input type="text" name="nombre_con" id="nombre_con" class="form-control" placeholder="Nombre completo" class="form-control" minlength="5" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="rut_con" id="rut_con" class="form-control" placeholder="RUT" minlength="6" required>
+                                    <input type="text" name="rut_con" id="rut_con" class="form-control" placeholder="RUT" minlength="6">
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="text" name="telefono" id="telefono" class="form-control" placeholder="Teléfono o celular" minlength="6" required>
+                                    <input type="text" name="telefono" id="telefono" class="form-control" placeholder="Teléfono o celular" minlength="6">
                                 </div>
 
                                 <div class="form-group">
+                                    <font color="red" size="2">*</font>
                                     <input type="email" name="correo" id="correo" class="form-control" placeholder="Email" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="password" name="pass1" id="pass1" class="form-control" placeholder="Contraseña" minlength="4" required>
+                                    <font color="red" size="2">*</font>
+                                    <input type="password" name="pass1" id="pass1" class="form-control" placeholder="Contraseña" minlength="4" required>                        
                                 </div>
 
                                 <div class="form-group">
+                                    <font color="red" size="1">*</font>
                                     <input type="password" name="pass2" id="pass2" class="form-control" placeholder="Repite contraseña" minlength="4" required>
                                 </div>
 

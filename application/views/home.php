@@ -1,11 +1,54 @@
 
-
-
 <!-- SECTION -->
 <div class="section">
     <!-- container -->
     <div class="container">
         <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" id="head_panel_cab">Como comprar en Redelect</div>
+                    <div class="panel-body">
+                        <div class="col-md-3">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                Selecciona los productos y la cantidad 
+                                y agregalos a tu carrito 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                Elije en nuestro calendario el  
+                                horario y fecha que mas te acomode 
+                                para la instalación
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                Concreta la compra en línea a 
+                                través de webpay p transferencia 
+                                electrónica 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                Finalmente recibirás un correo
+                                de cofirmación de tu compra en
+                                Redelect
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <div class="row">
             <!-- shop -->
             <div class="col-md-4 col-xs-6">
