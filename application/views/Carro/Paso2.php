@@ -235,4 +235,5 @@ $(document).ready(function () {
 
 
 <!-- Selector de Region y Comuna -->
-<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/RegionesYcomunasBioBio.js"></script>
+<?php require_once('assets/js/RegionesYcomunasBioBio.php'); ?>
+<!-- <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/RegionesYcomunasBioBio.js"></script>  -->

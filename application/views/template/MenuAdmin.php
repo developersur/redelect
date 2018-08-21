@@ -140,6 +140,11 @@
                                         <span class=""></span><a href="<?php echo base_url(); ?>index.php/MisDatos/viewDatos">Mis datos</a>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td>
+                                        <span class=""></span><a href="<?php echo base_url(); ?>index.php/Comuna/Listar">Costo por Comuna</a>
+                                    </td>
+                                </tr>
                             </table>
                         </div>
                     </div>
