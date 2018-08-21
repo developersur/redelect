@@ -9,6 +9,11 @@
   -o-border-radius: 0% !important;
 }
 
+.centro{
+    text-align: center;
+    margin-top: 5%;
+}
+
 /* Titulos */
 legend.titulo {
     padding-top: 20px;

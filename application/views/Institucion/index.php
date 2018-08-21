@@ -6,7 +6,7 @@
                 <div class="col-md-6 col-md-offset-3">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <form class="form-horizontal" method="post" action="<?php echo base_url();?>index.php/Institucion/consultaInstitucion">
+                            <form class="form-horizontal" method="post" action="<?php echo base_url();?>index.php/Institucion/consultaInstitucion" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <div class="col-md-12">
                                       <label for="institucion">Institución o empresa</label> <font color="red">*</font>
@@ -28,8 +28,8 @@
 
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <label for="telefono">Número contacto</label> <font color="red">*</font>
-                                        <input id="telefono" name="telefono" type="text" placeholder="Número contacto" class="form-control" minlength="6" required>
+                                        <label for="telefono">Número contacto</label>
+                                        <input id="telefono" name="telefono" type="text" placeholder="Número contacto" class="form-control" minlength="6">
                                     </div>
                                 </div>
 
@@ -37,6 +37,12 @@
                                     <div class="col-md-12">
                                         <label for="email">Email</label> <font color="red">*</font>
                                         <input id="email" name="email" type="email" placeholder="Email" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label for="archivo">Archivos</label>
+                                        <input id="archivo" name="archivo" type="file" placeholder="Archivo" class="form-control">
                                     </div>
                                 </div>
 

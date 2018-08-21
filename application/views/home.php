@@ -9,15 +9,18 @@
                 <div class="panel panel-default">
                     <div class="panel-heading" id="head_panel_cab">Como comprar en Redelect</div>
                     <div class="panel-body">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="panel panel-default">
                                 <div class="panel-body">
                                 Selecciona los productos y la cantidad 
-                                y agregalos a tu carrito 
+                                y agregalos a tu carrito de compras
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-1  centro">
+                        <i class="fa fa-arrow-right"></i>
+                        </div>
+                        <div class="col-md-2">
                             <div class="panel panel-default">
                                 <div class="panel-body">
                                 Elije en nuestro calendario el  
@@ -26,16 +29,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-1  centro">
+                        <i class="fa fa-arrow-right"></i>
+                        </div>
+                        <div class="col-md-2">
                             <div class="panel panel-default">
                                 <div class="panel-body">
                                 Concreta la compra en línea a 
-                                través de webpay p transferencia 
+                                través de webpay o transferencia 
                                 electrónica 
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-1 centro">
+                            <i class="fa fa-arrow-right"></i>
+                        </div>
+                        <div class="col-md-2">
                             <div class="panel panel-default">
                                 <div class="panel-body">
                                 Finalmente recibirás un correo

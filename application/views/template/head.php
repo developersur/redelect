@@ -130,6 +130,13 @@
 						});
 					},
 					buttons: {
+						Cotizar: {
+							text: 'Cotizar',
+							btnClass: 'btn-green',
+							action: function () {
+								window.location.replace("index.php/Institucion");
+							}
+						},
 						Cerrar: function () {
 						}
 					},
