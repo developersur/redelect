@@ -8,6 +8,8 @@ class Institucion extends CI_Controller {
 		parent::__construct();
 		$this->load->model('CategoriaModel');
 		$this->load->model('ServicioModel');
+		// carga los datos
+		$this->load->model('DatosModel');
 
 		date_default_timezone_set('America/Santiago');
 	}

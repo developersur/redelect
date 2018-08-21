@@ -9,6 +9,8 @@ class QuienesSomos extends CI_Controller {
 		$this->load->model('QuienesSomosModel');
 		$this->load->model('CategoriaModel');
 		$this->load->model('ServicioModel');
+		// carga los datos
+		$this->load->model('DatosModel');
 	}
 
 	public function obtenerQS()

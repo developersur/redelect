@@ -6,9 +6,11 @@ class Login extends CI_Controller
 	public function __construct()
   {
         parent::__construct();
-				$this->load->model('CategoriaModel');
-				$this->load->model('UsuarioModel');
-				$this->load->model('ServicioModel');
+		$this->load->model('CategoriaModel');
+		$this->load->model('UsuarioModel');
+		$this->load->model('ServicioModel');
+		// carga los datos
+		$this->load->model('DatosModel');
 	}
 
 	public function index()

@@ -7,7 +7,9 @@ class Contacto extends CI_Controller
   {
         parent::__construct();
         $this->load->model('CategoriaModel');
-				$this->load->model('ServicioModel');
+        $this->load->model('ServicioModel');
+        // carga los datos
+		    $this->load->model('DatosModel');
         //$this->session->mensaje_email ='';
 				date_default_timezone_set('America/Santiago');
 	}

@@ -153,9 +153,16 @@
 			<div id="top-header">
 				<div class="container">
 					<ul class="header-links pull-left">
-						<li><a href="#"><i class="fa fa-phone"></i> +569 99373838</a></li>
-						<li><a href="#"><i class="fas fa-envelope"></i> contacto@redelect.cl</a></li>
-						<li><a href="#"><i class="fa fa-map-marker"></i> Barros Arana 492 oficina 78, Torre Ligure, Concepción</a></li>
+					<?php
+						$this->load->model('DatosModel');
+						$datos = $this->DatosModel->obtenerDatos();
+						foreach($datos->result() as $dato) 
+						{
+						
+							echo '<li><a href="#"><i class="fa fa-phone"></i>'.$dato->telefono.'</a></li>';
+							echo '<li><a href="#"><i class="fas fa-envelope"></i>'.$dato->correo.'</a></li>';
+							echo '<li><a href="#"><i class="fa fa-map-marker"></i>'.$dato->direccion.'</a></li>';
+						} ?>
 					</ul>
 					<ul class="header-links pull-right">
 						<li class="dropdown">

@@ -6,10 +6,12 @@ class Cliente extends CI_Controller
 	public function __construct()
   {
         parent::__construct();
-				$this->load->model('CategoriaModel');
-				$this->load->model('ClienteModel');
-                $this->load->model('CompraModel');
-                $this->load->model('ServicioModel');
+        $this->load->model('CategoriaModel');
+        $this->load->model('ClienteModel');
+        $this->load->model('CompraModel');
+        $this->load->model('ServicioModel');
+        // carga los datos
+		$this->load->model('DatosModel');
 		        date_default_timezone_set('America/Santiago');
                 
 	}

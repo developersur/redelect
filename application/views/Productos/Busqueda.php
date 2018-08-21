@@ -14,7 +14,7 @@
                         <?php foreach ($productos->result() as $p) { ?>
                             <div class="product">
                             <div class="product-img">
-                                <img src="<?php echo $p->imagen; ?>" alt="">
+                            <img src="<?php echo $p->imagen; ?>" alt="" width="100px" height="200px">
                                 <div class="product-label">
                                 <?php if($p->descuento!=0) { ?>
                                     <span class="sale"><?php echo $p->descuento; ?>%</span>
@@ -32,6 +32,7 @@
                                         <del class="product-old-price"><?php echo number_format($p->precio+(($p->precio*$p->descuento)/100),'0',',','.'); ?></del>
                                     <?php } ?>
                                 </h4>
+                                <label><font color="red" size="1">Precio incluye instalación</font></label>
                                 <div class="product-rating">
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>

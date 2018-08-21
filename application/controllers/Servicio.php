@@ -9,6 +9,8 @@ class Servicio extends CI_Controller {
 		$this->load->model('ServicioModel');
 		$this->load->model('CategoriaModel');
 		$this->load->model('ServicioModel');
+		// carga los datos
+		$this->load->model('DatosModel');
 	}
 
 	public function index()

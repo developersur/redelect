@@ -13,6 +13,8 @@ class Inicio extends CI_Controller
 		$this->load->model('ProductoModel');
 		// carga servicio
 		$this->load->model('ServicioModel');
+		// carga los datos
+		$this->load->model('DatosModel');
 
 	}
 

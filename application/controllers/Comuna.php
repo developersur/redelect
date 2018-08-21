@@ -9,6 +9,8 @@ class Comuna extends CI_Controller {
         $this->load->model('CostoComunaModel');
         $this->load->model('CategoriaModel');
         $this->load->model('ServicioModel');
+        // carga los datos
+		$this->load->model('DatosModel');
         date_default_timezone_set('America/Santiago');
         
 	}

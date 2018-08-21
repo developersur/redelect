@@ -9,6 +9,8 @@ class Admin extends CI_Controller
 		$this->load->model('CategoriaModel');
 		$this->load->model('ServicioModel');
 		$this->load->model('LoginModel');
+		// carga los datos
+		$this->load->model('DatosModel');
 	}
 
 	public function index()

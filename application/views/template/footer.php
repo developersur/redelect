@@ -16,9 +16,19 @@
 									ocuparse de las compras de materiales y todo para instalar un par de enchufes o
 									un punto de alumbrado.</p>-->
 								<ul class="footer-links">
-									<li><a href="#"><i class="fa fa-map-marker"></i>Barros Arana 492 oficina 78, Torre Ligure, Concepción</a></li>
+									<?php
+									$this->load->model('DatosModel');
+									$datos = $this->DatosModel->obtenerDatos();
+									foreach($datos->result() as $dato) 
+									{
+									
+										echo '<li><a href="#"><i class="fa fa-phone"></i>'.$dato->telefono.'</a></li>';
+										echo '<li><a href="#"><i class="fas fa-envelope"></i>'.$dato->correo.'</a></li>';
+										echo '<li><a href="#"><i class="fa fa-map-marker"></i>'.$dato->direccion.'</a></li>';
+									} ?>
+									<!--<li><a href="#"><i class="fa fa-map-marker"></i>Barros Arana 492 oficina 78, Torre Ligure, Concepción</a></li>
 									<li><a href="#"><i class="fa fa-phone"></i>+569 99373838</a></li>
-									<li><a href="#"><i class="fas fa-envelope"></i>contacto@redelect.cl</a></li>
+									<li><a href="#"><i class="fas fa-envelope"></i>contacto@redelect.cl</a></li>-->
 								</ul>
 							</div>
 						</div>
