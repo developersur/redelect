@@ -29,16 +29,20 @@
                     <?php if($total_comunas>0) {  ?>
                         "comunas": [
                             <?php foreach ($comunas as $comuna) { ?>
-                                "<?php echo $comuna['comuna'] ?>",
-                                <?php $i++; ?>
+                                <?php if($comuna['region']==$region['region']) { ?>
+                                    "<?php echo $comuna['comuna'] ?>",
+                                    <?php $i++; ?>
+                                <?php } ?>
                             <?php } ?>
-                         ],
+                         ], 
 
                          <?php $i = 0; ?>
                          "costo": [
                             <?php foreach ($comunas as $costo) { ?>
-                                "<?php echo $costo['costo'] ?>",
-                                <?php $i++; ?>
+                                <?php if($costo['region']==$region['region']) { ?>
+                                    "<?php echo $costo['costo'] ?>",
+                                    <?php $i++; ?>
+                                <?php } ?>
                             <?php } ?>
                          ]
                     <?php } ?>

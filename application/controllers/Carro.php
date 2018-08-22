@@ -222,6 +222,9 @@ class Carro extends CI_Controller
 			header("Location: ".base_url()."index.php/Carro/");
 		}
 
+		// Carga Modelo
+		$this->load->model('CostoComunaModel');
+
 		// Paso 1 - Inicializa variables
 		$tipo          = "";
 		$nombre_con    = "";
@@ -344,8 +347,10 @@ class Carro extends CI_Controller
 		$_SESSION['datos_sesion'] = $data_sesion;
 		//echo var_dump($_SESSION['datos_sesion']);
 
+		$data1['reservas'] = $this->CostoComunaModel->Reservas();
+		
 		$this->load->view('/template/head');
-		$this->load->view('Carro/Paso2');
+		$this->load->view('Carro/Paso2',$data1);
 		$this->load->view('/template/footer');
 	}
 

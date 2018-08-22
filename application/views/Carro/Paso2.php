@@ -64,24 +64,74 @@ $(document).ready(function () {
     });
 
 </script>
+        <?php 
+            $total_reservas = count($reservas);
+            if($total_reservas>0) {
+                $r = true;
+                foreach ($reservas as $valor) {
+                   $fechasarray[] = date('d-m-Y', strtotime($valor['fecha']));
+                   $horasarray[]  = $valor['hora'];
+                }
+            } else {
+                $r = false;
+            }
+
+            if($r==true) {
+                $fechas = implode('","', $fechasarray);
+                $horas  = implode('","', $horasarray);
+            }
+
+        ?>
+
 
         <script type="text/javascript">
              $(document).ready(function () {
+                
+                var hora_reservada = "";
                 
 				// Calendario con hora
                 jQuery.datetimepicker.setLocale('es');
                 $("#fecha_visita").datetimepicker({
                     timepicker:false,
                     format:'d-m-Y',
-                    minDate:'+1970/01/02'
+                    formatDate:'d-m-Y',
+                    minDate:'+1970/01/02',
+                    //disabledDates: [
+                    //    "<?php echo $fechas; ?>"
+                    //],
+                    onSelectDate:function(){
+                        var fecha_seleccionada = $("#fecha_visita").val();
+                        $("#hora_visita").css("visibility","hidden")
+                        
+                        $.ajax({
+                            url: "<?php echo base_url(); ?>index.php/Comuna/HorasReservadas",
+                            type: "POST",
+                            data: {fecha_seleccionada:fecha_seleccionada},
+                            success:function(hora){
+                                hora_reservada = hora;
+                                $("#hora_visita").css("visibility","visible")
+
+                            }
+                        })
+                    }
                 });
+
+                                    
                 $("#hora_visita").datetimepicker({
                     datepicker:false,
                     format:'H:i',
                     allowTimes:[
                         '08:00', '10:00', '12:00', '14:00', '16:00', '18:00'
-                    ]
-                });
+                    ],
+                    onSelectTime:function(){
+                        var hora_seleccionada = $("#hora_visita").val();
+                        if(hora_seleccionada==hora_reservada) {
+                            alert("Disculpe, esta hora para la fecha " +$("#fecha_visita").val()+" ya se encuentra reservada");
+                             $("#hora_visita").val("");
+                        }
+                    }
+                });                   
+
     		});
         </script>         
     
@@ -165,7 +215,7 @@ $(document).ready(function () {
                                 </div>
                                 <div class="form-group">
                                     <label for="hora_visita">Hora de visita</label>
-                                    <input type="text" class="form-control" id="hora_visita" name="hora_visita" value="<?php if(isset($datasesion)) echo $datasesion['hora_visita']; ?>" placeholder="Hora">
+                                    <input type="text" autocomplete="off" class="form-control" id="hora_visita" name="hora_visita" value="<?php if(isset($datasesion)) echo $datasesion['hora_visita']; ?>" placeholder="Hora" style="visibility: hidden;">
                                 </div>
                             </div>
                     </div>

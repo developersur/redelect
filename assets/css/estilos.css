@@ -19,6 +19,12 @@ legend.titulo {
     padding-top: 20px;
 }
 
+.cambiar_costo {
+    color: #fff;
+    background-color: #2196F3; 
+    padding: 3px 9px;
+    font-size: 0.85em;
+}
 
 .InputCantidad {
     display: inline-block !important;

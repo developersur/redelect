@@ -43,4 +43,62 @@ class Comuna extends CI_Controller {
         }
     }
 
+    public function ActualizarCosto()
+    {
+        // Recibe los datos
+        $id_comuna = $_POST['id_comuna'];
+        $costo     = $_POST['costo'];
+
+        // Status a actualizar
+        $data = array('costo' => $costo);
+
+        // Actualiza
+        if($this->CostoComunaModel->ActualizarComuna($data,$id_comuna)) {
+            echo "ok";
+        } else {
+            echo "error";
+        }
+    }
+
+
+    public function Registrar()
+    {
+        // Recibe los datos
+        $region = $_POST['region'];
+        $comuna = $_POST['comuna'];
+        $costo  = $_POST['costo'];
+
+        // Status a actualizar
+        $data = array(
+            'region' => $region,
+            'comuna' => $comuna,
+            'costo ' => $costo
+        );
+
+        // Actualiza
+        if($this->CostoComunaModel->Registrar($data)) {
+            echo "ok";
+        } else {
+            echo "error";
+        }
+    }
+
+
+    public function HorasReservadas()
+    {
+        // Recibe los datos
+        $fecha_seleccionada = $_POST['fecha_seleccionada'];
+        $fecha_seleccionada = date('Y-m-d', strtotime($fecha_seleccionada));
+        
+        $reserva = $this->CostoComunaModel->ReservasHora($fecha_seleccionada);
+        if(count($reserva>0)) {
+            foreach ($reserva as $r) {
+                echo "".$r['hora']."";
+            }
+        } else {
+            echo "0";
+        }
+    }
+
+    
 }

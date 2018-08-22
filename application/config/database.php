@@ -99,7 +99,7 @@ $db['default'] = array(
 
 /*BD Alexis Ojeda*/
 /**/
-/*$db['default'] = array(
+$db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
 	'username' => 'root',
@@ -119,7 +119,7 @@ $db['default'] = array(
 	'stricton' => FALSE,
 	'failover' => array(),
 	'save_queries' => TRUE
-);*/
+);
 
 //BD Luis Matamala
 
@@ -146,7 +146,7 @@ $db['default'] = array(
 );*/
 
 /*BD hosting*/
-
+/*
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'redelect.cl',
@@ -168,3 +168,4 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+*/

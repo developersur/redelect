@@ -49,6 +49,19 @@ class CostoComunaModel extends CI_Model {
         return $result_set->result_array();
     }
 
+    public function Reservas(){
+        $result_set = $this->db->query("
+        select * from reserva");
+        return $result_set->result_array();
+    }
+
+    public function ReservasHora($fecha){
+        $result_set = $this->db->query("
+        select * from reserva where fecha = '$fecha'");
+        return $result_set->result_array();
+    }
+
+    
     public function ActualizarComuna($data,$id_comuna){
         if ($this->db->update('comuna', $data, array('id_comuna' => $id_comuna))) {
             return TRUE;
@@ -56,7 +69,14 @@ class CostoComunaModel extends CI_Model {
             return FALSE;
         }
     }
-    
+
+    public function Registrar($data){
+    	if($this->db->insert('comuna',$data)){
+    		return TRUE;
+    	} else {
+    		return FALSE;
+    	}
+    }
 
 
 }
