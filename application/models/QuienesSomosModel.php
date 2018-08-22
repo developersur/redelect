@@ -26,16 +26,16 @@ class QuienesSomosModel extends CI_Model
 		}
 	}
 
+	public function editServicio($data)
+  {
+    $res = $this->db->query("update quienes_somos set titulo='".$data['titulo']."', descripcion='".$data['descripcion']."'
+                              where id = ".$data['id']);
+
+    return $res;
+  }
+
 	function getQuienesSomo($id)
 	{
-		//$query = $this->db->get('producto', array('id' => $id));
-		/*$query = $this->db->get_where('categoria', array('id' => $id));
 
-		if($query->num_rows() > 0)
-		{
-			return $query->result();
-		}else{
-			return false;
-		}*/
 	}
 }

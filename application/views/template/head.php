@@ -156,9 +156,9 @@
 					<?php
 						$this->load->model('DatosModel');
 						$datos = $this->DatosModel->obtenerDatos();
-						foreach($datos->result() as $dato) 
+						foreach($datos->result() as $dato)
 						{
-						
+
 							echo '<li><a href="#"><i class="fa fa-phone"></i>'.$dato->telefono.'</a></li>';
 							echo '<li><a href="#"><i class="fas fa-envelope"></i>'.$dato->correo.'</a></li>';
 							echo '<li><a href="#"><i class="fa fa-map-marker"></i>'.$dato->direccion.'</a></li>';
@@ -290,9 +290,6 @@
 										<?php } ?>
 									</ul>
 								</li>
-
-                <!--<li><a href="<?php echo base_url();?>index.php/Servicio">Nuestros servicios</a></li>-->
-                <!--<li><a href="<?php echo base_url();?>index.php/QuienesSomos">Quienes somos</a></li>-->
 								<li><a href="javascript:mostrar_qsomos();">Quienes somos</a></li>
                 <li><a href="<?php echo base_url(); ?>index.php/Contacto">Contactanos</a></li>
             </ul>
