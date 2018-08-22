@@ -7,8 +7,7 @@
 
     $comunas        = $cs->CostoComunaModel->ListarComunasMostrar();
     $regiones       = $cs->CostoComunaModel->ListarRegionesMostrar();
-        echo var_dump($comunas);
-        echo var_dump($regiones);
+        
     $total_comunas  = count($comunas);
     $total_regiones = count($regiones);
 ?>
