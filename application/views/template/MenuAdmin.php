@@ -132,7 +132,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <span class=""></span><a href="">Quienes somos</a>
+                                        <span class=""></span><a href="<?php echo base_url(); ?>index.php/QuienesSomos/viewQuienesSomos">Quienes somos</a>
                                     </td>
                                 </tr>
                                 <tr>

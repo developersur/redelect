@@ -24,4 +24,29 @@ class QuienesSomos extends CI_Controller {
 
 		echo json_encode($data);
 	}
+
+	public function viewQuienesSomos()
+	{
+			$data['quienesSomos'] = $this->QuienesSomosModel->obtenerQuienesSomos();
+
+			$this->load->view('/template/head');
+			$this->load->view('quienesSomos/VerQuienesSomos', $data);
+			$this->load->view('/template/footer');
+	}
+
+	public function editarQuienesSomos()
+	 {
+			$data = array(
+				'titulo' => $this->input->post('titulo'),
+				'descripcion' => $this->input->post('descripcion'),
+				'id' => $this->input->post('id')
+			);
+
+			$res = $this->QuienesSomosModel->editServicio($data);
+
+			if($res){
+				$previous = $_SERVER['HTTP_REFERER'];
+				redirect($previous);
+			}
+	 }
 }
