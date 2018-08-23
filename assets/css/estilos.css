@@ -138,3 +138,16 @@ li.block a:hover {
     text-decoration: none;
     background-color: #1075d3;
 }
+
+.btn-eliminar {
+    color: #fff;
+    padding: 2px 4px 2px 3px;
+    border-radius: 2px;
+    background-color: #ff6d6d;
+}
+
+.btn-eliminar:hover {
+    color: #fff;
+    text-decoration: none;
+    background-color: #ff3b3b;
+}

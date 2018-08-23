@@ -102,10 +102,12 @@ $(document).ready(function () {
                     onSelectDate:function(){
                         var fecha_seleccionada = $("#fecha_visita").val();
                         $("#hora_visita").css("visibility","hidden")
+                        $("#hora_visita").val("")
                         
                         $.ajax({
-                            url: "<?php echo base_url(); ?>index.php/Comuna/HorasReservadas",
+                            url: "<?php echo base_url(); ?>index.php/Reserva/HorasReservadas",
                             type: "POST",
+                            dataType: 'json',
                             data: {fecha_seleccionada:fecha_seleccionada},
                             success:function(hora){
                                 hora_reservada = hora;
@@ -125,10 +127,19 @@ $(document).ready(function () {
                     ],
                     onSelectTime:function(){
                         var hora_seleccionada = $("#hora_visita").val();
-                        if(hora_seleccionada==hora_reservada) {
-                            alert("Disculpe, esta hora para la fecha " +$("#fecha_visita").val()+" ya se encuentra reservada");
-                             $("#hora_visita").val("");
-                        }
+                        // Recorre las horas reservadas de la fecha en forma de ciclo pues puede ser mas de una
+                        $.each(hora_reservada, function (ind, elem) { 
+                            
+                            // Asigna la hora y verifica que no sea la que el se selecciono
+                            hora_reservada_ciclo = elem;
+                            if(hora_seleccionada==hora_reservada_ciclo) {
+                                $.alert({
+                                    title: 'Disculpe',
+                                    content: "La hora "+hora_reservada_ciclo+" para la fecha " +$("#fecha_visita").val()+" ya se encuentra reservada, seleccione una hora diferente"
+                                });
+                                $("#hora_visita").val("");
+                            }
+                        });
                     }
                 });                   
 
@@ -215,7 +226,7 @@ $(document).ready(function () {
                                 </div>
                                 <div class="form-group">
                                     <label for="hora_visita">Hora de visita</label>
-                                    <input type="text" autocomplete="off" class="form-control" id="hora_visita" name="hora_visita" value="<?php if(isset($datasesion)) echo $datasesion['hora_visita']; ?>" placeholder="Hora" style="visibility: hidden;">
+                                    <input type="text" readonly="true" autocomplete="off" class="form-control" id="hora_visita" name="hora_visita" value="<?php if(isset($datasesion)) echo $datasesion['hora_visita']; ?>" placeholder="Hora" style="visibility: hidden;">
                                 </div>
                             </div>
                     </div>

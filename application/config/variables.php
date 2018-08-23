@@ -6,8 +6,8 @@
 		'protocol'    => 'smtp',
 		'smtp_host'   => 'ssl://mail.redelect.cl',
 		'smtp_port'   => 465,
-		'smtp_user'   => 'notificador@redelect.cl',
-		'smtp_pass'   => 'notificador',
+		'smtp_user'   => 'notificador2@redelect.cl',
+		'smtp_pass'   => 'NotRed*2020',
 		'mailtype'    => 'html',
 		'charset'     => 'utf-8',
 		'newline'     => "\r\n",
@@ -26,7 +26,7 @@
 	
 	// Mostrar en correo saliente a:
 	//$config['from']     = "compras@redelect";
-	$config['from']     = "notificador@redelect.cl";
+	$config['from']     = "notificador2@redelect.cl";
 
 	// Con respuesta a:
 	$config['reply_to'] = "compras@redelect";

@@ -74,6 +74,9 @@ class Carro extends CI_Controller
 		$this->form_validation->set_rules('sector_dir', 'Sector', 'required');
 		$this->form_validation->set_rules('calle_dir', 'Calle', 'required');
 		$this->form_validation->set_rules('nro_calle_dir', 'Nro calle', 'required');
+		if ($this->input->post('fecha_visita')!="") {
+			$this->form_validation->set_rules('hora_visita', 'Hora de visita', 'required', array("required" => "Al seleccionar una fecha debe indicar la hora"));
+		}
 
 		// Si no se introducen los datos conrrectamente
 	    if ($this->form_validation->run() == FALSE){
@@ -223,7 +226,7 @@ class Carro extends CI_Controller
 		}
 
 		// Carga Modelo
-		$this->load->model('CostoComunaModel');
+		$this->load->model('ReservaModel');
 
 		// Paso 1 - Inicializa variables
 		$tipo          = "";
@@ -347,7 +350,7 @@ class Carro extends CI_Controller
 		$_SESSION['datos_sesion'] = $data_sesion;
 		//echo var_dump($_SESSION['datos_sesion']);
 
-		$data1['reservas'] = $this->CostoComunaModel->Reservas();
+		$data1['reservas'] = $this->ReservaModel->Reservas();
 		
 		$this->load->view('/template/head');
 		$this->load->view('Carro/Paso2',$data1);
@@ -535,6 +538,7 @@ class Carro extends CI_Controller
 		// Carga Modelo
 		$this->load->model('WebpayModel');
 		$this->load->model('CompraModel');
+		$this->load->model('ReservaModel');
 		$this->load->model('CategoriaModel');
 
 		// categorias para la pagina principal
@@ -669,153 +673,156 @@ class Carro extends CI_Controller
 				'total'      	   => $total
 			);
  
+			
+			if($id_compra=$this->CompraModel->RegistrarCompra($data)) {
 
+				// Si los datos de la compra se registran correctamente se le asigna un numero de compra mayor a a cero
+				if($id_compra>0) {
 
-			// Si los datos de la compra se registran correctamente se le asigna un numero de compra mayor a a cero
-			if($id_compra>0 and $error==FALSE) {
+					// -- WEBPAY -- //
+					// Si se recibe el token es Webpay
+					if((isset($_POST["token_ws"]) and $_POST["token_ws"]!="")) {
 
-				// -- WEBPAY -- //
-				// Si se recibe el token es Webpay
-				if((isset($_POST["token_ws"]) and $_POST["token_ws"]!="")) {
+						// ------- WEBPAY ------- //
+						require_once('assets/webpay/libwebpay/webpay.php');
+						require_once('assets/webpay/certificates/cert-normal.php');
+						require_once('assets/webpay/iniciar.php');
 
-					// ------- WEBPAY ------- //
-					require_once('assets/webpay/libwebpay/webpay.php');
-					require_once('assets/webpay/certificates/cert-normal.php');
-					require_once('assets/webpay/iniciar.php');
+						$token = filter_input(INPUT_POST, 'token_ws');
 
-					$token = filter_input(INPUT_POST, 'token_ws');
+						// Rescatamos resultado y datos de la transaccion
+						$WebPayResultado = $webpay->getNormalTransaction()->getTransactionResult($token);
 
-					// Rescatamos resultado y datos de la transaccion
-					$WebPayResultado = $webpay->getNormalTransaction()->getTransactionResult($token);
+						// Se verificamos el resultado de la transacción
+						if(isset($WebPayResultado->detailOutput->responseCode))  {
 
-					// Se verificamos el resultado de la transacción
-					if(isset($WebPayResultado->detailOutput->responseCode))  {
+							// Este o no aprobado se registran los datos de la transaccion
+							$TipoPagoDescripcion  = DescripcionTipoPago($WebPayResultado->detailOutput->paymentTypeCode);
+							$RespuestaDescripcion = DescripcionRespuesta($WebPayResultado->detailOutput->responseCode);
+							$VCIDescripcion       = DescripcionVCI($WebPayResultado->VCI);
 
-						// Este o no aprobado se registran los datos de la transaccion
-						$TipoPagoDescripcion  = DescripcionTipoPago($WebPayResultado->detailOutput->paymentTypeCode);
-						$RespuestaDescripcion = DescripcionRespuesta($WebPayResultado->detailOutput->responseCode);
-						$VCIDescripcion       = DescripcionVCI($WebPayResultado->VCI);
-
-						// --- REGISTRA LOS DETALLES DEL PAGO DE WEBPAY --- //
-						$data_pago = array(
-							'id_compra'           => $id_compra,
-							'token'               => $token,
-							'accountingDate'      => $WebPayResultado->accountingDate,
-							'buyOrder'            => $WebPayResultado->buyOrder,
-							'cardNumber'          => $WebPayResultado->cardDetail->cardNumber,
-							'cardExpirationDate'  => $WebPayResultado->cardDetail->cardExpirationDate,
-							'authorizationCode'   => $WebPayResultado->detailOutput->authorizationCode,
-							'paymentTypeCode'     => $WebPayResultado->detailOutput->paymentTypeCode,
-							'paymentTypeCodeDes'  => $TipoPagoDescripcion,
-							'responseCode'        => $WebPayResultado->detailOutput->responseCode,
-							'sharesNumber'        => $WebPayResultado->detailOutput->sharesNumber,
-							'amount'              => $WebPayResultado->detailOutput->amount,
-							'commerceCode'        => $WebPayResultado->detailOutput->commerceCode,
-							'buyOrder'            => $WebPayResultado->detailOutput->buyOrder,
-							'responseDescription' => $RespuestaDescripcion,
-							'sessionId'           => $WebPayResultado->sessionId,
-							'transactionDate'     => $WebPayResultado->transactionDate,
-							'urlRedirection'      => $WebPayResultado->urlRedirection,
-							'VCI'                 => $WebPayResultado->VCI,
-							'VCIDescription'      => $VCIDescripcion,
-							'id_cliente'          => 1,
-							'rut_contacto'        => $rut_con,
-							'rut_facturacion'     => $rut_fac
-						);
-
-						// Registra los datos del pago
-						$id_pago_webpay = $this->WebpayModel->RegistrarPago($data_pago);
-
-						// PAGO ACEPTADO
-						if ($WebPayResultado->detailOutput->responseCode === 0) {
-
-							// -- Actualiza compra con la informacion -- //
-							$datos_compra = array(
-								'id_webpay'             => $id_pago_webpay,
-								'token'                 => $token,
-								'status_compra'         => "PAGADA",
-								'status_pago'           => "PAGO CONFIRMADO"
+							// --- REGISTRA LOS DETALLES DEL PAGO DE WEBPAY --- //
+							$data_pago = array(
+								'id_compra'           => $id_compra,
+								'token'               => $token,
+								'accountingDate'      => $WebPayResultado->accountingDate,
+								'buyOrder'            => $WebPayResultado->buyOrder,
+								'cardNumber'          => $WebPayResultado->cardDetail->cardNumber,
+								'cardExpirationDate'  => $WebPayResultado->cardDetail->cardExpirationDate,
+								'authorizationCode'   => $WebPayResultado->detailOutput->authorizationCode,
+								'paymentTypeCode'     => $WebPayResultado->detailOutput->paymentTypeCode,
+								'paymentTypeCodeDes'  => $TipoPagoDescripcion,
+								'responseCode'        => $WebPayResultado->detailOutput->responseCode,
+								'sharesNumber'        => $WebPayResultado->detailOutput->sharesNumber,
+								'amount'              => $WebPayResultado->detailOutput->amount,
+								'commerceCode'        => $WebPayResultado->detailOutput->commerceCode,
+								'buyOrder'            => $WebPayResultado->detailOutput->buyOrder,
+								'responseDescription' => $RespuestaDescripcion,
+								'sessionId'           => $WebPayResultado->sessionId,
+								'transactionDate'     => $WebPayResultado->transactionDate,
+								'urlRedirection'      => $WebPayResultado->urlRedirection,
+								'VCI'                 => $WebPayResultado->VCI,
+								'VCIDescription'      => $VCIDescripcion,
+								'id_cliente'          => 1,
+								'rut_contacto'        => $rut_con,
+								'rut_facturacion'     => $rut_fac
 							);
-							if($this->CompraModel->ActualizarCompra($datos_compra,$id_compra)) {
-								$data['mensaje']  = "Pago confirmado, su compra ha sido registrada con el nro: #$id_compra";
-								$todo_bien        = TRUE;
 
-								// Crea 3 variables que seran utilizadas para mostrar el voucher webpay
-								$data['voucher']  = TRUE;
-								$data['url']      = $WebPayResultado->urlRedirection;
-								$data['token_ws'] = $token;
+							// Registra los datos del pago
+							$id_pago_webpay = $this->WebpayModel->RegistrarPago($data_pago);
+
+							// PAGO ACEPTADO
+							if ($WebPayResultado->detailOutput->responseCode === 0) {
+
+								// -- Actualiza compra con la informacion -- //
+								$datos_compra = array(
+									'id_webpay'             => $id_pago_webpay,
+									'token'                 => $token,
+									'status_compra'         => "PAGADA",
+									'status_pago'           => "PAGO CONFIRMADO"
+								);
+								if($this->CompraModel->ActualizarCompra($datos_compra,$id_compra)) {
+									$data['mensaje']  = "Pago confirmado, su compra ha sido registrada con el nro: #$id_compra";
+									$todo_bien        = TRUE;
+
+									// Crea 3 variables que seran utilizadas para mostrar el voucher webpay
+									$data['voucher']  = TRUE;
+									$data['url']      = $WebPayResultado->urlRedirection;
+									$data['token_ws'] = $token;
+								}
+
+
+							// PAGO RECHAZADO
+							} else {
+
+								// -- Actualiza compra con la informacion -- //
+								$datos_compra = array(
+									'id_webpay'             => $id_pago_webpay,
+									'token'                 => $token,
+									'status_compra'         => "ANULADA",
+									'status_pago'           => "PAGO RECHAZADO",
+									'informacion_adicional' => $RespuestaDescripcion
+								);
+								if($this->CompraModel->ActualizarCompra($datos_compra,$id_compra)) {
+									$data['error'] = "La compra fue registrada pero el pago fue rechazado por Webpay, motivo: <b>" . $RespuestaDescripcion . "</b>";
+								}
 							}
 
-
-						// PAGO RECHAZADO
 						} else {
 
 							// -- Actualiza compra con la informacion -- //
 							$datos_compra = array(
-								'id_webpay'             => $id_pago_webpay,
-								'token'                 => $token,
 								'status_compra'         => "ANULADA",
-								'status_pago'           => "PAGO RECHAZADO",
-								'informacion_adicional' => $RespuestaDescripcion
+								'status_pago'           => "ERROR AL PROCESAR EL PAGO",
+								'informacion_adicional' => "Se recibio el Token pero ocurrio un error, probablemente la sesion cadudo o se recargo la pagina"
 							);
 							if($this->CompraModel->ActualizarCompra($datos_compra,$id_compra)) {
-								$data['error'] = "La compra fue registrada pero el pago fue rechazado por Webpay, motivo: <b>" . $RespuestaDescripcion . "</b>";
+								$data['error'] = "Se recibio el Token pero ocurrio un error, probablemente la sesion cadudo o se recargo la pagina";
 							}
+							// ---------------------------------------- //
+
 						}
+					}
+					// -- FIN WEBPAY -- //
 
-					} else {
 
-						// -- Actualiza compra con la informacion -- //
+
+					// -- TRANSFERENCIA -- //
+					// Si se transferencia
+					if((isset($_POST["transferencia"])) and ($_POST['transferencia'])) {
+
+						// Si es por transferencia actualiza el status del pago "Por Verificar"
 						$datos_compra = array(
-							'status_compra'         => "ANULADA",
-							'status_pago'           => "ERROR AL PROCESAR EL PAGO",
-							'informacion_adicional' => "Se recibio el Token pero ocurrio un error, probablemente la sesion cadudo o se recargo la pagina"
+							'status_compra'    => "GENERADA",
+							'status_pago'      => "POR VERIFICAR"
 						);
+						// Termina el proceso por Transferencia
 						if($this->CompraModel->ActualizarCompra($datos_compra,$id_compra)) {
-							$data['error'] = "Se recibio el Token pero ocurrio un error, probablemente la sesion cadudo o se recargo la pagina";
+							$data['mensaje'] = "Su compra ha sido registrada correctamente con el nro: #$id_compra";
+							$todo_bien       = TRUE;
+						} else {
+							$data['error'] = "Error al actualizar los datos de la compra por Transferencia";
 						}
-						// ---------------------------------------- //
-
 					}
-				}
-				// -- FIN WEBPAY -- //
+					// -- FIN TRANSFERENCIA -- //
 
 
 
-				// -- TRANSFERENCIA -- //
-				// Si se transferencia
-				if((isset($_POST["transferencia"])) and ($_POST['transferencia'])) {
+				// Si no se registro la compra o sus detalles iniciales
+				} else {
 
-					// Si es por transferencia actualiza el status del pago "Por Verificar"
-					$datos_compra = array(
-						'status_compra'    => "GENERADA",
-						'status_pago'      => "POR VERIFICAR"
-					);
-					// Termina el proceso por Transferencia
-					if($this->CompraModel->ActualizarCompra($datos_compra,$id_compra)) {
-						$data['mensaje'] = "Su compra ha sido registrada correctamente con el nro: #$id_compra";
-						$todo_bien       = TRUE;
-					} else {
-						$data['error'] = "Error al actualizar los datos de la compra por Transferencia";
+					// No se registro el encabezado
+					if($id_compra>0) {
+						$data['error'] = "Error al registrar los datos de la compra";
 					}
+					// No se registraron los detalles de los productos
+					if($error==FALSE) {
+						$data['error'] = "Error al registrar los detalles de la compra";
+					}
+
 				}
-				// -- FIN TRANSFERENCIA -- //
-
-
-
-			// Si no se registro la compra o sus detalles iniciales
-			} else {
-
-				// No se registro el encabezado
-				if($id_compra>0) {
-					$data['error'] = "Error al registrar los datos de la compra";
-				}
-				// No se registraron los detalles de los productos
-				if($error==FALSE) {
-					$data['error'] = "Error al registrar los detalles de la compra";
-				}
-
 			}
+
 
 
 			// ----------------------------------------------- //
@@ -823,6 +830,20 @@ class Carro extends CI_Controller
 			// ----------------------------------------------- //
 
 			if($todo_bien==TRUE) {
+				
+				// Inicio Registra la reserva
+				if($fecha_visita!="" and $hora_visita!="") {
+					
+					$fecha_visita_formateada = date('Y-m-d', strtotime($fecha_visita));
+					
+					$datos_reserva = array(
+						'fecha'     => $fecha_visita_formateada,
+						'hora'      => $hora_visita,
+						'id_compra' => $id_compra
+					);
+					$this->ReservaModel->Registrar($datos_reserva);
+				}
+				// Fin Registra la reserva
 
 				$compra_detalle = $this->CompraModel->ProductosCompra($id_compra);
 				$datospago      = $this->CompraModel->DetallePagoWebPay($id_compra);
