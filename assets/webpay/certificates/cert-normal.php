@@ -14,7 +14,7 @@
 return $certificate = array(
 
     /** Ambiente */
-    "environment" => "INTEGRACION",
+    "environment" => "PRODUCCION",
 
     /** Llave Privada */
     "private_key" => "-----BEGIN RSA PRIVATE KEY-----
