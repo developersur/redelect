@@ -36,6 +36,7 @@
         <div class="col-sm-9 col-md-9">
           <fieldset>
           <legend class="text-center header">Servicios</legend>
+              <div class="table-responsive">
               <table id="ltdo_servicio" class="table table-bordered table-condensed">
                 <thead class="cabecera_dark">
                   <tr>
@@ -63,6 +64,7 @@
                   } ?>
                 </tbody>
               </table>
+              </div>
           </fieldset>
         </div>
     </div>

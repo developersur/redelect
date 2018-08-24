@@ -4,14 +4,14 @@
     $('#descripcion_prod_edit').val(descripcion);
     $('#precio_prod_edit').val(precio);
     $('#id_prod_edit').val(id);
-    
+
     $('#modal_edit_prod').modal('show');
   }
 
   function habilita_prod(id, cod)
   {
     var estado;
-    if( $('#'+id).prop('checked') ) 
+    if( $('#'+id).prop('checked') )
     {
       estado = 'Si';
     }else{
@@ -21,7 +21,7 @@
     $.ajax({
         method: "POST",
         url: "<?php echo base_url(); ?>index.php/Producto/updateHabilitado",
-        data: { 
+        data: {
           estado: estado,
           codigo: cod
         }
@@ -38,7 +38,7 @@
   function nuevo_prod(id, cod)
   {
     var estado;
-    if( $('#'+id).prop('checked') ) 
+    if( $('#'+id).prop('checked') )
     {
       estado = 'Si';
     }else{
@@ -48,7 +48,7 @@
     $.ajax({
         method: "POST",
         url: "<?php echo base_url(); ?>index.php/Producto/updateNuevo",
-        data: { 
+        data: {
           estado: estado,
           codigo: cod
         }
@@ -101,6 +101,7 @@
         <div class="col-sm-9 col-md-9">
           <fieldset>
           <legend class="text-center header">Modificar producto</legend>
+              <div class="table-responsive">
               <table id="mod_producto" class="table table-bordeder">
                 <thead class="cabecera_dark">
                   <tr>
@@ -162,6 +163,7 @@
                   } ?>
                 </tbody>
               </table>
+              </div>
           </fieldset>
         </div>
     </div>

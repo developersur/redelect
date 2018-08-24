@@ -40,7 +40,7 @@
   function habilita_ser(id, cod)
   {
     var estado;
-    if( $('#'+id).prop('checked') ) 
+    if( $('#'+id).prop('checked') )
     {
       estado = 'Si';
     }else{
@@ -50,7 +50,7 @@
     $.ajax({
         method: "POST",
         url: "<?php echo base_url(); ?>index.php/Servicio/updateHabilitado",
-        data: { 
+        data: {
           estado: estado,
           codigo: cod
         }
@@ -74,6 +74,7 @@
         <div class="col-sm-9 col-md-9">
           <fieldset>
           <legend class="text-center header">Modificar servicios</legend>
+              <div class="table-responsive">
               <table id="mod_servicio" class="table table-bordered table-condensed">
                 <thead class="cabecera_dark">
                   <tr>
@@ -117,6 +118,7 @@
                   } ?>
                 </tbody>
               </table>
+              </div>
           </fieldset>
         </div>
     </div>

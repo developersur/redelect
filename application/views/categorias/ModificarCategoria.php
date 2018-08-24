@@ -4,7 +4,7 @@
     $('#nombre_cat').val(nombre);
     $('#descripcion_cat').val(descripcion);
     $('#id_cat').val(id);
-    
+
     $('#modal_edit_cat').modal('show');
   }
 
@@ -40,7 +40,7 @@
    function habilita_cat(id, cod)
   {
     var estado;
-    if( $('#'+id).prop('checked') ) 
+    if( $('#'+id).prop('checked') )
     {
       estado = 'Si';
     }else{
@@ -50,7 +50,7 @@
     $.ajax({
         method: "POST",
         url: "<?php echo base_url(); ?>index.php/Categoria/updateHabilitado",
-        data: { 
+        data: {
           estado: estado,
           codigo: cod
         }
@@ -74,6 +74,7 @@
         <div class="col-sm-9 col-md-9">
           <fieldset>
           <legend class="text-center header">Modificar categorías</legend>
+              <div class="table-responsive">
               <table id="mod_categoria" class="table table-bordered table-condensed">
                 <thead class="cabecera_dark">
                   <tr>
@@ -115,6 +116,7 @@
                   } ?>
                 </tbody>
               </table>
+              </div>
           </fieldset>
         </div>
     </div>

@@ -1,8 +1,8 @@
 <script>
 $(document).ready(function(){
     // Valida el Rut
-    $('#rut_con').rut();  
-    $('#rt').rut();    
+    $('#rut_con').rut();
+    $('#rt').rut();
 });
 
 function recuperar_pass(){
@@ -63,7 +63,7 @@ function valida_rut(){
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="text-center">
-                                                <a href="javascript:recuperar_pass();" tabindex="5" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                                                <!--<a href="javascript:recuperar_pass();" tabindex="5" class="forgot-password">¿Olvidaste tu contraseña?</a>-->
                                             </div>
                                         </div>
                                     </div>
@@ -81,8 +81,7 @@ function valida_rut(){
 
                             <form id="register-form" action="<?php echo base_url(); ?>index.php/Usuario/registrarUsuario" method="post" role="form" style="display: none;">
                                 <div class="form-group">
-                                    <font color="red" size="2">*</font>
-                                    <input type="text" name="nombre_con" id="nombre_con" class="form-control" placeholder="Nombre completo" class="form-control" minlength="5" required>
+                                    <input type="text" name="nombre_con" id="nombre_con" class="form-control" placeholder="Nombre completo *" class="form-control" minlength="5" required>
                                 </div>
                                 <div class="form-group">
                                     <input type="text" name="rut_con" id="rut_con" class="form-control" placeholder="RUT" minlength="6">
@@ -93,18 +92,15 @@ function valida_rut(){
                                 </div>
 
                                 <div class="form-group">
-                                    <font color="red" size="2">*</font>
-                                    <input type="email" name="correo" id="correo" class="form-control" placeholder="Email" required>
+                                    <input type="email" name="correo" id="correo" class="form-control" placeholder="Email *" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <font color="red" size="2">*</font>
-                                    <input type="password" name="pass1" id="pass1" class="form-control" placeholder="Contraseña" minlength="4" required>                        
+                                    <input type="password" name="pass1" id="pass1" class="form-control" placeholder="Contraseña *" minlength="4" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <font color="red" size="1">*</font>
-                                    <input type="password" name="pass2" id="pass2" class="form-control" placeholder="Repite contraseña" minlength="4" required>
+                                    <input type="password" name="pass2" id="pass2" class="form-control" placeholder="Repite contraseña *" minlength="4" required>
                                 </div>
 
                                 <div class="form-group">
@@ -130,13 +126,13 @@ function valida_rut(){
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="ModalLabel">Ingresa tu rut</h4>
       </div>
-      <div class="modal-body">                
+      <div class="modal-body">
         <div class="row">
             <div class="col-md-12">
               <form id="form_rut" class="form form-horizontal" action="javascript:valida_rut();">
-                <label class="control-label" for="rt">Rut</label>        
-                <input class="form-control" type="text" id="rt" name="rt"><br>           
-                <button class="btn btn-default" type="submit">Aceptar</button>    
+                <label class="control-label" for="rt">Rut</label>
+                <input class="form-control" type="text" id="rt" name="rt"><br>
+                <button class="btn btn-default" type="submit">Aceptar</button>
               </form>
             </div>
         </div>

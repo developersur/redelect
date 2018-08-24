@@ -38,16 +38,16 @@ class Admin extends CI_Controller
 
     	if($this->LoginModel->login($username, $password))
     	{
-	  	$this->load->view('template/head');
+	  		$this->load->view('template/head');
         $this->load->view('admin/index');
         $this->load->view('template/footer');
     	}
     	else
     	{
-        $this->form_validation->set_message('verifica','Contraseña incorrecta');
+        $data['error'] = '<div id="sms_error" class="alert alert-danger"><i class="fas fa-exclamation-triangle"></i>Error de usuario y/o contraseña</div>';
 
         $this->load->view('template/head');
-        $this->load->view('login/login');
+        $this->load->view('admin/login', $data);
         $this->load->view('template/footer');
     	}
 	}

@@ -135,11 +135,11 @@
                     <div id="collapseSix" class="panel-collapse collapse">
                         <div class="panel-body">
                             <table class="table">
-                                <tr>
+                                <!--<tr>
                                     <td>
                                         <span class=""></span><a href="">Ventas</a>
                                     </td>
-                                </tr>
+                                </tr>-->
                                 <tr>
                                     <td>
                                         <span class=""></span><a href="<?php echo base_url(); ?>index.php/QuienesSomos/viewQuienesSomos">Quienes somos</a>

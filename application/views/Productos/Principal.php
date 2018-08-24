@@ -35,7 +35,7 @@
                                     <?php foreach ($ProductosPrincipal as $p) { ?>
                                       <div class="product">
                                         <div class="product-img">
-                                          <img src="<?php echo $p["imagen"]; ?>" alt="" width="100px" height="200px">
+                                          <img src="<?php echo $p["imagen"]; ?>" alt="" height="220px">
                                           <div class="product-label">
                                             <?php if($p['descuento']!=0) { ?>
                                                 <span class="sale"><?php echo $p['descuento']; ?>%</span>

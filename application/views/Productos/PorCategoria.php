@@ -12,29 +12,29 @@
                     <h3 class="title">Productos</h3>
                     <div class="section-nav">
                         <ul class="section-tab-nav tab-nav">
-                        
-                        <?php 
-                            if($categorias) { 
+
+                        <?php
+                            if($categorias) {
                         ?>
-                        <?php 
+                        <?php
                             $active = "";
-                            foreach ($categorias->result() as $categoria) { 
+                            foreach ($categorias->result() as $categoria) {
                                 if($categoria->id==$id_categoria) $active = " class='active'";
                         ?>
 								<li <?php echo $active; ?>><a href="<?php echo base_url(); ?>index.php/Producto/Categoria?id_categoria=<?php echo $categoria->id; ?>"><?php echo $categoria->nombre; ?></a></li>
-                        <?php 
+                        <?php
                             $active = "";
-                            } 
+                            }
                         ?>
 						<?php } ?>
-                                    
+
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
         <!-- /section title -->
-        
+
         <div class="row">
             <?php if(count($productos)>0) { ?>
                 <!-- Products tab & slick -->
@@ -48,7 +48,7 @@
                                     <?php foreach ($productos as $p) { ?>
                                       <div class="product">
                                         <div class="product-img">
-                                          <img src="<?php echo $p["imagen"]; ?>" alt="" width="100px" height="200px">
+                                          <img src="<?php echo $p["imagen"]; ?>" alt="" height="220px">
                                           <div class="product-label">
                                             <?php if($p['descuento']!=0) { ?>
                                                 <span class="sale"><?php echo $p['descuento']; ?>%</span>

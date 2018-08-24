@@ -18,6 +18,7 @@
         <div class="col-sm-9 col-md-9">
           <fieldset>
           <legend class="text-center header">Mis datos</legend>
+              <div class="table-responsive">
               <table id="ltdo_categoria" class="table table-bordered table-condensed">
                 <thead class="cabecera_dark">
                   <tr>
@@ -45,6 +46,7 @@
                   } ?>
                 </tbody>
               </table>
+              </div>
           </fieldset>
         </div>
     </div>

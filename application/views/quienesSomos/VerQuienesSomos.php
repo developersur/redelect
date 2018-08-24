@@ -17,6 +17,7 @@
         <div class="col-sm-9 col-md-9">
           <fieldset>
           <legend class="text-center header">Quienes Somos</legend>
+              <div class="table-responsive">
               <table class="table table-bordered table-condensed">
                 <thead class="cabecera_dark">
                   <tr>
@@ -42,6 +43,7 @@
                   } ?>
                 </tbody>
               </table>
+              </div>
           </fieldset>
         </div>
     </div>

@@ -14,7 +14,12 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <?php
-                            echo validation_errors();
+                            //echo validation_errors();
+                            
+                            if(isset($error)){
+                              echo $error;
+                            }
+
                             $attributes = array('id' => 'login-form', 'style' => 'display: block');
                             echo form_open('Admin/accesoAdmin', $attributes); ?>
                             <!--<form id="login-form" action="" method="post" role="form" style="display: block;">-->

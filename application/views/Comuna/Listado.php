@@ -1,6 +1,6 @@
 
 <script type="text/javascript">
-    
+
 
     $(document).ready(function(){
 
@@ -9,7 +9,7 @@
 
             var mostrar;
             var id_comuna = $(this).data('idcomuna');
-            
+
             if($(this).prop('checked')) {
                 mostrar = 'Si';
             } else {
@@ -35,7 +35,7 @@
 
             var id_comuna     = $(this).data("idcomuna");
             var costoanterior = $(this).data("costoanterior");
-            
+
             $.confirm({
                 title: 'Costo de visita a la comuna',
                 content: '' +
@@ -62,8 +62,8 @@
                                     data: {id_comuna:id_comuna,costo:costo},
                                     success:function(data){
                                         switch(data) {
-                                            case "ok": 
-                                                location.reload();  
+                                            case "ok":
+                                                location.reload();
                                                 break;
                                             default:
                                                 alert("Error");
@@ -92,7 +92,7 @@
         // Agrega nueva comuna
         $(document).on("submit","#agregar", function(e) {
             e.preventDefault();
-            
+
             var  form = $("#agregar");
 
             // Envia el formulario
@@ -102,15 +102,15 @@
                 data: form.serialize(),
                 success:function(data){
                     switch(data) {
-                        case "ok": 
-                            location.reload();  
+                        case "ok":
+                            location.reload();
                             break;
                         default:
                             alert("Error");
                             break;
                     }
                 }
-            });                  
+            });
         })
 
 
@@ -141,12 +141,12 @@
 
 <div class="container" id="menuadmin">
     <div class="row">
-        
+
         <!-- Menu Izquierdo Usuario -->
         <div class="col-sm-3 col-md-3">
             <?php $this->load->view('template/MenuAdmin'); ?>
         </div>
-        
+
         <!-- Contenido Cliente -->
         <div class="col-sm-9 col-md-9">
 
@@ -166,7 +166,7 @@
                             <label for="comuna">Comuna <span class="obligatorio">*</span></label>
                             <select id="comuna" name="comuna" class="form-control comunas"></select>
                         </div>
-                    </div> 
+                    </div>
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="costo">Comuna <span class="obligatorio">*</span></label>
@@ -177,16 +177,17 @@
                         <div class="form-group">
                             <label for="costo">Acción</label>
                             <input type="submit" id="enviar" name="enviar" class="form-control" value="Guardar">
-                        </div>                      
-                    </div>                      
-                </div> 
-            </form>                            
-          </legend>                  
+                        </div>
+                    </div>
+                </div>
+            </form>
+          </legend>
 
 
 
           <fieldset>
           <legend class="text-center header">Listado de Costo de Visita por Comuna</legend>
+              <div class="table-responsive">
               <table id="ltdo_compra" class="table table-bordered">
                 <thead class="cabecera_dark">
                   <tr>
@@ -223,6 +224,7 @@
                 <?php } ?>
                 </tbody>
               </table>
+              </div>
           </fieldset>
         </div>
     </div>
