@@ -97,7 +97,7 @@ $(document).ready(function () {
                     formatDate:'d-m-Y',
                     minDate:'+1970/01/02',
                     //disabledDates: [
-                    //    "<?php echo $fechas; ?>"
+                    //    "<?php //echo $fechas; ?>"
                     //],
                     onSelectDate:function(){
                         var fecha_seleccionada = $("#fecha_visita").val();

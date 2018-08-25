@@ -494,7 +494,7 @@ class Carro extends CI_Controller
 
 		// -- Inicio de la Transaccion para obtener Token -- //
 		$data['WebPayResultado'] = $webpay->getNormalTransaction()->initTransaction($total, $NroCompra, $SesionID, $urlProcesar, $urlComprobante);
-
+		//var_dump($data['WebPayResultado']);
 		$this->load->view('/template/head');
 		$this->load->view('Carro/Paso3', $data);
 		$this->load->view('/template/footer');
