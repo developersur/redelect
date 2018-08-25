@@ -8,27 +8,27 @@
           <legend class="text-center header">Agregar producto</legend>
               <div class="panel panel-default">
                   <div class="panel-body">
-                        <?php 
+                        <?php
                         if(isset($error))
                         {
-                            echo '<div class="alert alert-danger" role="alert">'.$error.'</div>';
+                            echo '<div class="alert alert-danger" role="alert">'.$error['error'].'</div>';
                         }
                         if(isset($exito))
                         {
-                            echo '<div class="alert alert-success" role="alert">'.$exito.'</div>';
-                        }  
+                            echo '<div class="alert alert-success" role="alert">'.$exito['exito'].'</div>';
+                        }
                         ?>
                       <form method="post" action="<?php echo base_url(); ?>index.php/Producto/AgregarProducto" enctype="multipart/form-data">
                           <div class="form-group">
                               <div class="col-md-6">
-                                  <label class="control-label" for="codigo">Código</label>
-                                  <input id="codigo" name="codigo" type="text" placeholder="Código" class="form-control">
+                                  <label class="control-label" for="codigo">Código<font color="red">*</font></label>
+                                  <input id="codigo" name="codigo" type="text" placeholder="Código" class="form-control" required>
                               </div>
                           </div>
                           <div class="form-group">
                               <div class="col-md-6">
-                                  <label class="control-label" for="codigo">Nombre</label>
-                                  <input id="nombre" name="nombre" type="text" placeholder="Nombre" class="form-control">
+                                  <label class="control-label" for="codigo">Nombre<font color="red">*</font></label>
+                                  <input id="nombre" name="nombre" type="text" placeholder="Nombre" class="form-control" required>
                               </div>
                           </div>
 
@@ -41,8 +41,8 @@
 
                           <div class="form-group">
                               <div class="col-md-6">
-                                  <label class="control-label" for="codigo">Precio</label>
-                                  <input id="precio" name="precio" type="number" placeholder="Precio" class="form-control">
+                                  <label class="control-label" for="codigo">Precio<font color="red">*</font></label>
+                                  <input id="precio" name="precio" type="number" placeholder="Precio" class="form-control" required>
                               </div>
                           </div>
 
@@ -69,8 +69,8 @@
 
                           <div class="form-group">
                               <div class="col-md-6">
-                                  <label class="control-label" for="habilitado">Habilitado</label>
-                                  <select name="habilitado" id="habilitado" class="form-control">
+                                  <label class="control-label" for="habilitado">Habilitado<font color="red">*</font></label>
+                                  <select name="habilitado" id="habilitado" class="form-control" required>
                                       <option value="Si">Si</option>
                                       <option value="No">No</option>
                                   </select>
@@ -79,8 +79,8 @@
 
                           <div class="form-group">
                               <div class="col-md-6">
-                                  <label class="control-label" for="nuevo">Nuevo</label>
-                                  <select name="nuevo" id="nuevo" class="form-control">
+                                  <label class="control-label" for="nuevo">Nuevo<font color="red">*</font></label>
+                                  <select name="nuevo" id="nuevo" class="form-control" required>
                                       <option value="Si">Si</option>
                                       <option value="No">No</option>
                                   </select>
@@ -89,8 +89,8 @@
 
                           <div class="form-group">
                               <div class="col-md-6">
-                                  <label class="control-label" for="categoria">Categoria</label>
-                                  <select name="categoria" id="categoria" class="form-control">
+                                  <label class="control-label" for="categoria">Categoria<font color="red">*</font></label>
+                                  <select name="categoria" id="categoria" class="form-control" required>
                                       <?php
                                       if(isset($categorias)){
                                         foreach($categorias->result() as $categoria)

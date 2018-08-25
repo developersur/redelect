@@ -40,19 +40,19 @@ class Producto extends CI_Controller
         $data['categorias'] = $this->CategoriaModel->obtenerCategoriasActivas();
 
         $this->load->view('/template/head');
-		$this->load->view('Productos/AgregarProducto',$data);
-		$this->load->view('/template/footer');
+				$this->load->view('Productos/AgregarProducto',$data);
+				$this->load->view('/template/footer');
     }
 
 	public function modProducto()
-    {
-        //$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
-		$data['productos'] = $this->ProductoModel->obtenerProductos();
+  {
+      //$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
+			$data['productos'] = $this->ProductoModel->obtenerProductos();
 
-        $this->load->view('/template/head');
-				$this->load->view('Productos/ModificarProducto', $data);
-				$this->load->view('/template/footer');
-    }
+      $this->load->view('/template/head');
+			$this->load->view('Productos/ModificarProducto', $data);
+			$this->load->view('/template/footer');
+  }
 
 	public function agregarProducto()
 	{
@@ -63,14 +63,16 @@ class Producto extends CI_Controller
 		$config['max_height'] = 3048;
 
 		$this->load->library('upload', $config);
+		$datos['categorias'] = $this->CategoriaModel->obtenerCategoriasActivas();
 
 		if (!$this->upload->do_upload('imagen'))
 		{
-				$error = array('error' => $this->upload->display_errors());
-				$data['categorias'] = $this->CategoriaModel->obtenerCategoriasActivas();
+				$datos['error'] = array('error' => $this->upload->display_errors());
+				//$data['error'] = $error;
+
 
 				$this->load->view('/template/head');
-				$this->load->view('Productos/AgregarProducto',$error);
+				$this->load->view('Productos/AgregarProducto',$datos);
 				$this->load->view('/template/footer');
 		} else {
 				$data = array('upload_data' => $this->upload->data());
@@ -95,11 +97,11 @@ class Producto extends CI_Controller
 
 				$this->ProductoModel->crearProducto($data);
 
-				$exito = array('exito' => 'Producto creado con éxito');
+				$datos['exito'] = array('exito' => 'Producto creado con éxito');
 				//$data['categorias'] = $this->CategoriaModel->obtenerCategorias();
 
 				$this->load->view('/template/head');
-				$this->load->view('Productos/AgregarProducto',$exito);
+				$this->load->view('Productos/AgregarProducto',$datos);
 				$this->load->view('/template/footer');
 		}
 	}
@@ -119,14 +121,14 @@ class Producto extends CI_Controller
 		$this->load->view('Productos/PorCategoria',$data);
 		$this->load->view('/template/footer',$data);
 	}
-	
+
 	public function updateHabilitado()
 	{
 		$data = array(
 			'codigo' => $this->input->post('codigo'),
 			'estado' => $this->input->post('estado')
 		);
-		
+
 		echo $this->ProductoModel->updHabilitado($data);
 	}
 
@@ -145,7 +147,7 @@ class Producto extends CI_Controller
 			$data = array(
 				'texto' => htmlspecialchars($this->input->post('texto_buscar')),
 			);
-			
+
 			$datos['productos'] = $this->ProductoModel->buscaProductos($data);
 
 			$this->load->view('/template/head');
@@ -161,7 +163,7 @@ class Producto extends CI_Controller
 				'precio' => $this->input->post('precio'),
 				'id' => $this->input->post('id')
 			);
-			
+
 			$res = $this->ProductoModel->editProducto($data);
 
 			if($res){

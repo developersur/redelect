@@ -40,14 +40,14 @@ class Contacto extends CI_Controller
 		//Indicamos el protocolo a utilizar
       $config['protocol'] = 'smtp';
 
-     //El servidor de correo que utilizaremos
-      $config["smtp_host"] = 'ssl://mail.redelect.cl';
+			//El servidor de correo que utilizaremos
+ 		 $config["smtp_host"] = 'ssl://mail.redelect.cl';
 
-     //Nuestro usuario
-      $config["smtp_user"] = 'notificador@redelect.cl';
+ 		 //Nuestro usuario
+ 		 $config["smtp_user"] = 'notificador2@redelect.cl';
 
-     //Nuestra contraseña
-      $config["smtp_pass"] = 'notificador';
+ 		 //Nuestra contraseña
+ 		 $config["smtp_pass"] = 'NotRed*2020';
 
      //El puerto que utilizará el servidor smtp
       $config["smtp_port"] = '465';
@@ -68,7 +68,7 @@ class Contacto extends CI_Controller
       $this->email->initialize($config);
 
     //Ponemos la dirección de correo que enviará el email y un nombre
-      $this->email->from('notificador@redelect.cl', 'Notificador Redelect');
+      $this->email->from('notificador2@redelect.cl', 'Notificador Redelect');
 
     /*
      * Ponemos el o los destinatarios para los que va el email
@@ -91,6 +91,7 @@ class Contacto extends CI_Controller
       if($this->email->send()){
           $this->session->mensaje_email = '<font color="green">Mensaje enviado</font>';
       }else{
+					//$this->session->mensaje_email = $this->email->print_debugger();
           $this->session->mensaje_email = '<font color="red">Ocurrio un error. Intentelo denuevo</font>';
       }
 

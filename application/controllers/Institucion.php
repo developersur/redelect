@@ -40,7 +40,7 @@ class Institucion extends CI_Controller {
 
 		if (!$this->upload->do_upload('archivo'))
 		{
-			
+
 			//$error = array('error' => $this->upload->display_errors());
 			//$this->session->mensaje_email = '<font color="red">Ocurrio un error. Intentelo denuevo</font>';
 			$this->session->mensaje_email = $this->upload->display_errors();
@@ -93,7 +93,7 @@ class Institucion extends CI_Controller {
 			//Ponemos la dirección de correo que enviará el email y un nombre
 			$this->email->from('notificador@redelect.cl', 'Notificador Redelect');
 
-			
+
 			$this->email->to('whernandez@redelect.cl', 'Walter Hernandez');
 			//$this->email->to('luimatam@developersur.cl', 'Walter Hernandez');
 
@@ -116,8 +116,8 @@ class Institucion extends CI_Controller {
 			if($this->email->send()){
 				$this->session->mensaje_email = '<font color="green">Mensaje enviado</font>';
 			}else{
-				$this->session->mensaje_email = $this->email->print_debugger();
-				//$this->session->mensaje_email = '<font color="red">Ocurrio un error. Intentelo denuevo</font>';
+				//$this->session->mensaje_email = $this->email->print_debugger();
+				$this->session->mensaje_email = '<font color="red">Ocurrio un error. Intentelo denuevo</font>';
 			}
 
 			redirect(base_url("index.php/Institucion"));
